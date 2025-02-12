@@ -2,6 +2,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+`.env` file example
+```
+NEXT_PUBLIC_API_URL=http://localhost:4000
+```
+
 First, run the development server:
 
 ```bash
