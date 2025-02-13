@@ -35,13 +35,8 @@ export default function Home() {
       { messages ? (
         <div>
           <b>Call to backend successful, loading messages from database...</b>
-          <ul>
-            {messages_list}
-          </ul>
-        </div>
-      ) : (
-        !error && <p>Loading...</p>
-      )}
-    </div>
-  );
-}
+          <ul>            {messages_list}
+          </ul>        </div>
+      ) : (        !error && <p>Loading...</p>
+      )}    </div>
+  );}
