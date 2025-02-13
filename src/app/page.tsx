@@ -1,5 +1,5 @@
-'use client'
-import { useState, useEffect } from 'react';
+'use client';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [messages, setMessages] = useState<string[] | null>(null);
@@ -22,21 +22,30 @@ export default function Home() {
         console.error(e);
         setError(`Failed to load message: ${e}`);
       });
-  }, [])
+  }, []);
 
-  const messages_list = messages?.map((msg, i) => <li key={i}>{i + 1}. {msg}</li>);
+  const messages_list = messages?.map((msg, i) => (
+    <li key={i}>
+      {i + 1}. {msg}
+    </li>
+  ));
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', padding: '2rem' }}>
       <b>Avento Origin</b>
-      <p>Calling <code>/hello</code>...</p>
-      <br/>
-      { error && <p style={{ color: 'red' }}>{error}</p>}
-      { messages ? (
+      <p>
+        Calling <code>/hello</code>...
+      </p>
+      <br />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {messages ? (
         <div>
           <b>Call to backend successful, loading messages from database...</b>
-          <ul>            {messages_list}
-          </ul>        </div>
-      ) : (        !error && <p>Loading...</p>
-      )}    </div>
-  );}
+          <ul> {messages_list}</ul>{' '}
+        </div>
+      ) : (
+        !error && <p>Loading...</p>
+      )}{' '}
+    </div>
+  );
+}
