@@ -20,7 +20,7 @@ export default function Home() {
       })
       .catch((e) => {
         console.error(e);
-        setError(`Failed to load message: ${e}`);
+        setError(`Failed to load message''': ${e}`);
       });
   }, [])
 
