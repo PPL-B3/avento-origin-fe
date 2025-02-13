@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   const [messages, setMessages] = useState<string[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const API_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api`;
 
   useEffect(() => {
     fetch(`${API_URL}/hello`)
