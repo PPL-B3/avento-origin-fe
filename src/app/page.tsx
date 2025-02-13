@@ -24,7 +24,7 @@ export default function Home() {
       });
   }, [])
 
-  let messages_list = messages?.map((msg, i) => <li key={i}>{i + 1}. {msg}</li>);
+  const messages_list = messages?.map((msg, i) => <li key={i}>{i + 1}. {msg}</li>);
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', padding: '2rem' }}>
