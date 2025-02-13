@@ -40,8 +40,8 @@ export default function Home() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {messages ? (
         <div>
-          <b>Call to backend successful, loading messages from database...</b>
-          <ul> {messages_list}</ul>{' '}
+          <b>Call to backend successful, loading messages from database ...</b>
+          <ul>{messages_list}</ul>{' '}
         </div>
       ) : (
         !error && <p>Loading...</p>
