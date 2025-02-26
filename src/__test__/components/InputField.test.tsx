@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import InputField from ''../../app/components/InputField'; // Sesuaikan path InputField.tsx
+import InputField from '../../app/components/InputField';
 
 describe('InputField Component', () => {
   it('renders correctly with given label and placeholder', () => {
