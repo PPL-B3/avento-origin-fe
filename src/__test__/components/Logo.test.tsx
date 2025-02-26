@@ -4,7 +4,7 @@ import Logo from '../../app/components/Logo'; // Sesuaikan dengan path yang bena
 describe('Logo Component', () => {
   it('renders the logo image correctly', () => {
     render(<Logo />);
-    const logoImage = screen.getByAltText('Logo');
+    const logoImage = screen.getByAltText('Momogin Logo');
     expect(logoImage).toBeInTheDocument();
     expect(logoImage).toHaveAttribute(
       'src',
@@ -24,5 +24,15 @@ describe('Logo Component', () => {
       hidden: true,
     }).parentElement;
     expect(logoContainer).toHaveClass('flex', 'flex-col', 'items-center');
+  });
+
+  it('renders heading tags for better SEO', () => {
+    render(<Logo />);
+    expect(
+      screen.getByRole('heading', { name: /Kelola Dokumen/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /Digitalmu Sekarang!/i })
+    ).toBeInTheDocument();
   });
 });
