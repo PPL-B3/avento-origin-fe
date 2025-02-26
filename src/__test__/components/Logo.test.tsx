@@ -6,7 +6,10 @@ describe('Logo Component', () => {
     render(<Logo />);
     const logoImage = screen.getByAltText('Logo');
     expect(logoImage).toBeInTheDocument();
-    expect(logoImage).toHaveAttribute('src', '/images/momogin-logo.webp');
+    expect(logoImage).toHaveAttribute(
+      'src',
+      '/_next/image?url=%2Fimages%2Fmomogin-logo.webp&w=750&q=75'
+    );
   });
 
   it('renders the correct text', () => {

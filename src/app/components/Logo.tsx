@@ -1,5 +1,5 @@
-"use client";
-import Image from "next/image";
+'use client';
+import Image from 'next/image';
 
 const Logo = () => (
   <div className="flex flex-col items-center">
