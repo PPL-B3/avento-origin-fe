@@ -48,7 +48,7 @@ describe('LoginPage', () => {
     expect(logo).toBeInTheDocument();
     expect(logo).toHaveAttribute(
       'src',
-      expect.stringContaining('/logo_momofin.png')
+      expect.stringContaining('/_next/image?url=%2Flogo_momofin.png&w=640&q=75')
     );
   });
 });
