@@ -2,20 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Global Typography */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-sans bg-light text-dark;
+}
+
+h1 {
+  @apply text-4xl font-bold text-secondary;
+}
+
+h2 {
+  @apply text-2xl font-semibold text-secondary;
+}
+
+p {
+  @apply text-base text-dark;
+}
+
+/* Button Styling */
+.btn-primary {
+  @apply bg-primary-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-primary-500 transition duration-300;
+}
+
+:root {
+  --primary901-color: #1f327e; /* Warna biru */
+  --primary800-color: #2f4cbc; /* Warna biru tua */
+  --primary700-color: #3f66fb; /* Warna biru muda */
+  --primary500-color: #ff5d00;
+
+  --secondary-color: #2ecc71; /* Warna hijau */
+  --font-color:  #333333;
 }

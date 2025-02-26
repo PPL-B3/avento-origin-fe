@@ -22,15 +22,38 @@ describe('RegistrationForm Component', () => {
       'Konfirmasi Password'
     ) as HTMLInputElement;
 
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(emailInput, { target: { value: 'test@gmail.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password123' } });
     fireEvent.change(confirmPasswordInput, {
-      target: { value: 'password123' },
+      target: { value: 'Password123' },
     });
 
-    expect(emailInput.value).toBe('test@example.com');
-    expect(passwordInput.value).toBe('password123');
-    expect(confirmPasswordInput.value).toBe('password123');
+    expect(emailInput.value).toBe('test@gmail.com');
+    expect(passwordInput.value).toBe('Password123');
+    expect(confirmPasswordInput.value).toBe('Password123');
+  });
+
+  it('shows an alert if email  do not valid', () => {
+    window.alert = jest.fn(); // Mock alert
+
+    render(<RegistrationForm />);
+
+    const emailInput = screen.getByLabelText('Email') as HTMLInputElement;
+    const passwordInput = screen.getByLabelText('Password') as HTMLInputElement;
+    const confirmPasswordInput = screen.getByLabelText(
+      'Konfirmasi Password'
+    ) as HTMLInputElement;
+
+    const registerButton = screen.getByRole('button', { name: /Registrasi/i });
+
+    fireEvent.change(emailInput, { target: { value: 'testgmail.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password123' } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: 'Password123' },
+    });
+    fireEvent.click(registerButton);
+
+    expect(window.alert).toHaveBeenCalledWith('Email tidak valid!');
   });
 
   it('shows an alert if passwords do not match', () => {
@@ -39,11 +62,13 @@ describe('RegistrationForm Component', () => {
     render(<RegistrationForm />);
     const passwordInput = screen.getByLabelText('Password');
     const confirmPasswordInput = screen.getByLabelText('Konfirmasi Password');
-    const registerButton = screen.getByRole('button', { name: /Registrasi/i });
+    const emailInput = screen.getByLabelText('Email') as HTMLInputElement;
 
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    const registerButton = screen.getByRole('button', { name: /Registrasi/i });
+    fireEvent.change(emailInput, { target: { value: 'test@gmail.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password123.' } });
     fireEvent.change(confirmPasswordInput, {
-      target: { value: 'password456' },
+      target: { value: 'Password456.' },
     });
     fireEvent.click(registerButton);
 
@@ -60,9 +85,9 @@ describe('RegistrationForm Component', () => {
     const registerButton = screen.getByRole('button', { name: /Registrasi/i });
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password123.' } });
     fireEvent.change(confirmPasswordInput, {
-      target: { value: 'password123' },
+      target: { value: 'Password123.' },
     });
     fireEvent.click(registerButton);
 

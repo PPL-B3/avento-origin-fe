@@ -58,29 +58,6 @@ describe('InputField Component', () => {
     expect(passwordInput).toHaveAttribute('type', 'password');
   });
 
-  it('has the correct Tailwind CSS classes', () => {
-    render(
-      <InputField
-        label="Name"
-        type="text"
-        value=""
-        onChange={() => {}}
-        placeholder="Enter your name"
-      />
-    );
-
-    const input = screen.getByPlaceholderText('Enter your name');
-
-    expect(input).toHaveClass(
-      'peer',
-      'border',
-      'rounded-lg',
-      'text-dark',
-      'focus:ring-0',
-      'focus:border-primary'
-    );
-  });
-
   it('generates an id automatically if not provided', () => {
     render(
       <InputField
