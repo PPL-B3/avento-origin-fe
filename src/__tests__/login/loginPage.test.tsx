@@ -41,4 +41,14 @@ describe('LoginPage', () => {
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(submitButton);
   });
+
+  it('renders the logo correctly', () => {
+    render(<LoginPage />);
+    const logo = screen.getByAltText('Logo');
+    expect(logo).toBeInTheDocument();
+    expect(logo).toHaveAttribute(
+      'src',
+      expect.stringContaining('/logo_momofin.png')
+    );
+  });
 });
