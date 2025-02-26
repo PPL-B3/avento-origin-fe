@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from 'react';
 
 interface InputFieldProps {
   id?: string;
@@ -20,12 +20,12 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const inputId = id || label.replace(/\s+/g, "-").toLowerCase();
+  const inputId = id || label.replace(/\s+/g, '-').toLowerCase();
 
   return (
     <div className="relative w-full mb-4">
       <input
-        type={type === "password" && showPassword ? "text" : type}
+        type={type === 'password' && showPassword ? 'text' : type}
         id={inputId}
         value={value}
         onChange={onChange}
@@ -39,14 +39,14 @@ const InputField: React.FC<InputFieldProps> = ({
       >
         {label}
       </label>
-      {type === "password" && (
+      {type === 'password' && (
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
           className="absolute inset-y-0 right-2 flex items-center px-2 text-gray-500"
           aria-label="Toggle password visibility"
         >
-          {showPassword ? "🙈" : "👁️"}
+          {showPassword ? '🙈' : '👁️'}
         </button>
       )}
     </div>

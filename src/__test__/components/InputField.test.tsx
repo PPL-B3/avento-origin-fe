@@ -80,4 +80,19 @@ describe('InputField Component', () => {
       'focus:border-primary'
     );
   });
+
+  it('generates an id automatically if not provided', () => {
+    render(
+      <InputField
+        label="Username"
+        type="text"
+        value=""
+        onChange={() => {}}
+        placeholder="Enter username"
+      />
+    );
+
+    const input = screen.getByPlaceholderText('Enter username');
+    expect(input).toHaveAttribute('id', 'username');
+  });
 });
