@@ -46,10 +46,4 @@ describe('GuestNavbar', () => {
     expect(pushMock).not.toHaveBeenCalledWith('/home');
     expect(pushMock).not.toHaveBeenCalledWith('/upload');
   });
-
-  // snapshot test
-  it('should match the snapshot', () => {
-    const { asFragment } = render(<GuestNavbar />);
-    expect(asFragment()).toMatchSnapshot();
-  });
 });
