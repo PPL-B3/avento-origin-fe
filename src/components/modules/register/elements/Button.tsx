@@ -5,7 +5,7 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onClick }) => (
+export const Button: React.FC<ButtonProps> = ({ text, onClick }) => (
   <button
     onClick={onClick}
     className="btn-primary w-full rounded-2xl h-12 mt-4"
@@ -13,5 +13,3 @@ const Button: React.FC<ButtonProps> = ({ text, onClick }) => (
     {text}
   </button>
 );
-
-export default Button;

@@ -5,7 +5,10 @@ interface AuthTabsProps {
   setActiveTab: (tab: string) => void;
 }
 
-const AuthTabs: React.FC<AuthTabsProps> = ({ activeTab, setActiveTab }) => (
+export const AuthTabs: React.FC<AuthTabsProps> = ({
+  activeTab,
+  setActiveTab,
+}) => (
   <div className="flex w-full justify-center mb-4">
     {['LOGIN', 'REGISTRASI'].map((tab) => (
       <button
@@ -22,5 +25,3 @@ const AuthTabs: React.FC<AuthTabsProps> = ({ activeTab, setActiveTab }) => (
     ))}
   </div>
 );
-
-export default AuthTabs;

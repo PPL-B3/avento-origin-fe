@@ -11,7 +11,7 @@ interface InputFieldProps {
   placeholder: string;
 }
 
-const InputField: React.FC<InputFieldProps> = ({
+export const InputField: React.FC<InputFieldProps> = ({
   id,
   label,
   type,
@@ -100,5 +100,3 @@ const InputField: React.FC<InputFieldProps> = ({
     </div>
   );
 };
-
-export default InputField;

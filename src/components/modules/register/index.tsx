@@ -1,11 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import AuthTabs from '../components/AuthTabs';
-import Logo from '../components/Logo';
-import RegistrationForm from '../components/RegistrationForm';
+import { AuthTabs, Logo, RegistrationForm } from './elements';
 
-export default function RegisterPage() {
+export function RegisterModule() {
   const [activeTab, setActiveTab] = useState('REGISTRASI');
 
   return (
@@ -17,7 +15,6 @@ export default function RegisterPage() {
         <AuthTabs activeTab={activeTab} setActiveTab={setActiveTab} />
         {activeTab === 'REGISTRASI' && <RegistrationForm />}
       </div>
-         
     </div>
   );
 }

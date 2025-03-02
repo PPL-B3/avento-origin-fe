@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Button from './Button';
-import InputField from './InputField';
+import { Button } from './Button';
+import { InputField } from './InputField';
 
-const RegistrationForm = () => {
+export const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -58,5 +58,3 @@ const RegistrationForm = () => {
     </div>
   );
 };
-
-export default RegistrationForm;

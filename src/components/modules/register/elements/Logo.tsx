@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 
-const Logo = () => (
+export const Logo = () => (
   <div className="flex flex-col items-center">
     <Image
       src="/images/momogin-logo.webp"
@@ -15,5 +15,3 @@ const Logo = () => (
     <h1 className="text-2xl text-secondary font-bold">Digitalmu Sekarang!</h1>
   </div>
 );
-
-export default Logo;
