@@ -1,5 +1,5 @@
+import { InputField } from '@/components/modules/register/elements';
 import { fireEvent, render, screen } from '@testing-library/react';
-import InputField from '../../app/components/InputField';
 
 describe('InputField Component', () => {
   it('renders correctly with given label and placeholder', () => {

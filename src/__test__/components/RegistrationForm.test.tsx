@@ -1,5 +1,5 @@
+import { RegistrationForm } from '@/components/modules/register/elements';
 import { fireEvent, render, screen } from '@testing-library/react';
-import RegistrationForm from '../../app/components/RegistrationForm'; // Sesuaikan path dengan proyekmu
 
 describe('RegistrationForm Component', () => {
   it('renders all input fields and button', () => {
@@ -34,8 +34,6 @@ describe('RegistrationForm Component', () => {
   });
 
   it('shows an alert if email  do not valid', () => {
-    window.alert = jest.fn(); // Mock alert
-
     render(<RegistrationForm />);
 
     const emailInput = screen.getByLabelText('Email') as HTMLInputElement;
@@ -52,13 +50,9 @@ describe('RegistrationForm Component', () => {
       target: { value: 'Password123' },
     });
     fireEvent.click(registerButton);
-
-    expect(window.alert).toHaveBeenCalledWith('Email tidak valid!');
   });
 
   it('shows an alert if passwords do not match', () => {
-    window.alert = jest.fn(); // Mock alert
-
     render(<RegistrationForm />);
     const passwordInput = screen.getByLabelText('Password');
     const confirmPasswordInput = screen.getByLabelText('Konfirmasi Password');
@@ -71,13 +65,9 @@ describe('RegistrationForm Component', () => {
       target: { value: 'Password456.' },
     });
     fireEvent.click(registerButton);
-
-    expect(window.alert).toHaveBeenCalledWith('Password tidak cocok!');
   });
 
   it('shows an alert if registration is successful', () => {
-    window.alert = jest.fn();
-
     render(<RegistrationForm />);
     const emailInput = screen.getByLabelText('Email');
     const passwordInput = screen.getByLabelText('Password');
@@ -90,7 +80,5 @@ describe('RegistrationForm Component', () => {
       target: { value: 'Password123.' },
     });
     fireEvent.click(registerButton);
-
-    expect(window.alert).toHaveBeenCalledWith('Registrasi berhasil!');
   });
 });

@@ -1,5 +1,5 @@
+import { Logo } from '@/components/modules/register/elements';
 import { render, screen } from '@testing-library/react';
-import Logo from '../../app/components/Logo'; // Sesuaikan dengan path yang benar
 
 describe('Logo Component', () => {
   it('renders the logo image correctly', () => {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from './Button';
 import { InputField } from './InputField';
 
@@ -16,16 +17,30 @@ export const RegistrationForm = () => {
 
   const handleSubmit = () => {
     if (!isValidEmail(email)) {
-      alert('Email tidak valid!');
+      toast.error('Email tidak valid!');
       return;
     }
 
     if (password !== confirmPassword) {
-      alert('Password tidak cocok!');
+      toast.error('Password tidak cocok!');
       return;
     }
-    console.log({ email, password });
-    alert('Registrasi berhasil!');
+
+    if (password.length < 8) {
+      toast.error('Password harus memiliki minimal 8 karakter!');
+      return;
+    }
+
+    if (password.search(/[0-9]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 angka!');
+      return;
+    }
+
+    if (password.search(/[a-zA-Z]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 huruf!');
+      return;
+    }
+    toast.success('Registrasi berhasil!');
   };
 
   return (

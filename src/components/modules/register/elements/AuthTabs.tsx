@@ -15,8 +15,8 @@ export const AuthTabs: React.FC<AuthTabsProps> = ({
         key={tab}
         className={`px-4 py-2 ${
           activeTab === tab
-            ? 'border-b-2 border-dark text-dark font-bold'
-            : 'text-dark'
+            ? 'border-b-2 border-[#2C4B5C] text-[#2C4B5C] font-bold'
+            : 'text-[#2C4B5C]'
         }`}
         onClick={() => setActiveTab(tab)}
       >

@@ -30,7 +30,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-dark bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-500 peer peer-placeholder-shown:border-primary-500"
+        className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-dark bg-transparent rounded-lg border border-[#FF5D00] appearance-none focus:outline-none focus:ring-0 focus:border-primary-500 peer peer-placeholder-shown:border-primary-500"
         aria-label={label}
       />
       <label

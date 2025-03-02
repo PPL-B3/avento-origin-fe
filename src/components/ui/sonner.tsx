@@ -15,10 +15,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
       position="top-center"
       toastOptions={{
         classNames: {
-          error: 'bg-customRed-400',
-          success: 'bg-[#54ba25]',
-          warning: 'text-customYellow-400',
-          info: 'bg-customBlue-500',
+          error: '!bg-red-500',
+          success: '!bg-[#54ba25]',
+          warning: '!bg-yellow-500 !text-neutral-950',
+          info: '!bg-blue-400',
         },
       }}
       {...props}

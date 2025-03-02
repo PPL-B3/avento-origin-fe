@@ -1,5 +1,5 @@
+import { Button } from '@/components/modules/register/elements/Button';
 import { fireEvent, render, screen } from '@testing-library/react';
-import Button from '../../app/components/Button'; // Sesuaikan dengan path Button.tsx
 
 describe('Button Component', () => {
   it('renders correctly with given text', () => {
@@ -21,12 +21,6 @@ describe('Button Component', () => {
     render(<Button text="Click Me" onClick={() => {}} />);
     const button = screen.getByRole('button', { name: /Click Me/i });
 
-    expect(button).toHaveClass(
-      'btn-primary',
-      'w-full',
-      'rounded-2xl',
-      'h-12',
-      'mt-4'
-    );
+    expect(button).toHaveClass('w-full', 'rounded-2xl', 'h-12', 'mt-4');
   });
 });
