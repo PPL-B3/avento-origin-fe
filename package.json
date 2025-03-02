@@ -10,7 +10,8 @@
     "lint": "next lint",
     "prepare": "husky",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.2",
