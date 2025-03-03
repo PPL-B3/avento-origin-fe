@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { FC } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
-import { HiOutlineFolderArrowDown } from 'react-icons/hi2';
 import { toast } from 'sonner';
 import { FileInputProps } from './interface';
 
@@ -34,10 +33,10 @@ export async function downloadFile(url: string, filename: string) {
 
 export const FileInput: FC<FileInputProps> = ({
   label,
-  caption = 'Drag and drop your file here',
+  caption = 'Drop Document Here to Upload',
   required = false,
   fileTypes = ['pdf', 'png', 'jpeg', 'jpg'],
-  maxSize = 2,
+  maxSize = 10,
   disabled = false,
   name,
   submission,
@@ -47,7 +46,6 @@ export const FileInput: FC<FileInputProps> = ({
     <div className="flex flex-col">
       <label htmlFor={name} className={`text-lg font-semibold pb-1`}>
         {label}
-        {required && <span className="text-red-500">*</span>}
       </label>
       <FileUploader
         handleChange={(file: File) => {
@@ -66,7 +64,7 @@ export const FileInput: FC<FileInputProps> = ({
         disabled={disabled}
       >
         <div
-          className={`${disabled ? 'bg-neutral-100' : 'bg-white'} border-neutral-200 border-2 border-solid rounded-xl p-2 h-44 min-h-fit`}
+          className={`${disabled ? 'bg-neutral-100' : 'bg-white'} border-neutral-200 border-2 border-solid rounded-xl p-2 h-64 min-h-fit`}
         >
           <div
             className={`${disabled ? 'bg-neutral-100' : 'bg-white'} border-neutral-200 border-2 border-dashed flex flex-col h-full w-full items-center align-middle justify-center rounded-lg min-h-[128px]`}
@@ -75,12 +73,18 @@ export const FileInput: FC<FileInputProps> = ({
               <div
                 className={`w-full flex flex-col items-center justify-center ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} h-full`}
               >
-                <HiOutlineFolderArrowDown
-                  size={32}
-                  className="w-10 text-neutral-80"
+                <Image
+                  src="/file.svg"
+                  alt="file"
+                  width={64}
+                  height={64}
+                  className="mb-2"
                 />
-                <div className="text-neutral-80">
+                <div className="text-neutral-80 text-xl">
                   {caption} (max {maxSize} MB)
+                </div>
+                <div className='pointer-events-none bg-[#FF5D00] text-neutral-50 px-4 w-1/3 text-center py-3 rounded-lg mt-3'>
+                  Select From Device
                 </div>
               </div>
             ) : (
@@ -90,18 +94,18 @@ export const FileInput: FC<FileInputProps> = ({
                 <Image
                   src="/images/check-badge.svg"
                   alt="check-badge"
-                  width={32}
-                  height={32}
+                  width={64}
+                  height={64}
                   className="mb-2"
                 />
-                <div>{submission?.file?.name}</div>
+                <div className="text-xl">{submission?.file?.name}</div>
                 <Button
                   disabled={disabled}
                   variant="ghost"
                   onClick={() => {
                     setSubmission?.({ ...submission, file: null });
                   }}
-                  className="text-lg py-0"
+                  className="py-0 text-[#0067CC] font-bold text-xl"
                 >
                   Remove
                 </Button>
@@ -110,7 +114,7 @@ export const FileInput: FC<FileInputProps> = ({
           </div>
         </div>
       </FileUploader>
-      <div className="text-neutral-60 mt-1">
+      <div className="text-neutral-50 mt-1">
         The file must be in format{' '}
         <span className="text-danger-400">
           {fileTypes.map((type, index) => {
