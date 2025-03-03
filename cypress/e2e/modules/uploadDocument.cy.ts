@@ -39,6 +39,11 @@ describe('Upload Document Module', () => {
   });
 
   it('should submit the form successfully', () => {
+    // Stub toast notifications
+    cy.window().then((win) => {
+      cy.stub(win.console, 'log').as('consoleLog');
+    });
+
     // Upload a file
     cy.fixture('sample-image.png', 'binary')
       .then(Cypress.Blob.binaryStringToBlob)
