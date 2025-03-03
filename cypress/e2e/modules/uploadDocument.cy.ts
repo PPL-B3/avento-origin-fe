@@ -1,14 +1,6 @@
 describe('Upload Document Module', () => {
   beforeEach(() => {
     cy.visit('/upload-document');
-    cy.viewport(1280, 720);
-    cy.intercept('**/*').as('pageLoad');
-    cy.wait('@pageLoad', { timeout: 10000 });
-
-    // Create a stub for toast notifications to prevent test failures due to toast timing
-    cy.window().then((win) => {
-      cy.stub(win.console, 'log').as('consoleLog');
-    });
   });
 
   it('should render the upload document module', () => {
