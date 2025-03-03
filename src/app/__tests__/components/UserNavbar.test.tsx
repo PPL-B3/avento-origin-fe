@@ -54,5 +54,5 @@ describe('UserNavbar', () => {
     fireEvent.click(screen.getByText(/Home/i));
     expect(pushMock).not.toHaveBeenCalledWith('/upload');
     expect(pushMock).not.toHaveBeenCalledWith('/login');
-  }); 
+  });
 });
