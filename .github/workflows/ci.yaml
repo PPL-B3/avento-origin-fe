@@ -2,8 +2,6 @@ name: CI/CD with Next.js & SonarCloud
 
 on:
   push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
