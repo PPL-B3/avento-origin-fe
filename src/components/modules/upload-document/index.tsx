@@ -38,11 +38,12 @@ export function UploadDocumentModule() {
 
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
-      <h4 className="w-full text-center text-4xl font-bold">
-        UPLOAD HERE!
-      </h4>
+      <h4 className="w-full text-center text-4xl font-bold">UPLOAD HERE!</h4>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='w-3/4 flex flex-col'>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-3/4 flex flex-col"
+        >
           <div className="flex flex-col gap-2 mb-4 mt-12 text-neutral-950">
             <FileInput
               label=""

@@ -34,7 +34,6 @@ export async function downloadFile(url: string, filename: string) {
 export const FileInput: FC<FileInputProps> = ({
   label,
   caption = 'Drop Document Here to Upload',
-  required = false,
   fileTypes = ['pdf', 'png', 'jpeg', 'jpg'],
   maxSize = 10,
   disabled = false,
@@ -83,7 +82,7 @@ export const FileInput: FC<FileInputProps> = ({
                 <div className="text-neutral-80 text-xl">
                   {caption} (max {maxSize} MB)
                 </div>
-                <div className='pointer-events-none bg-[#FF5D00] text-neutral-50 px-4 w-1/3 text-center py-3 rounded-lg mt-3'>
+                <div className="pointer-events-none bg-[#FF5D00] text-neutral-50 px-4 w-1/3 text-center py-3 rounded-lg mt-3">
                   Select From Device
                 </div>
               </div>
