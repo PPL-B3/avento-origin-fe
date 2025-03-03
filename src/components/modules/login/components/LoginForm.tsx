@@ -8,6 +8,26 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = () => {
+    if (!isValidEmail(email)) {
+      alert('Email tidak valid!');
+      return;
+    }
+
+    if (password.length < 6) {
+      alert('Password harus memiliki setidaknya 6 karakter!');
+      return;
+    }
+
+    console.log({ email, password });
+    alert('Login berhasil!');
+  };
+
   return (
     <div className="flex flex-col items-center w-full max-w-md">
       <InputField
@@ -26,12 +46,7 @@ const LoginForm = () => {
         placeholder="Masukkan password"
         aria-label="Password"
       />
-      <Button
-        text="Login"
-        onClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
+      <Button text="Login" onClick={handleSubmit} />
     </div>
   );
 };
