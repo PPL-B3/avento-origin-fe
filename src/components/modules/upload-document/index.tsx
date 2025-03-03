@@ -17,9 +17,19 @@ export function UploadDocumentModule() {
     error: false,
     loading: false,
   });
+  const [isUploading, setIsUploading] = useState(false);
+
   const handleUpload = () => {
     if (file.file !== null) {
+      setIsUploading(true);
       toast.info('Uploading file...');
+
+      // Simulate upload process
+      setTimeout(() => {
+        toast.success('Document uploaded successfully');
+        setIsUploading(false);
+      }, 2000);
+
       console.log(file);
     }
   };
@@ -37,7 +47,10 @@ export function UploadDocumentModule() {
   };
 
   return (
-    <section className="pb-20 max-md:px-5 min-h-screen w-full flex flex-col md:pt-32 md:px-20 pt-28">
+    <section
+      data-testid="upload-document-module"
+      className="pb-20 max-md:px-5 min-h-screen w-full flex flex-col md:pt-32 md:px-20 pt-28"
+    >
       <h4 className="w-full text-center text-4xl font-bold">
         Upload Your Document
       </h4>
@@ -50,7 +63,6 @@ export function UploadDocumentModule() {
               name={`image`}
               fileTypes={['png', 'jpeg', 'jpg']}
               required
-              // disabled={!isEditing}
               submission={file}
               setSubmission={setFile}
             />
@@ -59,9 +71,10 @@ export function UploadDocumentModule() {
             type="submit"
             className="w-full"
             variant={'default'}
-            disabled={file.file === null}
+            disabled={file.file === null || isUploading}
+            data-testid="submit-button"
           >
-            Upload
+            {isUploading ? 'Uploading...' : 'Upload'}
           </Button>
         </form>
       </Form>
