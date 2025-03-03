@@ -10,7 +10,9 @@
     "lint": "next lint",
     "prepare": "husky",
     "test": "pnpm exec cypress open",
-    "test:run": "pnpm exec cypress run"
+    "test:run": "pnpm exec cypress run",
+    "cypress:coverage": "cypress run --env coverage=true",
+    "report:coverage": "nyc report --reporter=lcov --reporter=text-summary"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.2",
@@ -48,7 +50,10 @@
     "prettier-plugin-organize-attributes": "^1.0.0",
     "prettier-plugin-organize-imports": "^4.1.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@cypress/code-coverage": "^3.12.13",
+    "babel-plugin-istanbul": "^6.1.1",
+    "nyc": "^15.1.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "next lint --fix"

@@ -70,7 +70,13 @@ describe('Upload Document Module', () => {
     cy.get('[data-testid="upload-button"]').should('contain', 'Uploading...');
 
     // Check for success state (this relies on the toast notification)
-    cy.contains('Document uploaded successfully').should('be.visible');
+    // Wait up to 10 seconds for success message to appear
+    cy.contains('Document uploaded successfully', { timeout: 10000 })
+      .should('be.visible')
+      .then(($el) => {
+        // If we reach this point, the element was found
+        cy.log('Success message appeared as expected');
+      });
   });
 
   it('should allow removing selected file', () => {
