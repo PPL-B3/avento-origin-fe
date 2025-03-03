@@ -44,7 +44,7 @@ export const FileInput: FC<FileInputProps> = ({
   setSubmission,
 }) => {
   return (
-    <div className="flex flex-col">
+    <div id="file-input" data-testid="file-input" className="flex flex-col">
       <label htmlFor={name} className={`text-lg font-semibold pb-1`}>
         {label}
         {required && <span className="text-red-500">*</span>}
@@ -73,6 +73,7 @@ export const FileInput: FC<FileInputProps> = ({
           >
             {!submission?.file ? (
               <div
+                data-testid="file-input-dropzone"
                 className={`w-full flex flex-col items-center justify-center ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} h-full`}
               >
                 <HiOutlineFolderArrowDown
@@ -86,6 +87,7 @@ export const FileInput: FC<FileInputProps> = ({
             ) : (
               <div
                 className={`flex flex-col items-center justify-center ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} h-full`}
+                data-testid="file-input-preview"
               >
                 <Image
                   src="/images/check-badge.svg"
@@ -94,7 +96,9 @@ export const FileInput: FC<FileInputProps> = ({
                   height={32}
                   className="mb-2"
                 />
-                <div>{submission?.file?.name}</div>
+                <div data-testid="file-input-filename">
+                  {submission?.file?.name}
+                </div>
                 <Button
                   disabled={disabled}
                   variant="ghost"
@@ -102,6 +106,7 @@ export const FileInput: FC<FileInputProps> = ({
                     setSubmission?.({ ...submission, file: null });
                   }}
                   className="text-lg py-0"
+                  data-testid="file-input-clear"
                 >
                   Remove
                 </Button>
