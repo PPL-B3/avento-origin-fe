@@ -72,7 +72,7 @@ export function UploadDocumentModule() {
             className="w-full"
             variant={'default'}
             disabled={file.file === null || isUploading}
-            data-testid="submit-button"
+            data-testid="upload-button"
           >
             {isUploading ? 'Uploading...' : 'Upload'}
           </Button>
