@@ -82,4 +82,34 @@ describe('FileInput Component', () => {
     cy.contains('The file must be in format').should('be.visible');
     cy.contains('*png, *jpeg, *jpg').should('be.visible');
   });
+
+  it('should have disabled button when no file is uploaded', () => {
+    // Check if the submit button exists and is disabled
+    cy.get('[data-testid="upload-button"]').should('exist').and('be.disabled');
+
+    // Upload a file
+    cy.fixture('sample-image.png', 'binary')
+      .then(Cypress.Blob.binaryStringToBlob)
+      .then((fileContent) => {
+        cy.get('[data-testid="file-input"]').within(() => {
+          cy.get('input[type="file"]').selectFile(
+            {
+              contents: fileContent,
+              fileName: 'sample-image.png',
+              mimeType: 'image/jpeg',
+            },
+            { force: true }
+          );
+        });
+      });
+
+    // Button should now be enabled
+    cy.get('[data-testid="upload-button"]').should('be.enabled');
+
+    // Clear the file
+    cy.get('[data-testid="file-input-clear"]').click();
+
+    // Button should be disabled again
+    cy.get('[data-testid="upload-button"]').should('be.disabled');
+  });
 });
