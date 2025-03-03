@@ -49,19 +49,20 @@ export function UploadDocumentModule() {
   return (
     <section
       data-testid="upload-document-module"
-      className="pb-20 max-md:px-5 min-h-screen w-full flex flex-col md:pt-32 md:px-20 pt-28"
+      className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50"
     >
-      <h4 className="w-full text-center text-4xl font-bold">
-        Upload Your Document
-      </h4>
+      <h4 className="w-full text-center text-4xl font-bold">UPLOAD HERE!</h4>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-2 mb-4 mt-12">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-3/4 flex flex-col"
+        >
+          <div className="flex flex-col gap-2 mb-4 mt-12 text-neutral-950">
             <FileInput
-              label="Photo"
-              maxSize={2}
+              label=""
+              maxSize={10}
               name={`image`}
-              fileTypes={['png', 'jpeg', 'jpg']}
+              fileTypes={['pdf', 'png', 'jpeg', 'jpg']}
               required
               submission={file}
               setSubmission={setFile}
@@ -69,7 +70,7 @@ export function UploadDocumentModule() {
           </div>
           <Button
             type="submit"
-            className="w-full"
+            className="w-full bg-[#0067CC]"
             variant={'default'}
             disabled={file.file === null || isUploading}
             data-testid="upload-button"
