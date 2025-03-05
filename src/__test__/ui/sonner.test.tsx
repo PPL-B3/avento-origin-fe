@@ -4,13 +4,32 @@ import { render } from '@testing-library/react';
 // Create a mockUseTheme function that we can control for different tests
 const mockUseTheme = jest.fn().mockReturnValue({ theme: 'dark' });
 
+// Define interfaces for the mock props
+interface SonnerToasterProps {
+  theme?: 'light' | 'dark' | 'system';
+  className?: string;
+  position?: string;
+  toastOptions?: {
+    classNames?: Record<string, string>;
+    duration?: number;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+}
+
 // Mock the dependencies
 jest.mock('next-themes', () => ({
   useTheme: () => mockUseTheme(),
 }));
 
 jest.mock('sonner', () => ({
-  Toaster: ({ theme, className, position, toastOptions, ...props }: any) => (
+  Toaster: ({
+    theme,
+    className,
+    position,
+    toastOptions,
+    ...props
+  }: SonnerToasterProps) => (
     <div
       data-testid="mock-sonner"
       data-theme={theme}

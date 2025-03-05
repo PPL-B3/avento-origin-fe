@@ -43,12 +43,6 @@ jest.mock('@/components/ui/label', () => ({
   ),
 }));
 
-// Helper components for tests
-const TestUseFormField = () => {
-  const formField = useFormField();
-  return <div data-testid="form-field-test">{JSON.stringify(formField)}</div>;
-};
-
 const TestFormComponent = () => {
   const form = useForm();
   return (
