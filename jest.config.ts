@@ -22,7 +22,7 @@ const customJestConfig: Config = {
     '!src/middleware.ts',
     '!src/**/types/**',
     '!**/*.config.ts',
-    '!**/node_modules/**'
+    '!**/node_modules/**',
   ],
   // Output directory for coverage reports
   coverageDirectory: 'coverage',

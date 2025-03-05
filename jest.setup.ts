@@ -4,7 +4,7 @@ import React from 'react';
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -42,9 +42,11 @@ jest.mock('sonner', () => {
       warning: jest.fn(),
       info: jest.fn(),
     },
-    Toaster: jest.fn().mockImplementation(() => 
-      React.createElement('div', { 'data-testid': 'toaster' })
-    ),
+    Toaster: jest
+      .fn()
+      .mockImplementation(() =>
+        React.createElement('div', { 'data-testid': 'toaster' })
+      ),
   };
 });
 
