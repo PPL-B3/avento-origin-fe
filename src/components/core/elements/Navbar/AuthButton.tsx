@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";  
 import { useState } from "react";
 
 type AuthButtonProps = {
@@ -9,12 +10,14 @@ type AuthButtonProps = {
 
 const AuthButton = ({ isLoggedIn, setIsLoggedIn }: AuthButtonProps) => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleLogout = () => {
     setLoading(true);
     setTimeout(() => {
       setIsLoggedIn(false);
       setLoading(false);
+      router.push("/");
     }, 500);
   };
 

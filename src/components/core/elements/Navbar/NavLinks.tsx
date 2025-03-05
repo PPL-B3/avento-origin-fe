@@ -14,13 +14,13 @@ const NavLinks = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
     <div className="flex gap-8 flex-col md:flex-row text-center md:text-left">
       {links.map((link) => (
-        <span
+        <button
           key={link.href}
           onClick={() => router.push(link.href)}
           className="text-gray-700 hover:text-blue-600 transition font-medium cursor-pointer"
         >
           {link.label}
-        </span>
+      </button>
       ))}
     </div>
   );
