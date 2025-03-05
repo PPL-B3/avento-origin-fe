@@ -6,9 +6,10 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   const [messages, setMessages] = useState<string[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const API_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api`;
 
   useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+
     fetch(`${API_URL}/hello`)
       .then((res) => {
         if (!res.ok) {

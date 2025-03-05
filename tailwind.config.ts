@@ -3,9 +3,10 @@ import type { Config } from 'tailwindcss';
 export default {
   darkMode: ['class'],
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -55,6 +56,17 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
+      fontSize: {
+        'paragraph-xl': ['48px', { lineHeight: '32px' }],
+        'paragraph-lg': ['36px', { lineHeight: '24px' }],
+        'paragraph-md': ['32px', { lineHeight: '20px' }],
+        'paragraph-sm': ['28px', { lineHeight: '18px', letterSpacing: '2%' }],
+        'paragraph-xs': ['24px', { lineHeight: '16px', letterSpacing: '2%' }],
+        'paragraph-xxs': ['24px', { lineHeight: '14px', letterSpacing: '2%' }],
       },
     },
   },
