@@ -1,7 +1,6 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { Label } from '@/components/ui/label';
+import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
 
 describe('Label Component', () => {
   it('renders correctly with default props', () => {
@@ -21,9 +20,7 @@ describe('Label Component', () => {
 
   it('forwards ref correctly', () => {
     const testId = 'test-label';
-    render(
-      <Label data-testid={testId}>Label with ref</Label>
-    );
+    render(<Label data-testid={testId}>Label with ref</Label>);
     expect(screen.getByTestId(testId)).toBeInTheDocument();
   });
 

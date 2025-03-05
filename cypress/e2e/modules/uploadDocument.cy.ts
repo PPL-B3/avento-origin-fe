@@ -8,7 +8,7 @@ describe('Upload Document Module', () => {
 
   it('should render the upload document module', () => {
     cy.get('[data-testid="upload-document-module"]').should('exist');
-    cy.contains('Upload Your Document').should('be.visible');
+    cy.contains('UPLOAD HERE!').should('be.visible');
     cy.get('[data-testid="file-input"]').should('exist');
     cy.get('button[type="submit"]').should('be.disabled');
   });
