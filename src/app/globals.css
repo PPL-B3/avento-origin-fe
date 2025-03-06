@@ -2,20 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Global Typography */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-sans bg-gray-100 text-gray-900;
+}
+
+h1 {
+  @apply text-4xl font-bold text-blue-700;
+}
+
+h2 {
+  @apply text-2xl font-semibold text-blue-600;
+}
+
+p {
+  @apply text-base text-gray-800;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: var(--primary500-color);
+  @apply text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary800-color);
+}
+
+/* Root Color Variables */
+:root {
+  --primary901-color: #1f327e; /* Biru tua */
+  --primary800-color: #2f4cbc; /* Biru lebih tua */
+  --primary700-color: #3f66fb; /* Biru muda */
+  --primary500-color: #ff5d00; /* Oranye */
+  --secondary-color: #2ecc71; /* Hijau */
+  --font-color: #333333;
 }
