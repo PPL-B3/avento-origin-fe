@@ -1,16 +1,23 @@
 'use client';
 
 import { useState } from 'react';
+import { z } from 'zod';
 import Button from './Button';
 import InputField from './InputField';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const emailSchema = z.string().email();
+
+  // const isValidEmail = (email: string) => {
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
 
   const isValidEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    const result = emailSchema.safeParse(email);
+    return result.success;
   };
 
   const handleSubmit = () => {
