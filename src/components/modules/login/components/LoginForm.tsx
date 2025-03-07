@@ -10,11 +10,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const emailSchema = z.string().email();
 
-  // const isValidEmail = (email: string) => {
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return emailRegex.test(email);
-  // };
-
   const isValidEmail = (email: string) => {
     const result = emailSchema.safeParse(email);
     return result.success;
