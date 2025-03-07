@@ -20,7 +20,7 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const inputId = id || label.replace(/\s+/g, '-').toLowerCase();
+  const inputId = id ?? label.replace(/\s+/g, '-').toLowerCase();
 
   return (
     <div className="relative w-full mb-4">
