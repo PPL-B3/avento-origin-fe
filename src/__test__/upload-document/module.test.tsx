@@ -1,5 +1,5 @@
-import { UploadDocumentModule } from '@/components/modules/upload-document';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React from 'react';
 import { toast } from 'sonner';
 
 // Mock dependencies
@@ -9,6 +9,53 @@ jest.mock('sonner', () => ({
     success: jest.fn(),
     error: jest.fn(),
   },
+}));
+
+// Mock UI components
+jest.mock('@/components/ui/form', () => ({
+  Form: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock('@/components/ui/button', () => ({
+  Button: ({
+    children,
+    disabled,
+    'data-testid': testId,
+    onClick,
+    type,
+  }: {
+    children: React.ReactNode;
+    disabled?: boolean;
+    'data-testid'?: string;
+    onClick?: () => void;
+    type?: 'submit' | 'reset' | 'button';
+  }) => (
+    <button
+      type={type || 'button'}
+      disabled={disabled}
+      data-testid={testId}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  ),
+}));
+
+// Mock schema
+jest.mock('@/components/modules/upload-document/schema', () => ({
+  uploadDocumentSchema: {},
+}));
+
+// Mock zod
+jest.mock('zod', () => ({
+  z: {
+    infer: jest.fn(),
+  },
+}));
+
+// Mock zodResolver
+jest.mock('@hookform/resolvers/zod', () => ({
+  zodResolver: jest.fn(),
 }));
 
 // Mock react-hook-form
@@ -36,8 +83,12 @@ jest.mock('@/components/core', () => ({
     submission,
     setSubmission,
   }: {
-    submission?: { file?: File | null; error?: boolean };
-    setSubmission?: (submission: { file: File | null; error: boolean }) => void;
+    submission?: { file?: File | null; error?: boolean; loading?: boolean };
+    setSubmission?: (submission: {
+      file: File | null;
+      error: boolean;
+      loading?: boolean;
+    }) => void;
   }) => {
     return (
       <div data-testid="file-input">
@@ -74,10 +125,15 @@ jest.mock('@/components/core', () => ({
         {submission?.file && (
           <div data-testid="selected-filename">{submission.file.name}</div>
         )}
+        {submission?.file && (
+          <div data-testid="file-selected">File Selected</div>
+        )}
       </div>
     );
   },
 }));
+
+import { UploadDocumentModule } from '@/components/modules/upload-document';
 
 describe('UploadDocumentModule', () => {
   beforeEach(() => {

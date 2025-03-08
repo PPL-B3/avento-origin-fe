@@ -33,6 +33,7 @@ describe('UploadDocumentPage', () => {
     render(<UploadDocumentPage />);
 
     // Verify the module was called with no props
-    expect(UploadDocumentModule).toHaveBeenCalledWith({}, {});
+    // Match all actual arguments: props and context object
+    expect(UploadDocumentModule).toHaveBeenCalledWith({}, undefined);
   });
 });
