@@ -88,12 +88,9 @@ describe('Toaster component', () => {
   });
 
   test('allows overriding className', () => {
-    const { getByTestId } = render(<Toaster className="custom-toaster" />);
+    const { getByTestId } = render(<Toaster className="rounded-full" />);
     const toaster = getByTestId('mock-sonner');
-    expect(toaster).toHaveAttribute(
-      'data-class',
-      'toaster group custom-toaster'
-    );
+    expect(toaster).toHaveAttribute('data-class', 'toaster group rounded-full');
   });
 
   test('allows overriding position', () => {
