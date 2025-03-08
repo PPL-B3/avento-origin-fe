@@ -5,13 +5,13 @@ import { Toaster as Sonner } from 'sonner';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
-const Toaster = ({ ...props }: ToasterProps) => {
+const Toaster = ({ className, ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();
 
   return (
     <Sonner
       theme={theme as ToasterProps['theme']}
-      className="toaster group"
+      className={className ? `toaster group ${className}` : 'toaster group'}
       position="top-center"
       toastOptions={{
         classNames: {
@@ -20,6 +20,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           warning: '!bg-yellow-500 !text-neutral-950',
           info: '!bg-blue-400',
         },
+        ...props.toastOptions,
       }}
       {...props}
     />
