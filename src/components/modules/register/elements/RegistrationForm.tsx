@@ -1,5 +1,16 @@
 'use client';
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { useRegister } from '../hooks/use-register';
@@ -7,6 +18,8 @@ import { Button } from './Button';
 import { InputField } from './InputField';
 
 export const RegistrationForm = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -73,7 +86,31 @@ export const RegistrationForm = () => {
         placeholder="Konfirmasi password"
         aria-label="Konfirmasi Password"
       />
-      <Button text="Registrasi" onClick={handleSubmit} />
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button text="Registrasi" onClick={handleSubmit} />
+        </AlertDialogTrigger>
+        <AlertDialogContent className="flex flex-col items-center px-12">
+          <AlertDialogHeader className="flex flex-col items-center">
+            <AlertDialogTitle className="font-bold">
+              REGISTRASI BERHASIL!
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-neutral-950 pt-2 pb-4">
+              Akun anda telah berhasil dibuat. Silahkan gunakan kredensial Anda
+              untuk masuk ke dalam sistem!
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="w-full">
+            <AlertDialogAction
+              asChild
+              className="w-full"
+              onClick={() => router.push('/login')}
+            >
+              <Button text="Log in" onClick={handleSubmit} />
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
