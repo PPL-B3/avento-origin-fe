@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useRegister } from '../hooks/use-register';
 import { Button } from './Button';
 import { InputField } from './InputField';
 
@@ -14,6 +15,8 @@ export const RegistrationForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+
+  const { onRegister } = useRegister();
 
   const handleSubmit = () => {
     if (!isValidEmail(email)) {
@@ -40,7 +43,8 @@ export const RegistrationForm = () => {
       toast.error('Password harus memiliki minimal 1 huruf!');
       return;
     }
-    toast.success('Registrasi berhasil!');
+
+    onRegister({ email, password });
   };
 
   return (
