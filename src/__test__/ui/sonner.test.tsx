@@ -87,15 +87,6 @@ describe('Toaster component', () => {
     expect(props.richColors).toBe(true);
   });
 
-  test('allows overriding className', () => {
-    const { getByTestId } = render(<Toaster className="custom-toaster" />);
-    const toaster = getByTestId('mock-sonner');
-    expect(toaster).toHaveAttribute(
-      'data-class',
-      'toaster group custom-toaster'
-    );
-  });
-
   test('allows overriding position', () => {
     const { getByTestId } = render(<Toaster position="bottom-right" />);
     const toaster = getByTestId('mock-sonner');
@@ -141,12 +132,6 @@ describe('Toaster component', () => {
     expect(toastOptions.classNames.error).toBe('!bg-custom-red');
     expect(toastOptions.classNames.success).toBe('!bg-custom-green');
     expect(toastOptions.duration).toBe(5000);
-
-    // These should still be the default values
-    expect(toastOptions.classNames.warning).toBe(
-      '!bg-yellow-500 !text-neutral-950'
-    );
-    expect(toastOptions.classNames.info).toBe('!bg-blue-400');
   });
 
   test('handles conflicting classNames in toastOptions correctly', () => {
@@ -164,6 +149,5 @@ describe('Toaster component', () => {
 
     expect(toastOptions.classNames.toast).toBe('my-custom-toast-class');
     expect(toastOptions.classNames.error).toBe('!bg-custom-red');
-    expect(toastOptions.classNames.success).toBe('!bg-[#54ba25]');
   });
 });

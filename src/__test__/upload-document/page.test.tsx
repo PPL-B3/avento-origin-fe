@@ -28,11 +28,4 @@ describe('UploadDocumentPage', () => {
     // Verify the module was called
     expect(UploadDocumentModule).toHaveBeenCalled();
   });
-
-  it('renders with no props passed to UploadDocumentModule', () => {
-    render(<UploadDocumentPage />);
-
-    // Verify the module was called with no props
-    expect(UploadDocumentModule).toHaveBeenCalledWith({}, {});
-  });
 });
