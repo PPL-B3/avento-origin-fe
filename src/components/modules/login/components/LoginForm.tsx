@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 import Button from './Button';
 import InputField from './InputField';
@@ -17,17 +18,17 @@ const LoginForm = () => {
 
   const handleSubmit = () => {
     if (!isValidEmail(email)) {
-      alert('Email tidak valid!');
+      toast.error('Email tidak valid!');
       return;
     }
 
     if (password.length < 6) {
-      alert('Password harus memiliki setidaknya 6 karakter!');
+      toast.error('Password harus memiliki setidaknya 6 karakter!');
       return;
     }
 
     console.log({ email, password });
-    alert('Login berhasil!');
+    toast.success('Login berhasil!');
   };
 
   return (
