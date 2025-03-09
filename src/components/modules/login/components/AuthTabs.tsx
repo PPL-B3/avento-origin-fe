@@ -35,5 +35,3 @@ export const AuthTabs: React.FC<AuthTabsProps> = ({
     </div>
   );
 };
-
-// export default AuthTabs;

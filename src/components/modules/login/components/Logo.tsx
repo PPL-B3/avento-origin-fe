@@ -19,5 +19,3 @@ export const Logo = () => (
     </h1>
   </div>
 );
-
-export default Logo;

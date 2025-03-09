@@ -100,5 +100,3 @@ export const InputField: React.FC<InputFieldProps> = ({
     </div>
   );
 };
-
-// export default InputField;
