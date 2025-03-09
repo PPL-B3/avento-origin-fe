@@ -1,6 +1,6 @@
 'use client';
 
-import LoginForm from '@/components/modules/login/components/LoginForm';
+import { LoginForm } from '@/components/modules/login/components';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { toast } from 'sonner';
 

@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 
-const Logo = () => (
+export const Logo = () => (
   <div className="flex flex-col items-center">
     <Image
       src="/logo_momofin.png"

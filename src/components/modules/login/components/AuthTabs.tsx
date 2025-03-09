@@ -6,7 +6,10 @@ interface AuthTabsProps {
   setActiveTab: (tab: string) => void;
 }
 
-const AuthTabs: React.FC<AuthTabsProps> = ({ activeTab, setActiveTab }) => {
+export const AuthTabs: React.FC<AuthTabsProps> = ({
+  activeTab,
+  setActiveTab,
+}) => {
   const router = useRouter();
 
   const handleTabClick = (tab: string) => {
@@ -33,4 +36,4 @@ const AuthTabs: React.FC<AuthTabsProps> = ({ activeTab, setActiveTab }) => {
   );
 };
 
-export default AuthTabs;
+// export default AuthTabs;

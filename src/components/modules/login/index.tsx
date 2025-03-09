@@ -1,9 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import AuthTabs from './components/AuthTabs';
-import LoginForm from './components/LoginForm';
-import Logo from './components/Logo';
+import { AuthTabs, LoginForm, Logo } from './components';
 
 export function LoginModule() {
   const [activeTab, setActiveTab] = useState('LOGIN');

@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import Button from './Button';
-import InputField from './InputField';
+import { Button } from './Button';
+import { InputField } from './InputField';
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const emailSchema = z.string().email();
@@ -53,5 +53,3 @@ const LoginForm = () => {
     </div>
   );
 };
-
-export default LoginForm;

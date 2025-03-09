@@ -1,4 +1,4 @@
-import AuthTabs from '@/components/modules/login/components/AuthTabs';
+import { AuthTabs } from '@/components/modules/login/components';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 

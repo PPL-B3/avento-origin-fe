@@ -1,4 +1,4 @@
-import InputField from '@/components/modules/login/components/InputField';
+import { InputField } from '@/components/modules/login/components';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 describe('InputField Component', () => {
