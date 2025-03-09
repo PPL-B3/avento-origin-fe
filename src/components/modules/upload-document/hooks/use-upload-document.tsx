@@ -24,16 +24,18 @@ export const useUploadDocument = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
+
         toast.promise(promise, {
           loading: 'Loading...',
           success: () => {
             return `Document uploaded successfully`;
           },
           error: (error) => {
-            return error.response.data.message[0] || 'Something went wrong';
+            return error.response?.data?.message?.[0] || 'Something went wrong';
           },
         });
-        await promise;
+
+        return await promise;
       },
     });
 
