@@ -41,24 +41,37 @@ export const FileInput: FC<FileInputProps> = ({
   submission,
   setSubmission,
 }) => {
+  const handleFileChange = (file: File) => {
+    if (file && submission && setSubmission) {
+      setSubmission({ ...submission, file: file });
+    }
+  };
+
+  const handleFileClear = () => {
+    if (submission && setSubmission) {
+      setSubmission({ ...submission, file: null });
+    }
+  };
+
+  const handleTypeError = () => {
+    toast.error('File type not supported.');
+  };
+
+  const handleSizeError = () => {
+    toast.error('File size exceeded limit.');
+  };
+
   return (
     <div id="file-input" data-testid="file-input" className="flex flex-col">
       <label htmlFor={name} className={`text-lg font-semibold pb-1`}>
         {label}
       </label>
       <FileUploader
-        handleChange={(file: File) => {
-          if (file && submission)
-            setSubmission?.({ ...submission, file: file });
-        }}
+        handleChange={handleFileChange}
         name={name}
         types={fileTypes}
-        onTypeError={() => {
-          toast.error('File type not supported.');
-        }}
-        onSizeError={() => {
-          toast.error('File size exceeded limit.');
-        }}
+        onTypeError={handleTypeError}
+        onSizeError={handleSizeError}
         maxSize={maxSize}
         disabled={disabled}
       >
@@ -108,9 +121,7 @@ export const FileInput: FC<FileInputProps> = ({
                 <Button
                   disabled={disabled}
                   variant="ghost"
-                  onClick={() => {
-                    setSubmission?.({ ...submission, file: null });
-                  }}
+                  onClick={handleFileClear}
                   className="py-0 text-[#0067CC] font-bold text-xl"
                   data-testid="file-input-clear"
                 >
