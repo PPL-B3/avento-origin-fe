@@ -1,4 +1,6 @@
 'use client';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -47,6 +49,9 @@ export default function Home() {
       ) : (
         !error && <p>Loading...</p>
       )}{' '}
+      <Link href="/upload-document">
+        <Button variant="default">Upload Document</Button>
+      </Link>
     </div>
   );
 }
