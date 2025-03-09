@@ -17,9 +17,19 @@ export function UploadDocumentModule() {
     error: false,
     loading: false,
   });
+  const [isUploading, setIsUploading] = useState(false);
+
   const handleUpload = () => {
     if (file.file !== null) {
+      setIsUploading(true);
       toast.info('Uploading file...');
+
+      // Simulate upload process
+      setTimeout(() => {
+        toast.success('Document uploaded successfully');
+        setIsUploading(false);
+      }, 2000);
+
       console.log(file);
     }
   };
@@ -37,7 +47,10 @@ export function UploadDocumentModule() {
   };
 
   return (
-    <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
+    <section
+      data-testid="upload-document-module"
+      className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50"
+    >
       <h4 className="w-full text-center text-4xl font-bold">UPLOAD HERE!</h4>
       <Form {...form}>
         <form
@@ -51,7 +64,6 @@ export function UploadDocumentModule() {
               name={`image`}
               fileTypes={['pdf', 'png', 'jpeg', 'jpg']}
               required
-              // disabled={!isEditing}
               submission={file}
               setSubmission={setFile}
             />
@@ -60,9 +72,10 @@ export function UploadDocumentModule() {
             type="submit"
             className="w-full bg-[#0067CC]"
             variant={'default'}
-            disabled={file.file === null}
+            disabled={file.file === null || isUploading}
+            data-testid="upload-button"
           >
-            Upload
+            {isUploading ? 'Uploading...' : 'Upload'}
           </Button>
         </form>
       </Form>
