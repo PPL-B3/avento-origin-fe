@@ -24,8 +24,8 @@ export function UploadDocumentModule() {
   const form = useForm({
     resolver: zodResolver(uploadDocumentSchema),
     defaultValues: {
-      documentName: '',
-      ownerName: '',
+      documentName: 'a document name',
+      ownerName: 'the owner name',
     },
   });
 
