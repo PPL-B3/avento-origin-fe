@@ -72,7 +72,8 @@ function TestWithoutFormFieldContext() {
     useFormField();
     return null; // This should never be reached if useFormField throws correctly
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+    const errorMessage =
+      error instanceof Error ? error.message : 'An error occurred';
     return <div data-testid="expected-error">{errorMessage}</div>;
   }
 }
