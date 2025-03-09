@@ -99,7 +99,7 @@ export const FileInput: FC<FileInputProps> = ({
                   height={64}
                   className="mb-2"
                 />
-                <div className="text-xl" data-testid="file-input-filename">
+                <div className="text-xl text-center" data-testid="file-input-filename">
                   {submission?.file?.name}
                 </div>
                 <Button

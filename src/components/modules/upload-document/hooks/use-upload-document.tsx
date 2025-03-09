@@ -13,7 +13,17 @@ export const useUploadDocument = () => {
     useMutation('upload-document', {
       mutationFn: async (values: z.infer<typeof uploadDocumentSchema>) => {
         const apiUrl = ENDPOINTS.DOCUMENTS_UPLOAD;
-        const promise = client.post(apiUrl, values);
+        const formData = new FormData();
+
+        formData.append('documentName', values.documentName);
+        formData.append('ownerName', values.ownerName);
+        formData.append('file', values.file as File);
+
+        const promise = client.post(apiUrl, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         toast.promise(promise, {
           loading: 'Loading...',
           success: () => {
