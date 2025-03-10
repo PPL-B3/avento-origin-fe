@@ -11,6 +11,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        light: '#F3F4F6',
+        dark: '#2C4B5C',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -22,10 +24,16 @@ export default {
           foreground: 'hsl(var(--popover-foreground))',
         },
         primary: {
+          900: '#1F327E',
+          800: '#2F4CBC',
+          700: '#3F66FB',
+          600: '#9FB2FD',
+          500: '#FF5D00',
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
+          sec: '#0067CC',
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
@@ -72,3 +80,6 @@ export default {
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
+
+// navy: "#001D3D",
+//         orange: "#FF5D00",

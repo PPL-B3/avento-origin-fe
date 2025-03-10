@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { useUploadDocument } from './hooks/use-upload-document';
 import { uploadDocumentSchema } from './schema';
 
 export function UploadDocumentModule() {
@@ -17,33 +18,25 @@ export function UploadDocumentModule() {
     error: false,
     loading: false,
   });
-  const [isUploading, setIsUploading] = useState(false);
 
-  const handleUpload = () => {
-    if (file.file !== null) {
-      setIsUploading(true);
-      toast.info('Uploading file...');
-
-      // Simulate upload process
-      setTimeout(() => {
-        toast.success('Document uploaded successfully');
-        setIsUploading(false);
-      }, 2000);
-
-      console.log(file);
-    }
-  };
+  const { isLoadingUploadDocument, onUploadDocument } = useUploadDocument();
 
   const form = useForm({
     resolver: zodResolver(uploadDocumentSchema),
     defaultValues: {
-      image: '',
+      documentName: 'a document name',
+      ownerName: 'the owner name',
     },
   });
 
   const onSubmit = (values: z.infer<typeof uploadDocumentSchema>) => {
-    console.log(values);
-    handleUpload();
+    if (file.file === null) {
+      toast.error('Please select a file to upload');
+      return;
+    }
+
+    values.file = file.file as File;
+    onUploadDocument(values);
   };
 
   return (
@@ -72,10 +65,10 @@ export function UploadDocumentModule() {
             type="submit"
             className="w-full bg-[#0067CC]"
             variant={'default'}
-            disabled={file.file === null || isUploading}
+            disabled={file.file === null || isLoadingUploadDocument}
             data-testid="upload-button"
           >
-            {isUploading ? 'Uploading...' : 'Upload'}
+            {isLoadingUploadDocument ? 'Uploading...' : 'Upload'}
           </Button>
         </form>
       </Form>
