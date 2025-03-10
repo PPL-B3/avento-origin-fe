@@ -66,7 +66,7 @@ export const RegistrationForm = () => {
     }
 
     try {
-      await onRegister({ email, password });
+      onRegister({ email, password });
       setIsSuccess(true);
     } catch (error) {
       toast.error(
