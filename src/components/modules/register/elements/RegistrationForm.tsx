@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { z } from 'zod';
 import { useRegister } from '../hooks/use-register';
 import { InputField } from './InputField';
 
@@ -24,8 +25,14 @@ export const RegistrationForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const isValidEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    const emailSchema = z.string().email();
+    try {
+      emailSchema.parse(email);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
   const [isSuccess, setIsSuccess] = useState(false);
