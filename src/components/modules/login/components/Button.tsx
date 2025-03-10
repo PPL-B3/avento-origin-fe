@@ -5,11 +5,14 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ text, onClick }) => (
-  <button
-    onClick={onClick}
-    className="btn-primary w-full rounded-2xl h-12 mt-4"
-  >
-    {text}
-  </button>
-);
+export const Button: React.FC<ButtonProps> = ({ text, onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="btn-primary w-full rounded-2xl h-12 mt-4"
+      type="submit"
+    >
+      {text}
+    </button>
+  );
+};

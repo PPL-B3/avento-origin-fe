@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from 'react';
 interface InputFieldProps {
   id?: string;
   label: string;
+  name: string;
   type: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -14,6 +15,7 @@ interface InputFieldProps {
 export const InputField: React.FC<InputFieldProps> = ({
   id,
   label,
+  name,
   type,
   value,
   onChange,
@@ -27,6 +29,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       <input
         type={type === 'password' && showPassword ? 'text' : type}
         id={inputId}
+        name={name}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
