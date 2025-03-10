@@ -8,12 +8,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { Button } from './Button';
+import { useRegister } from '../hooks/use-register';
 import { InputField } from './InputField';
 
 export const RegistrationForm = () => {
@@ -28,7 +28,11 @@ export const RegistrationForm = () => {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = () => {
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const { onRegister } = useRegister();
+
+  const handleSubmit = async () => {
     if (!isValidEmail(email)) {
       toast.error('Email tidak valid!');
       return;
@@ -53,7 +57,17 @@ export const RegistrationForm = () => {
       toast.error('Password harus memiliki minimal 1 huruf!');
       return;
     }
-    toast.success('Registrasi berhasil!');
+
+    try {
+      await onRegister({ email, password });
+      setIsSuccess(true);
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : 'An error occurred during registration'
+      );
+    }
   };
 
   return (
@@ -82,10 +96,10 @@ export const RegistrationForm = () => {
         placeholder="Konfirmasi password"
         aria-label="Konfirmasi Password"
       />
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button text="Registrasi" onClick={handleSubmit} />
-        </AlertDialogTrigger>
+      <Button variant="default" onClick={handleSubmit}>
+        Registrasi
+      </Button>
+      <AlertDialog open={isSuccess} onOpenChange={setIsSuccess}>
         <AlertDialogContent className="flex flex-col items-center px-12">
           <AlertDialogHeader className="flex flex-col items-center">
             <AlertDialogTitle className="font-bold">
@@ -102,7 +116,7 @@ export const RegistrationForm = () => {
               className="w-full"
               onClick={() => router.push('/login')}
             >
-              <Button text="Log in" onClick={handleSubmit} />
+              <Button variant="default">Log in</Button>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
