@@ -1,3 +1,4 @@
+import Navbar from '@/components/core/elements/Navbar';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Navbar /> {/* test render navbar */}
         {children}
         <Toaster />
       </body>

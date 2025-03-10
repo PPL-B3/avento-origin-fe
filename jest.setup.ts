@@ -1,33 +1,33 @@
 import '@testing-library/jest-dom';
-import React, { createElement } from 'react';
+import React from 'react';
+
+// Mock window.matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
 
 // Mock Next.js router
 jest.mock('next/navigation', () => ({
-  useRouter() {
-    return {
-      push: jest.fn(),
-      back: jest.fn(),
-      forward: jest.fn(),
-      refresh: jest.fn(),
-      replace: jest.fn(),
-      prefetch: jest.fn(),
-    };
-  },
-  useSearchParams() {
-    return {
-      get: jest.fn(),
-      getAll: jest.fn(),
-      has: jest.fn(),
-      forEach: jest.fn(),
-      entries: jest.fn(),
-      keys: jest.fn(),
-      values: jest.fn(),
-      toString: jest.fn(),
-    };
-  },
-  usePathname() {
-    return '/';
-  },
+  useRouter: jest.fn(() => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    back: jest.fn(),
+    forward: jest.fn(),
+    refresh: jest.fn(),
+    prefetch: jest.fn(),
+  })),
+  useSearchParams: jest.fn(() => new URLSearchParams()),
+  usePathname: jest.fn(() => '/'),
   useParams() {
     return {};
   },
@@ -45,7 +45,7 @@ jest.mock('sonner', () => {
     Toaster: jest
       .fn()
       .mockImplementation(() =>
-        createElement('div', { 'data-testid': 'toaster' })
+        React.createElement('div', { 'data-testid': 'toaster' })
       ),
   };
 });
@@ -55,8 +55,11 @@ jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: React.ComponentProps<'img'>) => {
     // eslint-disable-next-line jsx-a11y/alt-text
-    return createElement('img', props);
+    return React.createElement('img', props);
   },
 }));
 
-// Add any other mocks needed for your application
+// Reset mocks between tests
+beforeEach(() => {
+  jest.clearAllMocks();
+});
