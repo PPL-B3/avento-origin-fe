@@ -3,7 +3,7 @@
 import { aventoClient } from '@/lib';
 
 export const useAventoClient = () => {
-  // TODO: Implement session handling here
+  // NOTE: Implement session handling here
 
   return aventoClient;
 };

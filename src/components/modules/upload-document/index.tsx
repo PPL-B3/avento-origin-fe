@@ -35,7 +35,7 @@ export function UploadDocumentModule() {
       return;
     }
 
-    values.file = file.file as File;
+    values.file = file.file;
     onUploadDocument(values);
   };
 
