@@ -1,0 +1,19 @@
+import { z } from 'zod';
+
+export type FormState =
+  | {
+      error?: {
+        name?: string[];
+        email?: string[];
+        password?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
+
+export const LoginFormSchema = z.object({
+  email: z.string().email({ message: 'Please enter a valid email.' }),
+  password: z.string().min(1, {
+    message: 'Password field must not be empty.',
+  }),
+});
