@@ -1,8 +1,8 @@
 import { ENDPOINTS, useAventoClient } from '@/components/core';
+import { useUploadDocument } from '@/components/modules/upload-document/hooks/use-upload-document';
 import { act, renderHook } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { toast } from 'sonner';
-import { useUploadDocument } from '../use-upload-document';
 
 // Mock dependencies
 jest.mock('@/components/core', () => ({
