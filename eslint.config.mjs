@@ -16,7 +16,7 @@ const eslintConfig = [
       '.next/**',
       'out/**',
       'public/**',
-      'src/__test__/**/*',
+      'src/__tests__/**/*',
     ],
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
