@@ -32,5 +32,5 @@
     "__tests__/login_test.jsx",
     ".next/types/app/auth/login/page.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "./cypress.config.ts"]
 }

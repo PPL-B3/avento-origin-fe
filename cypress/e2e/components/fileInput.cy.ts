@@ -9,7 +9,7 @@ describe('FileInput Component', () => {
   it('should render with default state', () => {
     cy.get('[data-testid="file-input"]').should('exist');
     cy.get('[data-testid="file-input-dropzone"]').should('exist');
-    cy.contains('Drag and drop your file here').should('be.visible');
+    cy.contains('Drop Document Here to Upload').should('be.visible');
   });
 
   it('should allow clearing selected file', () => {
