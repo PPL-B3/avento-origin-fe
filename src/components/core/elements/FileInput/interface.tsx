@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface SubmissionProps {
   file: File | null;
   error: boolean;
