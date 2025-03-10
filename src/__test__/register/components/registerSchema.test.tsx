@@ -1,5 +1,4 @@
-import { registerSchema } from "@/components/modules/register/schema";
-
+import { registerSchema } from '@/components/modules/register/schema';
 
 describe('registerSchema', () => {
   // Test valid data
@@ -8,7 +7,7 @@ describe('registerSchema', () => {
       email: 'john@example.com',
       password: 'Password123!',
     };
-    
+
     const result = registerSchema.safeParse(validData);
     expect(result.success).toBe(true);
   });
@@ -19,7 +18,7 @@ describe('registerSchema', () => {
       email: 'invalid-email',
       password: 'Password123!',
     };
-    
+
     const result = registerSchema.safeParse(invalidEmailData);
     expect(result.success).toBe(false);
     if (!result.success) {
