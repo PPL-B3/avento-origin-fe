@@ -28,7 +28,6 @@ export async function signIn(
 
   if (response.ok) {
     const result = await response.json();
-    // TODO: Create The Session For Authenticated User.
     console.log({ result });
   } else {
     return {
