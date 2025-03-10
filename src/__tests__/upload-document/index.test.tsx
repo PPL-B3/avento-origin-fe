@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { UploadDocumentModule } from '../../components/modules/upload-document/index';
@@ -84,5 +84,39 @@ describe('UploadDocumentModule', () => {
 
     const uploadButton = screen.getByTestId('upload-button');
     expect(uploadButton).toBeDisabled();
+  });
+
+  it('enables upload button when a file is selected', async () => {
+    render(<UploadDocumentModule />, { wrapper: createWrapper() });
+
+    // Initially the upload button should be disabled
+    const uploadButton = screen.getByTestId('upload-button');
+    expect(uploadButton).toBeDisabled();
+
+    // Click on the file uploader to trigger file selection
+    const fileUploader = screen.getByTestId('file-uploader');
+    fireEvent.click(fileUploader);
+
+    // After file selection, the button should be enabled
+    expect(uploadButton).not.toBeDisabled();
+  });
+
+  it('shows file preview after file selection', async () => {
+    render(<UploadDocumentModule />, { wrapper: createWrapper() });
+
+    // Initially the dropzone should be visible and preview should not
+    expect(screen.queryByTestId('file-input-dropzone')).toBeInTheDocument();
+    expect(screen.queryByTestId('file-input-preview')).not.toBeInTheDocument();
+
+    // Select a file
+    const fileUploader = screen.getByTestId('file-uploader');
+    fireEvent.click(fileUploader);
+
+    // Now the preview should be visible and dropzone should not
+    expect(screen.queryByTestId('file-input-dropzone')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('file-input-preview')).toBeInTheDocument();
+    expect(screen.getByTestId('file-input-filename')).toHaveTextContent(
+      'test.pdf'
+    );
   });
 });

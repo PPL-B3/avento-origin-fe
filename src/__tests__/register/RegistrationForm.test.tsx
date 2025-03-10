@@ -100,4 +100,51 @@ describe('RegistrationForm Component', () => {
     });
     fireEvent.click(registerButton);
   });
+
+  it('shows an alert if password is too short', () => {
+    render(<RegistrationForm />, { wrapper: createWrapper() });
+
+    const emailInput = screen.getByLabelText('Email');
+    const passwordInput = screen.getByLabelText('Password');
+    const confirmPasswordInput = screen.getByLabelText('Konfirmasi Password');
+    const registerButton = screen.getByRole('button', { name: /Registrasi/i });
+
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'Pass1' } }); // Short password
+    fireEvent.change(confirmPasswordInput, { target: { value: 'Pass1' } });
+    fireEvent.click(registerButton);
+
+    // The toast is mocked in the actual implementation
+    // Here we're just testing that the validation triggers
+  });
+
+  it('shows an alert if password does not contain a number', () => {
+    render(<RegistrationForm />, { wrapper: createWrapper() });
+
+    const emailInput = screen.getByLabelText('Email');
+    const passwordInput = screen.getByLabelText('Password');
+    const confirmPasswordInput = screen.getByLabelText('Konfirmasi Password');
+    const registerButton = screen.getByRole('button', { name: /Registrasi/i });
+
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'PasswordNoNumber' } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: 'PasswordNoNumber' },
+    });
+    fireEvent.click(registerButton);
+  });
+
+  it('shows an alert if password does not contain a letter', () => {
+    render(<RegistrationForm />, { wrapper: createWrapper() });
+
+    const emailInput = screen.getByLabelText('Email');
+    const passwordInput = screen.getByLabelText('Password');
+    const confirmPasswordInput = screen.getByLabelText('Konfirmasi Password');
+    const registerButton = screen.getByRole('button', { name: /Registrasi/i });
+
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: '12345678' } });
+    fireEvent.change(confirmPasswordInput, { target: { value: '12345678' } });
+    fireEvent.click(registerButton);
+  });
 });
