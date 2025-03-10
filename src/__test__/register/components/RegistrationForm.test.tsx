@@ -1,9 +1,28 @@
 import { RegistrationForm } from '@/components/modules/register/elements';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
+
+const createWrapper = () => {
+  const testQueryClient = createTestQueryClient();
+  return ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={testQueryClient}>
+      {children}
+    </QueryClientProvider>
+  );
+};
 
 describe('RegistrationForm Component', () => {
   it('renders all input fields and button', () => {
-    render(<RegistrationForm />);
+    render(<RegistrationForm />, { wrapper: createWrapper() });
 
     expect(screen.getByLabelText('Email')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
@@ -14,7 +33,7 @@ describe('RegistrationForm Component', () => {
   });
 
   it('allows user to type into input fields', () => {
-    render(<RegistrationForm />);
+    render(<RegistrationForm />, { wrapper: createWrapper() });
 
     const emailInput = screen.getByLabelText('Email') as HTMLInputElement;
     const passwordInput = screen.getByLabelText('Password') as HTMLInputElement;
@@ -34,7 +53,7 @@ describe('RegistrationForm Component', () => {
   });
 
   it('shows an alert if email  do not valid', () => {
-    render(<RegistrationForm />);
+    render(<RegistrationForm />, { wrapper: createWrapper() });
 
     const emailInput = screen.getByLabelText('Email') as HTMLInputElement;
     const passwordInput = screen.getByLabelText('Password') as HTMLInputElement;
@@ -53,7 +72,7 @@ describe('RegistrationForm Component', () => {
   });
 
   it('shows an alert if passwords do not match', () => {
-    render(<RegistrationForm />);
+    render(<RegistrationForm />, { wrapper: createWrapper() });
     const passwordInput = screen.getByLabelText('Password');
     const confirmPasswordInput = screen.getByLabelText('Konfirmasi Password');
     const emailInput = screen.getByLabelText('Email') as HTMLInputElement;
@@ -68,7 +87,7 @@ describe('RegistrationForm Component', () => {
   });
 
   it('shows an alert if registration is successful', () => {
-    render(<RegistrationForm />);
+    render(<RegistrationForm />, { wrapper: createWrapper() });
     const emailInput = screen.getByLabelText('Email');
     const passwordInput = screen.getByLabelText('Password');
     const confirmPasswordInput = screen.getByLabelText('Konfirmasi Password');

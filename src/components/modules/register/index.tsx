@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { AuthTabs, Logo, RegistrationForm } from './elements';
+import { AuthTabs } from '../login/components';
+import { Logo, RegistrationForm } from './elements';
 
 export function RegisterModule() {
   const [activeTab, setActiveTab] = useState('REGISTRASI');
@@ -9,6 +10,7 @@ export function RegisterModule() {
   return (
     <div
       id="register-module"
+      data-testid="register-module"
       className="flex min-h-screen items-center justify-center bg-white px-4"
     >
       <div className="w-full max-w-md bg-white p-6 rounded-lg ">

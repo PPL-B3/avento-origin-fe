@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { InputField } from '../../register/elements';
 import { Button } from './Button';
-import { InputField } from './InputField';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
