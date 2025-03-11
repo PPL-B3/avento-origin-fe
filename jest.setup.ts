@@ -54,7 +54,6 @@ jest.mock('sonner', () => {
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: React.ComponentProps<'img'>) => {
-    // eslint-disable-next-line jsx-a11y/alt-text
     return React.createElement('img', props);
   },
 }));

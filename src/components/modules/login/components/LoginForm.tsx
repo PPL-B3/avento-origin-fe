@@ -1,57 +1,57 @@
 'use client';
 
-import { signIn } from '@/lib/auth/auth';
-import { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { InputField } from '../../register/elements';
+import { useLogin } from '../hooks/use-login';
 import { Button } from './Button';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const emailSchema = z.string().email();
-  const [state, action] = useFormState(signIn, undefined);
+
+  const { onLogin } = useLogin();
 
   const isValidEmail = (email: string) => {
-    const result = emailSchema.safeParse(email);
-    return result.success;
+    const emailSchema = z.string().email();
+    try {
+      emailSchema.parse(email);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
-  // Show toast notifications when state changes and has errors
-  useEffect(() => {
-    if (state?.message) {
-      toast.error(state.message);
-    }
-    if (state?.error?.email) {
-      toast.error(state.error.email);
-    }
-    if (state?.error?.password) {
-      toast.error(state.error.password);
-    }
-  }, [state]);
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isValidEmail(email)) {
       toast.error('Email tidak valid!');
       return;
     }
-
-    if (password.length < 6) {
-      toast.error('Password harus memiliki setidaknya 6 karakter!');
+    if (password.search(/\d/) < 0) {
+      toast.error('Password harus memiliki minimal 1 angka!');
       return;
     }
 
-    console.log({ email, password });
-    toast.success('Login berhasil!');
+    if (password.search(/[a-zA-Z]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 huruf!');
+      return;
+    }
+
+    try {
+      onLogin({ email, password });
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : 'An error occurred during registration'
+      );
+    }
   };
 
   return (
-    <form
-      action={action}
-      className="flex flex-col items-center w-full max-w-md"
-    >
+    <div className="flex flex-col items-center w-full max-w-md">
       <InputField
         label="Email"
         type="email"
@@ -69,6 +69,6 @@ export const LoginForm = () => {
         aria-label="Password"
       />
       <Button text="Login" onClick={handleSubmit} />
-    </form>
+    </div>
   );
 };
