@@ -37,6 +37,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Toggle */}
         <button
+          data-testid="mobile-menu-button"
           className="md:hidden block text-gray-700"
           onClick={() => setMenuOpen(!menuOpen)}
         >
@@ -46,6 +47,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       <div
+        data-testid="mobile-menu"
         className={`md:hidden fixed top-20 left-0 w-full bg-white shadow-md flex flex-col items-center gap-6 p-6 transition-all duration-300 ${
           menuOpen
             ? 'opacity-100 scale-100'
