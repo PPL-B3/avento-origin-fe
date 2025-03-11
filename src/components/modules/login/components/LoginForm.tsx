@@ -1,17 +1,17 @@
 'use client';
 
+import { useAuth } from '@/components/core';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { InputField } from '../../register/elements';
-import { useLogin } from '../hooks/use-login';
 import { Button } from './Button';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { onLogin } = useLogin();
+  const { login } = useAuth();
 
   const isValidEmail = (email: string) => {
     const emailSchema = z.string().email();
@@ -40,7 +40,7 @@ export const LoginForm = () => {
     }
 
     try {
-      onLogin({ email, password });
+      login(email, password);
     } catch (error) {
       toast.error(
         error instanceof Error

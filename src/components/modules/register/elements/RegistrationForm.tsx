@@ -40,6 +40,11 @@ export const RegistrationForm = () => {
   const { onRegister } = useRegister();
 
   const handleSubmit = async () => {
+    if (!email || !password || !confirmPassword) {
+      toast.error('Semua field harus diisi!');
+      return;
+    }
+
     if (!isValidEmail(email)) {
       toast.error('Email tidak valid!');
       return;

@@ -21,7 +21,14 @@ export const useRegister = () => {
             return `Registration successful!`;
           },
           error: (error) => {
-            return error.response.data.message[0] || 'Something went wrong';
+            const errorMessage = error.response?.data?.message;
+            if (Array.isArray(errorMessage)) {
+              return errorMessage[0] || 'Something went wrong';
+            } else if (typeof errorMessage === 'string') {
+              return errorMessage;
+            } else {
+              return 'Something went wrong';
+            }
           },
         });
         await promise;
