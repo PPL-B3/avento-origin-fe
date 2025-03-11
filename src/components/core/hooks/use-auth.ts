@@ -47,7 +47,7 @@ export const useAuth = () => {
       return data;
     },
     {
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
         // Simpan token di cookies supaya bisa dikirim sebagai `Authorization: Bearer`
         setCookie('token', data.access_token, { maxAge: 3600, path: '/' });
 

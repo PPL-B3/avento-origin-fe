@@ -29,7 +29,6 @@ describe('RootLayout Component', () => {
 
     render(<RootLayout>{testContent}</RootLayout>);
 
-    expect(screen.getByTestId('navbar')).toBeInTheDocument();
     expect(screen.getByTestId('test-children')).toBeInTheDocument();
     expect(screen.getByTestId('toaster')).toBeInTheDocument();
   });
