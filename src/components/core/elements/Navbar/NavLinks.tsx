@@ -1,10 +1,17 @@
 'use client';
-import { useRouter } from 'next/navigation';
 
-const NavLinks = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+import { useRouter } from 'next/navigation';
+import { userProps } from '../../hooks';
+
+interface NavLinksProps {
+  user: userProps;
+}
+
+export function NavLinks({ user }: NavLinksProps) {
   const router = useRouter();
 
-  const links = isLoggedIn
+  // Define links based on user state
+  const links = user
     ? [
         { label: 'Home', href: '/home' },
         { label: 'Upload Document', href: '/upload-document' },
@@ -12,7 +19,7 @@ const NavLinks = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     : [];
 
   return (
-    <div className="flex gap-8 flex-col md:flex-row text-center md:text-left">
+    <div className="flex gap-8">
       {links.map((link) => (
         <button
           key={link.href}
@@ -24,6 +31,4 @@ const NavLinks = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
       ))}
     </div>
   );
-};
-
-export default NavLinks;
+}

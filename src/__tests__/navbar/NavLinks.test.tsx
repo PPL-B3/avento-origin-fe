@@ -1,36 +1,35 @@
-import NavLinks from '@/components/core/elements/Navbar/NavLinks';
+import { NavLinks } from '@/components/core/elements/Navbar/NavLinks';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { useRouter } from 'next/navigation';
-
+const mockPush = jest.fn();
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
+  useRouter: () => ({
+    push: mockPush,
+  }),
 }));
 
 describe('NavLinks Component', () => {
   it('shows Home and Upload Document when logged in', () => {
-    render(<NavLinks isLoggedIn={true} />);
+    render(<NavLinks user={{ id: '1', name: 'dul' }} />);
 
     expect(screen.getByText('Home')).toBeInTheDocument();
     expect(screen.getByText('Upload Document')).toBeInTheDocument();
   });
 
   it('does not show any links when not logged in', () => {
-    render(<NavLinks isLoggedIn={false} />);
+    render(<NavLinks user={null} />);
 
     expect(screen.queryByText('Home')).not.toBeInTheDocument();
     expect(screen.queryByText('Upload Document')).not.toBeInTheDocument();
   });
 
-  it('calls `router.push` when clicking a menu item', () => {
-    const pushMock = jest.fn();
-    (useRouter as jest.Mock).mockReturnValue({ push: pushMock });
+  it('navigates to correct route when link is clicked', () => {
+    render(<NavLinks user={{ id: '1', name: 'Test User' }} />);
 
-    render(<NavLinks isLoggedIn={true} />);
+    fireEvent.click(screen.getByText('Home'));
+    expect(mockPush).toHaveBeenCalledWith('/home');
 
-    const homeLink = screen.getByText('Home');
-    fireEvent.click(homeLink);
-
-    expect(pushMock).toHaveBeenCalledWith('/home');
+    fireEvent.click(screen.getByText('Upload Document'));
+    expect(mockPush).toHaveBeenCalledWith('/upload-document');
   });
 });

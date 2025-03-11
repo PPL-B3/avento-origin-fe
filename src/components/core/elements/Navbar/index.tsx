@@ -1,14 +1,19 @@
 'use client';
-import { Menu, X } from 'lucide-react';
-import Image from 'next/image';
+
+import { useAuth } from '@/components/core';
 import Link from 'next/link';
 import { useState } from 'react';
-import AuthButton from './AuthButton';
-import NavLinks from './NavLinks';
+
+import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
+import { AuthButtons } from './AuthButton';
+import { NavLinks } from './NavLinks';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, logout, isLoading } = useAuth();
+
+  if (isLoading || !user) return null;
 
   return (
     <nav className="fixed top-0 left-0 w-full h-fit bg-white shadow-md z-50">
@@ -24,17 +29,13 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Menu Navbar */}
-        <div className="hidden md:flex flex-1 justify-center absolute left-1/2 transform -translate-x-1/2">
-          <NavLinks isLoggedIn={isLoggedIn} />
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-12">
+          <NavLinks user={user} />
+          <AuthButtons user={user} logout={logout} />
         </div>
 
-        {/* Tombol Login/Logout */}
-        <div className="hidden md:flex">
-          <AuthButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-        </div>
-
-        {/* Tombol Hamburger */}
+        {/* Mobile Menu Toggle */}
         <button
           className="md:hidden block text-gray-700"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -43,7 +44,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Menu Dropdown */}
+      {/* Mobile Menu Dropdown */}
       <div
         className={`md:hidden fixed top-20 left-0 w-full bg-white shadow-md flex flex-col items-center gap-6 p-6 transition-all duration-300 ${
           menuOpen
@@ -51,8 +52,8 @@ const Navbar = () => {
             : 'opacity-0 scale-95 pointer-events-none'
         }`}
       >
-        <NavLinks isLoggedIn={isLoggedIn} />
-        <AuthButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <NavLinks user={user} />
+        <AuthButtons user={user} logout={logout} />
       </div>
     </nav>
   );
