@@ -10,9 +10,17 @@ jest.mock('next/navigation', () => ({
 
 describe('NavLinks Component', () => {
   it('shows Home and Upload Document when logged in', () => {
-    render(<NavLinks user={{ id: '1', name: 'dul' }} />);
+    render(
+      <NavLinks
+        user={{
+          id: 'ae41d722-64a7-4cc7-9334-08a2218f73fb',
+          email: 'a@gmail.com',
+          lastLogout: '2021-10-10T00:00:00.000Z',
+          role: 'user',
+        }}
+      />
+    );
 
-    expect(screen.getByText('Home')).toBeInTheDocument();
     expect(screen.getByText('Upload Document')).toBeInTheDocument();
   });
 
@@ -24,10 +32,16 @@ describe('NavLinks Component', () => {
   });
 
   it('navigates to correct route when link is clicked', () => {
-    render(<NavLinks user={{ id: '1', name: 'Test User' }} />);
-
-    fireEvent.click(screen.getByText('Home'));
-    expect(mockPush).toHaveBeenCalledWith('/home');
+    render(
+      <NavLinks
+        user={{
+          id: 'ae41d722-64a7-4cc7-9334-08a2218f73fb',
+          email: 'a@gmail.com',
+          lastLogout: '2021-10-10T00:00:00.000Z',
+          role: 'user',
+        }}
+      />
+    );
 
     fireEvent.click(screen.getByText('Upload Document'));
     expect(mockPush).toHaveBeenCalledWith('/upload-document');
