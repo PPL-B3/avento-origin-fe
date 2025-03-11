@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-export interface userProps {
+export interface UserProps {
   id: string;
   email: string;
   role: string;
@@ -15,7 +15,7 @@ export interface userProps {
 
 export const useAuth = () => {
   const client = useAventoClient();
-  const [user, setUser] = useState<userProps | null>(null);
+  const [user, setUser] = useState<UserProps | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 

@@ -1,13 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { userProps } from '../../hooks';
+import { UserProps } from '../../hooks';
 
 interface NavLinksProps {
-  user: userProps;
+  user: UserProps;
 }
 
-export function NavLinks({ user }: NavLinksProps) {
+export function NavLinks({ user }: Readonly<NavLinksProps>) {
   const router = useRouter();
 
   // Define links based on user state

@@ -2,10 +2,10 @@
 
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { userProps } from '../../hooks';
+import { UserProps } from '../../hooks';
 
 interface AuthButtonsProps {
-  user: userProps;
+  user: UserProps;
   logout: () => void;
 }
 
