@@ -39,15 +39,7 @@ export const LoginForm = () => {
       return;
     }
 
-    try {
-      login(email, password);
-    } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : 'An error occurred during registration'
-      );
-    }
+    await login(email, password);
   };
 
   return (

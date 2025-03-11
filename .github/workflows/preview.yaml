@@ -6,8 +6,6 @@ on:
   push:
     branches:
       - staging
-    branches-ignore:
-      - main
   pull_request:
     branches:
       - main
