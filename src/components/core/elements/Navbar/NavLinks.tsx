@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { UserProps } from '../../hooks';
 
 interface NavLinksProps {
-  user: UserProps;
+  user: UserProps | null;
 }
 
 export function NavLinks({ user }: Readonly<NavLinksProps>) {

@@ -65,6 +65,21 @@ export const RegistrationForm = () => {
       return;
     }
 
+    if (password.search(/[!@#$%^&*]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 karakter spesial!');
+      return;
+    }
+
+    if (password.search(/[a-z]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 huruf kecil!');
+      return;
+    }
+
+    if (password.search(/[A-Z]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 huruf besar!');
+      return;
+    }
+
     try {
       onRegister({ email, password });
       setIsSuccess(true);

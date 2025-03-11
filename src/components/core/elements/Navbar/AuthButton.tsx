@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { UserProps } from '../../hooks';
 
 interface AuthButtonsProps {
-  user: UserProps;
+  user: UserProps | null;
   logout: () => void;
 }
 
