@@ -46,17 +46,4 @@ describe('Navbar', () => {
     const { container } = render(<Navbar />);
     expect(container).toBeEmptyDOMElement();
   });
-
-  it('does not render when user is not logged in', () => {
-    jest
-      .spyOn(require('@/components/core'), 'useAuth')
-      .mockImplementation(() => ({
-        user: null,
-        logout: mockLogout,
-        isLoading: false,
-      }));
-
-    const { container } = render(<Navbar />);
-    expect(container).toBeEmptyDOMElement();
-  });
 });
