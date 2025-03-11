@@ -1,6 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
 import Navbar from '@/components/core/elements/Navbar';
+import { render, screen } from '@testing-library/react';
 
 // Mock useAuth hook - must be before the describe block
 jest.mock('@/components/core', () => ({
@@ -30,28 +29,32 @@ describe('Navbar', () => {
 
   it('renders correctly when user is logged in', () => {
     render(<Navbar />);
-    
+
     expect(screen.getByRole('navigation')).toBeInTheDocument();
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
   });
 
   it('does not render when user is loading', () => {
-    jest.spyOn(require('@/components/core'), 'useAuth').mockImplementation(() => ({
-      user: null,
-      logout: mockLogout,
-      isLoading: true,
-    }));
+    jest
+      .spyOn(require('@/components/core'), 'useAuth')
+      .mockImplementation(() => ({
+        user: null,
+        logout: mockLogout,
+        isLoading: true,
+      }));
 
     const { container } = render(<Navbar />);
     expect(container).toBeEmptyDOMElement();
   });
 
   it('does not render when user is not logged in', () => {
-    jest.spyOn(require('@/components/core'), 'useAuth').mockImplementation(() => ({
-      user: null,
-      logout: mockLogout,
-      isLoading: false,
-    }));
+    jest
+      .spyOn(require('@/components/core'), 'useAuth')
+      .mockImplementation(() => ({
+        user: null,
+        logout: mockLogout,
+        isLoading: false,
+      }));
 
     const { container } = render(<Navbar />);
     expect(container).toBeEmptyDOMElement();
