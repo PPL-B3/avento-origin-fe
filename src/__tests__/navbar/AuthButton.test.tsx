@@ -1,98 +1,50 @@
-import AuthButton from '@/components/core/elements/Navbar/AuthButton';
-import { act, fireEvent, render, screen } from '@testing-library/react';
-import { useRouter } from 'next/navigation';
+import { AuthButtons } from '@/components/core/elements/Navbar/AuthButton';
+import { fireEvent, render, screen } from '@testing-library/react';
 
+// Mock useRouter
+const mockPush = jest.fn();
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
+  useRouter: () => ({
+    push: mockPush,
+  }),
 }));
 
-describe('AuthButton Component', () => {
-  let mockPush: jest.Mock;
+describe('AuthButtons Component', () => {
+  const mockLogout = jest.fn();
 
   beforeEach(() => {
-    mockPush = jest.fn();
-    (useRouter as jest.Mock).mockReturnValue({
-      push: mockPush,
-    });
+    jest.clearAllMocks();
   });
 
-  it('displays the Login button when not logged in', () => {
-    const setIsLoggedIn = jest.fn();
-    render(<AuthButton isLoggedIn={false} setIsLoggedIn={setIsLoggedIn} />);
+  it('renders login button when user is not logged in', () => {
+    render(<AuthButtons user={null} logout={mockLogout} />);
 
     const loginButton = screen.getByText('Login');
     expect(loginButton).toBeInTheDocument();
+    expect(screen.queryByText('Logout')).not.toBeInTheDocument();
   });
 
-  it('displays the Logout button when logged in', () => {
-    const setIsLoggedIn = jest.fn();
-    render(<AuthButton isLoggedIn={true} setIsLoggedIn={setIsLoggedIn} />);
+  it('renders logout button when user is logged in', () => {
+    render(<AuthButtons user={{ id: '1', name: 'dul' }} logout={mockLogout} />);
 
     const logoutButton = screen.getByText('Logout');
     expect(logoutButton).toBeInTheDocument();
+    expect(screen.queryByText('Login')).not.toBeInTheDocument();
   });
 
-  it('updates state when clicking the Login button', () => {
-    const setIsLoggedIn = jest.fn();
-    render(<AuthButton isLoggedIn={false} setIsLoggedIn={setIsLoggedIn} />);
+  it('navigates to login page when login button is clicked', () => {
+    render(<AuthButtons user={null} logout={mockLogout} />);
 
-    const loginButton = screen.getByText('Login');
-    fireEvent.click(loginButton);
-
-    expect(setIsLoggedIn).toHaveBeenCalledWith(true);
+    fireEvent.click(screen.getByText('Login'));
+    expect(mockPush).toHaveBeenCalledWith('/login');
+    expect(mockLogout).not.toHaveBeenCalled();
   });
 
-  it("displays 'Logging out...' when Logout is clicked", async () => {
-    jest.useFakeTimers();
-    const setIsLoggedIn = jest.fn();
-    render(<AuthButton isLoggedIn={true} setIsLoggedIn={setIsLoggedIn} />);
+  it('calls logout function when logout button is clicked', () => {
+    render(<AuthButtons user={{ id: '1', name: 'dul' }} logout={mockLogout} />);
 
-    const logoutButton = screen.getByText('Logout');
-
-    await act(async () => {
-      fireEvent.click(logoutButton);
-      jest.advanceTimersByTime(500);
-    });
-
-    expect(setIsLoggedIn).toHaveBeenCalledWith(false);
-    jest.useRealTimers();
-  });
-
-  it('disables the Logout button during logout process', async () => {
-    jest.useFakeTimers();
-    const setIsLoggedIn = jest.fn();
-    render(<AuthButton isLoggedIn={true} setIsLoggedIn={setIsLoggedIn} />);
-
-    const logoutButton = screen.getByText('Logout');
-
-    await act(async () => {
-      fireEvent.click(logoutButton);
-    });
-
-    expect(logoutButton).toBeDisabled();
-
-    await act(async () => {
-      jest.advanceTimersByTime(500);
-    });
-
-    expect(logoutButton).not.toBeDisabled();
-    jest.useRealTimers();
-  });
-
-  it("redirects to '/' after logout", async () => {
-    jest.useFakeTimers();
-    const setIsLoggedIn = jest.fn();
-    render(<AuthButton isLoggedIn={true} setIsLoggedIn={setIsLoggedIn} />);
-
-    const logoutButton = screen.getByText('Logout');
-
-    await act(async () => {
-      fireEvent.click(logoutButton);
-      jest.advanceTimersByTime(500);
-    });
-
-    expect(setIsLoggedIn).toHaveBeenCalledWith(false);
-    expect(mockPush).toHaveBeenCalledWith('/'); // Ensure redirection happens
-    jest.useRealTimers();
+    fireEvent.click(screen.getByText('Logout'));
+    expect(mockLogout).toHaveBeenCalledTimes(1);
+    expect(mockPush).not.toHaveBeenCalled();
   });
 });

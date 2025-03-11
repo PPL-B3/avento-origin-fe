@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { signIn } from '@/lib/auth/auth';
+import { useEffect, useState } from 'react';
+import { useFormState } from 'react-dom';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { InputField } from '../../register/elements';
@@ -10,11 +12,25 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const emailSchema = z.string().email();
+  const [state, action] = useFormState(signIn, undefined);
 
   const isValidEmail = (email: string) => {
     const result = emailSchema.safeParse(email);
     return result.success;
   };
+
+  // Show toast notifications when state changes and has errors
+  useEffect(() => {
+    if (state?.message) {
+      toast.error(state.message);
+    }
+    if (state?.error?.email) {
+      toast.error(state.error.email);
+    }
+    if (state?.error?.password) {
+      toast.error(state.error.password);
+    }
+  }, [state]);
 
   const handleSubmit = () => {
     if (!isValidEmail(email)) {
@@ -32,7 +48,10 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full max-w-md">
+    <form
+      action={action}
+      className="flex flex-col items-center w-full max-w-md"
+    >
       <InputField
         label="Email"
         type="email"
@@ -50,6 +69,6 @@ export const LoginForm = () => {
         aria-label="Password"
       />
       <Button text="Login" onClick={handleSubmit} />
-    </div>
+    </form>
   );
 };

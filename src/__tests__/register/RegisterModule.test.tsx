@@ -1,16 +1,16 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { RegisterModule } from '../../../components/modules/register';
+import { RegisterModule } from '../../components/modules/register';
 
 // Mock the child components
-jest.mock('../../../components/modules/register/elements', () => ({
+jest.mock('../../components/modules/register/elements', () => ({
   Logo: () => <div data-testid="mock-logo">Logo Component</div>,
   RegistrationForm: () => (
     <div data-testid="mock-registration-form">Registration Form Component</div>
   ),
 }));
 
-jest.mock('../../../components/modules/login/components', () => ({
+jest.mock('../../components/modules/login/components', () => ({
   AuthTabs: ({
     activeTab,
     setActiveTab,

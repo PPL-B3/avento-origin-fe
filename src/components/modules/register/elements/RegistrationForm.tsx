@@ -55,7 +55,7 @@ export const RegistrationForm = () => {
       return;
     }
 
-    if (password.search(/[0-9]/) < 0) {
+    if (password.search(/\d/) < 0) {
       toast.error('Password harus memiliki minimal 1 angka!');
       return;
     }

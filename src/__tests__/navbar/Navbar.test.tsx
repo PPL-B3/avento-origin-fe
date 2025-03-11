@@ -1,56 +1,62 @@
 import Navbar from '@/components/core/elements/Navbar';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { useRouter } from 'next/navigation';
+import { render, screen } from '@testing-library/react';
 
-jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
+// Mock useAuth hook - must be before the describe block
+jest.mock('@/components/core', () => ({
+  useAuth: () => ({
+    user: {
+      id: '1',
+      name: 'Test User',
+      email: 'test@example.com',
+    },
+    logout: jest.fn(),
+    isLoading: false,
+  }),
 }));
 
-beforeEach(() => {
-  (useRouter as jest.Mock).mockReturnValue({
-    push: jest.fn(),
-  });
-});
-
-describe('Navbar Component', () => {
-  it('renders the logo', () => {
-    render(<Navbar />);
-    const logo = screen.getByAltText('Logo');
-    expect(logo).toBeInTheDocument();
+describe('Navbar', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('shows the Login button when not logged in', () => {
+  const mockUser = {
+    id: '1',
+    name: 'Test User',
+    email: 'test@example.com',
+  };
+
+  const mockLogout = jest.fn();
+
+  it('renders correctly when user is logged in', () => {
     render(<Navbar />);
 
-    const loginButtons = screen.getAllByText('Login');
-    expect(loginButtons[0]).toBeInTheDocument();
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
+    expect(screen.getByAltText('Logo')).toBeInTheDocument();
   });
 
-  it('toggles the mobile menu visibility when clicking the hamburger button', async () => {
-    render(<Navbar />);
+  it('does not render when user is loading', () => {
+    jest
+      .spyOn(require('@/components/core'), 'useAuth')
+      .mockImplementation(() => ({
+        user: null,
+        logout: mockLogout,
+        isLoading: true,
+      }));
 
-    const buttons = screen.getAllByRole('button');
-    const hamburgerButton = buttons.find((btn) =>
-      btn.innerHTML.includes('lucide-menu')
-    );
+    const { container } = render(<Navbar />);
+    expect(container).toBeEmptyDOMElement();
+  });
 
-    if (!hamburgerButton) throw new Error('Hamburger button not found');
+  it('does not render when user is not logged in', () => {
+    jest
+      .spyOn(require('@/components/core'), 'useAuth')
+      .mockImplementation(() => ({
+        user: null,
+        logout: mockLogout,
+        isLoading: false,
+      }));
 
-    const nav = screen.getByRole('navigation');
-    const mobileMenu = nav.lastChild;
-
-    if (!mobileMenu || !(mobileMenu instanceof HTMLElement)) {
-      throw new Error('Mobile menu not found');
-    }
-
-    expect(mobileMenu).toHaveClass('opacity-0 scale-95 pointer-events-none');
-
-    fireEvent.click(hamburgerButton);
-
-    expect(mobileMenu).toHaveClass('opacity-100 scale-100');
-
-    fireEvent.click(hamburgerButton);
-
-    expect(mobileMenu).toHaveClass('opacity-0 scale-95 pointer-events-none');
+    const { container } = render(<Navbar />);
+    expect(container).toBeEmptyDOMElement();
   });
 });
