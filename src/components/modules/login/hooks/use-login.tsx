@@ -4,21 +4,21 @@ import { ENDPOINTS, useAventoClient } from '@/components/core';
 import { useMutation } from 'react-query';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { registerSchema } from '../schema';
+import { registerSchema } from '../../register/schema';
 
-export const useRegister = () => {
+export const useLogin = () => {
   const client = useAventoClient();
 
-  const { isLoading: mutateLoadingContent, mutate: onRegister } = useMutation(
-    'register-user',
+  const { isLoading: mutateLoadingContent, mutate: onLogin } = useMutation(
+    'login-user',
     {
       mutationFn: async (values: z.infer<typeof registerSchema>) => {
-        const apiUrl = ENDPOINTS.REGISTER;
+        const apiUrl = ENDPOINTS.LOGIN;
         const promise = client.post(apiUrl, values);
         toast.promise(promise, {
           loading: 'Loading...',
           success: () => {
-            return `Registration successful!`;
+            return `Login successful!`;
           },
           error: (error) => {
             const errorMessage = error.response?.data?.message;
@@ -31,15 +31,15 @@ export const useRegister = () => {
             }
           },
         });
-        await promise;
+        return await promise;
       },
     }
   );
 
-  const isLoadingRegister = mutateLoadingContent;
+  const isLoadingLogin = mutateLoadingContent;
 
   return {
-    onRegister,
-    isLoadingRegister,
+    onLogin,
+    isLoadingLogin,
   };
 };

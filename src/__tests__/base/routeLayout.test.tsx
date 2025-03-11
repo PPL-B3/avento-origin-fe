@@ -2,49 +2,76 @@ import BaseLayout from '@/app/(routes)/layout';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-// Mock the QueryProvider component
+// Mock the components used in the layout
 jest.mock('@/components', () => ({
   QueryProvider: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid="mock-query-provider">{children}</div>
+    <div data-testid="query-provider">{children}</div>
   ),
 }));
 
-describe('BaseLayout', () => {
-  it('renders children within QueryProvider', () => {
-    const testChild = <div data-testid="test-child">Test Child Content</div>;
+jest.mock('@/components/core/elements/Navbar', () => {
+  return {
+    __esModule: true,
+    default: () => <div data-testid="navbar">Navbar</div>,
+  };
+});
 
-    render(<BaseLayout>{testChild}</BaseLayout>);
+describe('BaseLayout', () => {
+  it('renders the layout with QueryProvider', () => {
+    render(
+      <BaseLayout>
+        <div data-testid="child-content">Test Content</div>
+      </BaseLayout>
+    );
 
     // Check if QueryProvider is rendered
-    const queryProvider = screen.getByTestId('mock-query-provider');
-    expect(queryProvider).toBeInTheDocument();
-
-    // Check if children are rendered
-    const child = screen.getByTestId('test-child');
-    expect(child).toBeInTheDocument();
-    expect(child).toHaveTextContent('Test Child Content');
+    expect(screen.getByTestId('query-provider')).toBeInTheDocument();
   });
 
-  it('has the correct CSS classes', () => {
-    const testChild = <div>Test Child</div>;
+  it('renders the Navbar component', () => {
+    render(
+      <BaseLayout>
+        <div>Test Content</div>
+      </BaseLayout>
+    );
 
-    render(<BaseLayout>{testChild}</BaseLayout>);
+    // Check if Navbar is rendered
+    expect(screen.getByTestId('navbar')).toBeInTheDocument();
+  });
 
-    // Find the main container div
-    const divElement =
-      screen.getByText('Test Child').parentElement?.parentElement;
-    expect(divElement).toHaveClass('relative');
-    expect(divElement).toHaveClass('transition-all');
-    expect(divElement).toHaveClass('ease-in-out');
-    expect(divElement).toHaveClass('duration-1000');
-    expect(divElement).toHaveClass('flex');
-    expect(divElement).toHaveClass('h-screen');
-    expect(divElement).toHaveClass('overflow-y-auto');
-    expect(divElement).toHaveClass('overflow-hidden');
-    expect(divElement).toHaveClass('flex-col');
+  it('renders children content', () => {
+    render(
+      <BaseLayout>
+        <div data-testid="child-content">Test Content</div>
+      </BaseLayout>
+    );
 
-    // Check if main element has the correct class
-    const mainElement = screen.getByText('Test Child').parentElement;
+    // Check if children are rendered
+    expect(screen.getByTestId('child-content')).toBeInTheDocument();
+    expect(screen.getByText('Test Content')).toBeInTheDocument();
+  });
+
+  it('has the correct layout structure', () => {
+    const { container } = render(
+      <BaseLayout>
+        <div>Test Content</div>
+      </BaseLayout>
+    );
+
+    // Check if the main layout elements are present with correct classes
+    const mainElement = container.querySelector('main');
+    expect(mainElement).toBeInTheDocument();
     expect(mainElement).toHaveClass('w-screen');
+
+    const divElement = container.querySelector(
+      'div[data-testid="query-provider"] > div'
+    );
+    expect(divElement).toHaveClass(
+      'flex',
+      'h-screen',
+      'overflow-y-auto',
+      'overflow-hidden',
+      'flex-col'
+    );
   });
 });

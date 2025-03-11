@@ -40,6 +40,11 @@ export const RegistrationForm = () => {
   const { onRegister } = useRegister();
 
   const handleSubmit = async () => {
+    if (!email || !password || !confirmPassword) {
+      toast.error('Semua field harus diisi!');
+      return;
+    }
+
     if (!isValidEmail(email)) {
       toast.error('Email tidak valid!');
       return;
@@ -62,6 +67,21 @@ export const RegistrationForm = () => {
 
     if (password.search(/[a-zA-Z]/) < 0) {
       toast.error('Password harus memiliki minimal 1 huruf!');
+      return;
+    }
+
+    if (password.search(/[!@#$%^&*]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 karakter spesial!');
+      return;
+    }
+
+    if (password.search(/[a-z]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 huruf kecil!');
+      return;
+    }
+
+    if (password.search(/[A-Z]/) < 0) {
+      toast.error('Password harus memiliki minimal 1 huruf besar!');
       return;
     }
 

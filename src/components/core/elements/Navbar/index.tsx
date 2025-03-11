@@ -13,7 +13,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout, isLoading } = useAuth();
 
-  if (isLoading || !user) return null;
+  if (isLoading) return null;
 
   return (
     <nav className="fixed top-0 left-0 w-full h-fit bg-white shadow-md z-50">
@@ -31,8 +31,8 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-12">
-          <NavLinks user={user} />
-          <AuthButtons user={user} logout={logout} />
+          <NavLinks user={user || null} />
+          <AuthButtons user={user || null} logout={logout} />
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -54,8 +54,8 @@ const Navbar = () => {
             : 'opacity-0 scale-95 pointer-events-none'
         }`}
       >
-        <NavLinks user={user} />
-        <AuthButtons user={user} logout={logout} />
+        <NavLinks user={user || null} />
+        <AuthButtons user={user || null} logout={logout} />
       </div>
     </nav>
   );

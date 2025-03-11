@@ -11,7 +11,8 @@ export const aventoClient = axios.create({
 aventoClient.interceptors.request.use((config) => {
   const token = getCookie('token');
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    const tokenStr = typeof token === 'string' ? token : String(token);
+    config.headers.Authorization = `Bearer ${tokenStr}`;
   }
   return config;
 });

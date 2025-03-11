@@ -1,22 +1,30 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { userProps } from '../../hooks';
+import { useEffect, useState } from 'react';
+import { UserProps } from '../../hooks';
 
 interface NavLinksProps {
-  user: userProps;
+  user: UserProps | null;
 }
 
-export function NavLinks({ user }: NavLinksProps) {
+export function NavLinks({ user }: Readonly<NavLinksProps>) {
   const router = useRouter();
 
   // Define links based on user state
-  const links = user
-    ? [
+
+  const [links, setLinks] = useState<{ label: string; href: string }[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      setLinks([
         { label: 'Home', href: '/home' },
         { label: 'Upload Document', href: '/upload-document' },
-      ]
-    : [];
+      ]);
+    } else {
+      setLinks([]);
+    }
+  }, [user]);
 
   return (
     <div className="flex gap-8">
