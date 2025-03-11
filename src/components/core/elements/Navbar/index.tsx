@@ -1,6 +1,7 @@
 'use client';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import AuthButton from './AuthButton';
 import NavLinks from './NavLinks';
@@ -10,16 +11,18 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full h-20 bg-white shadow-md z-50">
+    <nav className="fixed top-0 left-0 w-full h-fit bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Image
-          src="/images/momogin-logo.webp"
-          alt="Logo"
-          width={160}
-          height={40}
-          className="cursor-pointer"
-        />
+        <Link href="/">
+          <Image
+            src="/images/momogin-logo.webp"
+            alt="Logo"
+            width={160}
+            height={40}
+            className="cursor-pointer"
+          />
+        </Link>
 
         {/* Menu Navbar */}
         <div className="hidden md:flex flex-1 justify-center absolute left-1/2 transform -translate-x-1/2">

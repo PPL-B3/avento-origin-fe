@@ -32,16 +32,6 @@ describe('AuthButton Component', () => {
     expect(logoutButton).toBeInTheDocument();
   });
 
-  it('updates state when clicking the Login button', () => {
-    const setIsLoggedIn = jest.fn();
-    render(<AuthButton isLoggedIn={false} setIsLoggedIn={setIsLoggedIn} />);
-
-    const loginButton = screen.getByText('Login');
-    fireEvent.click(loginButton);
-
-    expect(setIsLoggedIn).toHaveBeenCalledWith(true);
-  });
-
   it("displays 'Logging out...' when Logout is clicked", async () => {
     jest.useFakeTimers();
     const setIsLoggedIn = jest.fn();

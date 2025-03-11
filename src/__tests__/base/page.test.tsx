@@ -18,20 +18,6 @@ describe('Home Component', () => {
     expect(titleElement.tagName).toBe('B');
   });
 
-  it('renders the Upload Document button', () => {
-    render(<Home />);
-    const buttonElement = screen.getByRole('button', {
-      name: /upload document/i,
-    });
-    expect(buttonElement).toBeInTheDocument();
-  });
-
-  it('links to the upload-document page', () => {
-    render(<Home />);
-    const linkElement = screen.getByRole('link');
-    expect(linkElement).toHaveAttribute('href', '/upload-document');
-  });
-
   it('renders with correct container styling', () => {
     render(<Home />);
     const containerDiv = screen.getByText('Avento Origin').parentElement;

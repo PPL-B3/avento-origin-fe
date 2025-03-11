@@ -35,7 +35,7 @@ const AuthButton = ({ isLoggedIn, setIsLoggedIn }: AuthButtonProps) => {
     </Button>
   ) : (
     <Button
-      onClick={() => setIsLoggedIn(true)}
+      onClick={() => router.push('/login')}
       className="px-6 py-2 bg-blue-600 text-white hover:scale-105 transition-transform duration-200 hover:bg-blue-700"
     >
       Login
