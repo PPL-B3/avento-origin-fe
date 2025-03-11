@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 import { registerSchema } from '../schema';
 
-export const useRegister = () => {
+export const useRegister = (setIsSuccess: (value: boolean) => void) => {
   const client = useAventoClient();
 
   const { isLoading: mutateLoadingContent, mutate: onRegister } = useMutation(
@@ -18,6 +18,7 @@ export const useRegister = () => {
         toast.promise(promise, {
           loading: 'Loading...',
           success: () => {
+            setIsSuccess(true);
             return `Registration successful!`;
           },
           error: (error) => {

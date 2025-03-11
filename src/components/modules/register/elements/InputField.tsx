@@ -23,7 +23,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   const inputId = id ?? label.replace(/\s+/g, '-').toLowerCase();
 
   return (
-    <div className="relative w-full mb-4">
+    <div className="relative w-full">
       <input
         type={type === 'password' && showPassword ? 'text' : type}
         id={inputId}

@@ -1,6 +1,6 @@
 'use client';
 
-import { FileInput } from '@/components/core';
+import { FileInput, useAuth } from '@/components/core';
 import { SubmissionProps } from '@/components/core/elements/FileInput/interface';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -21,15 +21,19 @@ export function UploadDocumentModule() {
 
   const { isLoadingUploadDocument, onUploadDocument } = useUploadDocument();
 
+  const { user } = useAuth();
+
   const form = useForm({
     resolver: zodResolver(uploadDocumentSchema),
     defaultValues: {
       documentName: 'a document name',
-      ownerName: 'the owner name',
+      ownerName: user?.email ?? 'owner name not detected',
     },
   });
 
   const onSubmit = (values: z.infer<typeof uploadDocumentSchema>) => {
+    values.ownerName = user?.email ?? 'owner name not detected';
+    values.documentName = file.file?.name ?? 'a document name';
     if (file.file === null) {
       toast.error('Please select a file to upload');
       return;

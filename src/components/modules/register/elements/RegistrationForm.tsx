@@ -9,11 +9,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { Button } from '../../login/components';
 import { useRegister } from '../hooks/use-register';
 import { InputField } from './InputField';
 
@@ -37,7 +37,7 @@ export const RegistrationForm = () => {
 
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const { onRegister } = useRegister();
+  const { onRegister } = useRegister(setIsSuccess);
 
   const handleSubmit = async () => {
     if (!email || !password || !confirmPassword) {
@@ -87,7 +87,6 @@ export const RegistrationForm = () => {
 
     try {
       onRegister({ email, password });
-      setIsSuccess(true);
     } catch (error) {
       toast.error(
         error instanceof Error
@@ -98,7 +97,7 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full max-w-md">
+    <div className="flex flex-col items-center w-full max-w-md gap-6">
       <InputField
         label="Email"
         type="email"
@@ -107,14 +106,20 @@ export const RegistrationForm = () => {
         placeholder="abc@gmail.com"
         aria-label="Email"
       />
-      <InputField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Masukkan password"
-        aria-label="Password"
-      />
+      <div className="flex flex-col gap-1">
+        <InputField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Masukkan password"
+          aria-label="Password"
+        />
+        <p className="text-xs">
+          * Password minimal 8 karakter, mengandung huruf besar, huruf kecil,
+          dan angka
+        </p>
+      </div>
       <InputField
         label="Konfirmasi Password"
         type="password"
@@ -123,9 +128,7 @@ export const RegistrationForm = () => {
         placeholder="Konfirmasi password"
         aria-label="Konfirmasi Password"
       />
-      <Button variant="default" onClick={handleSubmit}>
-        Registrasi
-      </Button>
+      <Button text="Registrasi" onClick={handleSubmit} />
       <AlertDialog open={isSuccess} onOpenChange={setIsSuccess}>
         <AlertDialogContent className="flex flex-col items-center px-12">
           <AlertDialogHeader className="flex flex-col items-center">
@@ -143,7 +146,7 @@ export const RegistrationForm = () => {
               className="w-full"
               onClick={() => router.push('/login')}
             >
-              <Button variant="default">Log in</Button>
+              <Button onClick={() => router.push('/login')} text="Log in" />
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
