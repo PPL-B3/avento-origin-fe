@@ -5,8 +5,11 @@ env:
 on:
   push:
     branches:
-      - dev
+      - staging
   pull_request:
+    branches:
+      - main
+      - staging
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
