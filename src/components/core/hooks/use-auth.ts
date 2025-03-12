@@ -38,11 +38,26 @@ export const useAuth = () => {
   // Login mutation
   const loginMutation = useMutation(
     async ({ email, password }: { email: string; password: string }) => {
-      const { data } = await client.post(ENDPOINTS.LOGIN, { email, password });
+      const promise = client.post(ENDPOINTS.LOGIN, { email, password });
 
-      if (!data.access_token) {
-        throw new Error('Login failed: No token received');
-      }
+      toast.promise(promise, {
+        loading: 'Loading...',
+        success: () => {
+          return `Login successful!`;
+        },
+        error: (error) => {
+          const errorMessage = error.response?.data?.message;
+          if (Array.isArray(errorMessage)) {
+            return errorMessage[0] || 'Something went wrong';
+          } else if (typeof errorMessage === 'string') {
+            return errorMessage;
+          } else {
+            return 'Something went wrong';
+          }
+        },
+      });
+
+      const { data } = await promise;
 
       return data;
     },
@@ -60,12 +75,10 @@ export const useAuth = () => {
         // Update React Query cache with the user data
         queryClient.setQueryData('user', data.user);
 
-        toast.success('Login successful!');
-        router.push('/');
+        router.push('/upload-document');
       },
       onError: (error) => {
-        console.log(error);
-        toast.error('Login failed');
+        console.error(error);
       },
     }
   );
@@ -86,7 +99,7 @@ export const useAuth = () => {
         queryClient.setQueryData('user', null);
 
         toast.success('Logout successful!');
-        router.push('/');
+        router.push('/auth/login');
       },
       onError: () => {
         toast.error('Logout failed');
@@ -98,7 +111,7 @@ export const useAuth = () => {
     try {
       await loginMutation.mutateAsync({ email, password });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -106,7 +119,7 @@ export const useAuth = () => {
     try {
       await logoutMutation.mutateAsync();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
