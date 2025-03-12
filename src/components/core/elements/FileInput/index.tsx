@@ -34,7 +34,7 @@ export async function downloadFile(url: string, filename: string) {
 export const FileInput: FC<FileInputProps> = ({
   label,
   caption = 'Drop Document Here to Upload',
-  fileTypes = ['pdf', 'png', 'jpeg', 'jpg'],
+  fileTypes = ['pdf'],
   maxSize = 10,
   disabled = false,
   name,
