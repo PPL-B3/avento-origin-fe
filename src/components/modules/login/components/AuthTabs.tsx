@@ -14,7 +14,7 @@ export const AuthTabs: React.FC<AuthTabsProps> = ({
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
-    router.push(tab === 'LOGIN' ? '/login' : '/register');
+    router.push(tab === 'LOGIN' ? '/auth/login' : '/auth/register');
   };
 
   return (

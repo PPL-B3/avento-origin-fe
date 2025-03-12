@@ -4,9 +4,9 @@ import { render, screen } from '@testing-library/react';
 describe('Logo Component', () => {
   it('renders the logo image correctly', () => {
     render(<Logo />);
-    const logoImage = screen.getByAltText('Momogin Logo');
+    const logoImage = screen.getByAltText('Momofin Logo');
     expect(logoImage).toBeInTheDocument();
-    expect(logoImage).toHaveAttribute('src', '/images/momogin-logo.webp');
+    expect(logoImage).toHaveAttribute('src', '/images/momofin-logo.webp');
   });
 
   it('renders the correct text', () => {

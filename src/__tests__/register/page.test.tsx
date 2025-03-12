@@ -1,4 +1,4 @@
-import RegisterPage from '@/app/(routes)/register/page';
+import RegisterPage from '@/app/auth/register/page';
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
