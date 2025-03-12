@@ -4,8 +4,8 @@ import Image from 'next/image';
 export const Logo = () => (
   <div className="flex flex-col items-center">
     <Image
-      src="/logo_momofin.png"
-      alt="Momogin Logo"
+      src="/images/logo_momofin.png"
+      alt="Momofin Logo"
       width={373}
       height={68}
       className="mt-2"

@@ -21,7 +21,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/">
           <Image
-            src="/images/momogin-logo.webp"
+            src="/images/momofin-logo.webp"
             alt="Logo"
             width={160}
             height={40}

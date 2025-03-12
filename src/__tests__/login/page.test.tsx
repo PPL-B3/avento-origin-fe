@@ -1,4 +1,4 @@
-import LoginPage from '@/app/(routes)/login/page';
+import LoginPage from '@/app/auth/login/page';
 import { LoginModule } from '@/components/modules/login';
 import { render } from '@testing-library/react';
 

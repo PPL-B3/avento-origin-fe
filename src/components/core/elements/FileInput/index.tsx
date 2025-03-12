@@ -87,7 +87,7 @@ export const FileInput: FC<FileInputProps> = ({
                 className={`w-full flex flex-col items-center justify-center ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} h-full`}
               >
                 <Image
-                  src="/file.svg"
+                  src="/images/file.svg"
                   alt="file"
                   width={64}
                   height={64}

@@ -66,7 +66,7 @@ describe('AuthTabs Component', () => {
       expect(mockSetActiveTab).toHaveBeenCalledWith('REGISTRASI');
 
       // Verify router.push was called with correct path
-      expect(mockRouterPush).toHaveBeenCalledWith('/register');
+      expect(mockRouterPush).toHaveBeenCalledWith('/auth/register');
     });
   });
 
@@ -103,7 +103,7 @@ describe('AuthTabs Component', () => {
 
       // Verify no unexpected calls were made
       expect(mockSetActiveTab).toHaveBeenCalledWith('LOGIN');
-      expect(mockRouterPush).toHaveBeenCalledWith('/login');
+      expect(mockRouterPush).toHaveBeenCalledWith('/auth/login');
     });
   });
 });
