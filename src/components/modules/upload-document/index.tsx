@@ -59,7 +59,7 @@ export function UploadDocumentModule() {
               label=""
               maxSize={10}
               name={`image`}
-              fileTypes={['pdf', 'png', 'jpeg', 'jpg']}
+              fileTypes={['pdf']}
               required
               submission={file}
               setSubmission={setFile}
