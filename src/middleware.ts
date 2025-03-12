@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
 
     // Redirection for user role
     if (user.role === 'user') {
-      if (!nextUrl.pathname.startsWith('/upload-document')) {
+      if (nextUrl.pathname !== '/upload-document') {
         return NextResponse.redirect(new URL('/upload-document', request.url));
       }
       return NextResponse.next();
@@ -40,5 +40,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|auth|images).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|images).*)'],
 };
