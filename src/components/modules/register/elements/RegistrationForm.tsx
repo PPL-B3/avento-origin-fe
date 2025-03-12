@@ -117,7 +117,7 @@ export const RegistrationForm = () => {
         />
         <p className="text-xs">
           * Password minimal 8 karakter, mengandung huruf besar, huruf kecil,
-          dan angka
+          angka, dan karakter spesial
         </p>
       </div>
       <InputField
