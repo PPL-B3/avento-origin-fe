@@ -37,7 +37,7 @@ export const RegistrationForm = () => {
 
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const { onRegister } = useRegister(setIsSuccess);
+  const { onRegister, isLoadingRegister } = useRegister(setIsSuccess);
 
   const handleSubmit = async () => {
     if (!email || !password || !confirmPassword) {
@@ -128,7 +128,11 @@ export const RegistrationForm = () => {
         placeholder="Konfirmasi password"
         aria-label="Konfirmasi Password"
       />
-      <Button text="Registrasi" onClick={handleSubmit} />
+      <Button
+        text="Registrasi"
+        onClick={handleSubmit}
+        disabled={isLoadingRegister}
+      />
       <AlertDialog open={isSuccess} onOpenChange={setIsSuccess}>
         <AlertDialogContent className="flex flex-col items-center px-12">
           <AlertDialogHeader className="flex flex-col items-center">
@@ -146,7 +150,11 @@ export const RegistrationForm = () => {
               className="w-full"
               onClick={() => router.push('/login')}
             >
-              <Button onClick={() => router.push('/login')} text="Log in" />
+              <Button
+                onClick={() => router.push('/login')}
+                text="Log in"
+                disabled={isLoadingRegister}
+              />
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

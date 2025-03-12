@@ -11,7 +11,7 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login } = useAuth();
+  const { login, isLoading } = useAuth();
 
   const isValidEmail = (email: string) => {
     const emailSchema = z.string().email();
@@ -60,7 +60,7 @@ export const LoginForm = () => {
         placeholder="Masukkan password"
         aria-label="Password"
       />
-      <Button text="Login" onClick={handleSubmit} />
+      <Button text="Login" onClick={handleSubmit} disabled={isLoading} />
     </div>
   );
 };
