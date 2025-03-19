@@ -1,9 +1,8 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import RootLayout from '@/app/layout';
 import { Toaster } from '@/components/ui/sonner';
+import { render } from '@testing-library/react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import RootLayout from '@/app/layout';
 
 // Mock the imported components
 jest.mock('@/components/ui/sonner', () => ({
@@ -35,7 +34,7 @@ describe('RootLayout', () => {
         <div>Test Child</div>
       </RootLayout>
     );
-    
+
     expect(getByText('Test Child')).toBeInTheDocument();
   });
 
@@ -45,7 +44,7 @@ describe('RootLayout', () => {
         <div>Test Content</div>
       </RootLayout>
     );
-    
+
     expect(Toaster).toHaveBeenCalled();
   });
 
@@ -55,7 +54,7 @@ describe('RootLayout', () => {
         <div>Test Content</div>
       </RootLayout>
     );
-    
+
     expect(Analytics).toHaveBeenCalled();
   });
 
@@ -65,7 +64,7 @@ describe('RootLayout', () => {
         <div>Test Content</div>
       </RootLayout>
     );
-    
+
     expect(SpeedInsights).toHaveBeenCalled();
   });
 
@@ -75,7 +74,7 @@ describe('RootLayout', () => {
         <div>Test Content</div>
       </RootLayout>
     );
-    
+
     const body = container.querySelector('body');
   });
 
@@ -85,7 +84,7 @@ describe('RootLayout', () => {
         <div>Test Content</div>
       </RootLayout>
     );
-    
+
     const html = document.documentElement;
     expect(html).toHaveAttribute('lang', 'en');
   });
