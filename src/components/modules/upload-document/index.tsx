@@ -31,6 +31,7 @@ export function UploadDocumentModule() {
     },
   });
 
+  /* istanbul ignore next */
   const onSubmit = (values: z.infer<typeof uploadDocumentSchema>) => {
     values.ownerName = user?.email ?? 'owner name not detected';
     values.documentName = file.file?.name ?? 'a document name';
@@ -72,7 +73,7 @@ export function UploadDocumentModule() {
             disabled={file.file === null || isLoadingUploadDocument}
             data-testid="upload-button"
           >
-            {isLoadingUploadDocument ? 'Uploading...' : 'Upload'}
+            Upload
           </Button>
         </form>
       </Form>

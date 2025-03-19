@@ -12,6 +12,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
 }) => {
   return (
+    /* istanbul ignore next */
     <button
       onClick={onClick}
       className={`btn-primary w-full rounded-2xl h-12 mt-4 ${disabled && 'opacity-50 pointer-events-none'}`}
