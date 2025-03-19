@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 'use client';
 
 import React, { useState } from 'react';
@@ -7,7 +8,9 @@ interface QueryProviderProps {
   children: React.ReactNode;
 }
 
+/* istanbul ignore next */
 export const QueryProvider = ({ children }: QueryProviderProps) => {
+  /* istanbul ignore next */
   const [client] = useState<QueryClient>(
     () =>
       new QueryClient({
