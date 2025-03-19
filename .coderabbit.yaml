@@ -24,7 +24,7 @@ reviews:
       - 'WIP'
       - 'DO NOT MERGE'
     draft: false
-    only_for_target_branch: false  # Enable auto reviews on all branches, not just the default
+    only_for_target_branch: false
   labels:
     auto_assign: true
     add:
