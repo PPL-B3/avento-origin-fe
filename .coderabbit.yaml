@@ -1,7 +1,6 @@
 reviews:
   request_changes_threshold: moderate
   approve_threshold: low
-
   ignore:
     - 'node_modules/**'
     - 'dist/**'
@@ -9,18 +8,14 @@ reviews:
     - '**/*.min.js'
     - '**/*.test.{js,jsx,ts,tsx}'
     - '**/__tests__/**'
-
   focus:
     - 'src/**'
-
   path_filters:
     - '!**/*.md'
     - '!**/*.lock'
-
   summarize: true
   summaries:
     required_changeset_size: small
-
   auto_review:
     enabled: true
     ignore_title_patterns:
