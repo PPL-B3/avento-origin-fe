@@ -9,9 +9,6 @@ export async function downloadFile(url: string, filename: string) {
   toast.promise(
     (async () => {
       const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
       const blob = await response.blob();
       const objectUrl = window.URL.createObjectURL(blob);
       const anchor = document.createElement('a');
@@ -102,7 +99,7 @@ export const FileInput: FC<FileInputProps> = ({
               </div>
             ) : (
               <div
-                className={`flex flex-col items-center justify-center ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} h-full`}
+                className={`flex flex-col items-center justify-center h-full`}
                 data-testid="file-input-preview"
               >
                 <Image

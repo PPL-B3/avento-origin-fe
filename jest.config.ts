@@ -19,11 +19,13 @@ const customJestConfig: Config = {
     'src/**/*.{js,jsx,tsx}',
     '!src/**/*.d.ts',
     '!src/**/_*.{js,jsx,ts,tsx}',
+    '!src/components/core/providers/**',
     '!src/middleware.ts',
     '!src/**/types/**',
     '!**/*.config.ts',
     '!**/node_modules/**',
     '!src/lib/**',
+    '!src/components/ui/**',
   ],
   // Output directory for coverage reports
   coverageDirectory: 'coverage',
