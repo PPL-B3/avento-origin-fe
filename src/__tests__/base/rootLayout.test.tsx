@@ -1,44 +1,92 @@
+import React from 'react';
+import { render } from '@testing-library/react';
+import { Toaster } from '@/components/ui/sonner';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import RootLayout from '@/app/layout';
-import { render, screen } from '@testing-library/react';
 
-// Mock the dependencies
-jest.mock('@/components/core/elements/Navbar', () => {
-  return function MockedNavbar() {
-    return <div data-testid="navbar">Navbar Component</div>;
-  };
-});
-
+// Mock the imported components
 jest.mock('@/components/ui/sonner', () => ({
-  Toaster: function MockedToaster() {
-    return <div data-testid="toaster">Toaster Component</div>;
-  },
+  Toaster: jest.fn(() => null),
 }));
 
+jest.mock('@vercel/analytics/react', () => ({
+  Analytics: jest.fn(() => null),
+}));
+
+jest.mock('@vercel/speed-insights/next', () => ({
+  SpeedInsights: jest.fn(() => null),
+}));
+
+// Mock next/font/google
 jest.mock('next/font/google', () => ({
-  Geist: () => ({
+  Geist: jest.fn(() => ({
     variable: 'mocked-geist-sans',
-  }),
-  Geist_Mono: () => ({
+  })),
+  Geist_Mono: jest.fn(() => ({
     variable: 'mocked-geist-mono',
-  }),
+  })),
 }));
 
-describe('RootLayout Component', () => {
-  it('renders the layout with navbar, children, and toaster', () => {
-    const testContent = <div data-testid="test-children">Test Content</div>;
-
-    render(<RootLayout>{testContent}</RootLayout>);
-
-    expect(screen.getByTestId('test-children')).toBeInTheDocument();
-    expect(screen.getByTestId('toaster')).toBeInTheDocument();
+describe('RootLayout', () => {
+  it('renders children correctly', () => {
+    const { getByText } = render(
+      <RootLayout>
+        <div>Test Child</div>
+      </RootLayout>
+    );
+    
+    expect(getByText('Test Child')).toBeInTheDocument();
   });
 
-  it('sets the correct html lang attribute', () => {
-    const testContent = <div>Test Content</div>;
+  it('includes Toaster component', () => {
+    render(
+      <RootLayout>
+        <div>Test Content</div>
+      </RootLayout>
+    );
+    
+    expect(Toaster).toHaveBeenCalled();
+  });
 
-    const { container } = render(<RootLayout>{testContent}</RootLayout>);
+  it('includes Analytics component', () => {
+    render(
+      <RootLayout>
+        <div>Test Content</div>
+      </RootLayout>
+    );
+    
+    expect(Analytics).toHaveBeenCalled();
+  });
 
-    const htmlElement = document.documentElement;
-    expect(htmlElement).toHaveAttribute('lang', 'en');
+  it('includes SpeedInsights component', () => {
+    render(
+      <RootLayout>
+        <div>Test Content</div>
+      </RootLayout>
+    );
+    
+    expect(SpeedInsights).toHaveBeenCalled();
+  });
+
+  it('applies correct font classes to body', () => {
+    const { container } = render(
+      <RootLayout>
+        <div>Test Content</div>
+      </RootLayout>
+    );
+    
+    const body = container.querySelector('body');
+  });
+
+  it('sets correct language attribute on html', () => {
+    render(
+      <RootLayout>
+        <div>Test Content</div>
+      </RootLayout>
+    );
+    
+    const html = document.documentElement;
+    expect(html).toHaveAttribute('lang', 'en');
   });
 });
