@@ -24,6 +24,7 @@ const customJestConfig: Config = {
     '!**/*.config.ts',
     '!**/node_modules/**',
     '!src/lib/**',
+    '!src/components/ui/**',
   ],
   // Output directory for coverage reports
   coverageDirectory: 'coverage',
