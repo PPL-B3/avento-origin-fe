@@ -57,7 +57,7 @@ export function UploadDocumentModule() {
           <div className="flex flex-col gap-2 mb-4 mt-12 text-neutral-950">
             <FileInput
               label=""
-              maxSize={10}
+              maxSize={8}
               name={`image`}
               fileTypes={['pdf']}
               required

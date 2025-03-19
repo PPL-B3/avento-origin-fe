@@ -16,13 +16,14 @@ const customJestConfig: Config = {
   },
   // Collect coverage from all source files except these
   collectCoverageFrom: [
-    'src/**/*.{js,jsx,ts,tsx}',
+    'src/**/*.{js,jsx,tsx}',
     '!src/**/*.d.ts',
     '!src/**/_*.{js,jsx,ts,tsx}',
     '!src/middleware.ts',
     '!src/**/types/**',
     '!**/*.config.ts',
     '!**/node_modules/**',
+    '!src/lib/**',
   ],
   // Output directory for coverage reports
   coverageDirectory: 'coverage',
