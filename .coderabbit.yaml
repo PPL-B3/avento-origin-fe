@@ -1,4 +1,3 @@
-version: 1
 reviews:
   request_changes_threshold: moderate
   approve_threshold: low
