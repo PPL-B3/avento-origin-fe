@@ -1,6 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { QueryProvider } from '@/components';
 import AuthLayout from '@/app/auth/layout';
+import { render, screen } from '@testing-library/react';
 
 // Mock the QueryProvider component
 jest.mock('@/components', () => ({
