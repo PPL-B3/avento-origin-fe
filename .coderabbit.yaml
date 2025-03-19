@@ -8,6 +8,8 @@ reviews:
     - '**/*.min.js'
     - '**/*.test.{js,jsx,ts,tsx}'
     - '**/__tests__/**'
+    - '.next/**'
+    - 'coverage/**'
   focus:
     - 'src/**'
   path_filters:
@@ -22,3 +24,10 @@ reviews:
       - 'WIP'
       - 'DO NOT MERGE'
     draft: false
+  labels:
+    auto_assign: true
+    add:
+      needs-review: 'Changes require human review'
+      ai-approved: 'CodeRabbit has approved these changes'
+  assign:
+    auto: true
