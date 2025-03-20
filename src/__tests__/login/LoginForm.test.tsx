@@ -45,26 +45,7 @@ describe('LoginForm', () => {
     expect(mockLogin).not.toHaveBeenCalled();
   });
 
-  it('shows error when password has no numbers', async () => {
-    render(<LoginForm />);
-
-    const emailInput = screen.getByLabelText('Email');
-    const passwordInput = screen.getByLabelText('Password');
-    const loginButton = screen.getByText('Login');
-
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'noNumbers' } });
-    fireEvent.click(loginButton);
-
-    await waitFor(() => {
-      expect(toast.error).toHaveBeenCalledWith(
-        'Password harus memiliki minimal 1 angka!'
-      );
-    });
-    expect(mockLogin).not.toHaveBeenCalled();
-  });
-
-  it('shows error when password has no letters', async () => {
+  it('shows error when password has less than 8 characters', async () => {
     render(<LoginForm />);
 
     const emailInput = screen.getByLabelText('Email');
@@ -77,7 +58,26 @@ describe('LoginForm', () => {
 
     await waitFor(() => {
       expect(toast.error).toHaveBeenCalledWith(
-        'Password harus memiliki minimal 1 huruf!'
+        'Password harus memiliki minimal 8 karakter!'
+      );
+    });
+    expect(mockLogin).not.toHaveBeenCalled();
+  });
+
+  it('shows error when password empty', async () => {
+    render(<LoginForm />);
+
+    const emailInput = screen.getByLabelText('Email');
+    const passwordInput = screen.getByLabelText('Password');
+    const loginButton = screen.getByText('Login');
+
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: '' } });
+    fireEvent.click(loginButton);
+
+    await waitFor(() => {
+      expect(toast.error).toHaveBeenCalledWith(
+        'Password harus memiliki minimal 8 karakter!'
       );
     });
     expect(mockLogin).not.toHaveBeenCalled();
