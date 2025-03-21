@@ -11,14 +11,17 @@ function InformationRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function encryptEmail(email: string) {
-  if (!email || !email.includes('@')) return email;
+export function encryptEmail(email: string) {
+  if (!email || !email.includes('@')) return '';
 
   const [localPart, domain] = email.split('@');
 
   let maskedLocalPart;
-  if (localPart.length <= 4) {
+  if (localPart.length <= 2) {
     maskedLocalPart = localPart;
+  } else if (localPart.length <= 4) {
+    maskedLocalPart =
+      localPart[0] + localPart[1] + '*'.repeat(localPart.length - 2);
   } else {
     maskedLocalPart =
       localPart.substring(0, 2) +
@@ -27,7 +30,7 @@ function encryptEmail(email: string) {
   }
 
   const domainParts = domain.split('.');
-  let maskedDomain = domainParts
+  const maskedDomain = domainParts
     .map((part) => {
       if (part.length <= 2) return part;
       return part[0] + '*'.repeat(part.length - 2) + part[part.length - 1];
