@@ -64,3 +64,52 @@ describe('InformationRow', () => {
     expect(valueElement).toBeInTheDocument();
   });
 });
+// Test for the encryptEmail function
+describe('encryptEmail', () => {
+  // Since encryptEmail is not exported, we need to test it indirectly
+  it('encrypts email correctly when displayed', () => {
+    (useParams as jest.Mock).mockReturnValue({ qr_code: 'test-qr-code' });
+    
+    render(<MetadataModule />);
+    
+    // The original email is 'natnanda04@gmail.com'
+    // We should see the encrypted version
+    expect(screen.getByText('na******04@g***l.com')).toBeInTheDocument();
+  });
+  
+  it('handles short local parts correctly', () => {
+    // Override the DOCUMENT_OWNER for this test using mocking
+    jest.spyOn(global, 'DOCUMENT_OWNER', 'get').mockReturnValue('joe@example.com');
+    
+    (useParams as jest.Mock).mockReturnValue({ qr_code: 'test-qr-code' });
+    
+    render(<MetadataModule />);
+    
+    // Check if short local part (less than or equal to 4 chars) is not masked
+    expect(screen.getByText('joe@e*****e.com')).toBeInTheDocument();
+    
+    // Restore original value
+    jest.restoreAllMocks();
+  });
+  
+  it('displays the QR code in the document detail header', () => {
+    (useParams as jest.Mock).mockReturnValue({ qr_code: 'my-special-qr' });
+    
+    render(<MetadataModule />);
+    
+    // Check if the QR code is included in the header
+    expect(screen.getByText('DOCUMENT DETAIL my-special-qr')).toBeInTheDocument();
+  });
+  
+  it('applies correct styling to the document container', () => {
+    (useParams as jest.Mock).mockReturnValue({ qr_code: 'test-qr-code' });
+    
+    render(<MetadataModule />);
+    
+    // Check if the main container has the correct styles
+    const container = screen.getByText('DOCUMENT DETAIL test-qr-code').closest('div');
+    expect(container).toHaveClass('bg-neutral-50');
+    expect(container).toHaveClass('text-neutral-950');
+    expect(container).toHaveClass('rounded-lg');
+  });
+});
