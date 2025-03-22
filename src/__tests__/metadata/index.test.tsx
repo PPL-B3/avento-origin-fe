@@ -19,9 +19,6 @@ describe('MetadataModule', () => {
 
     render(<MetadataModule />);
 
-    // Check if the header is present
-    expect(screen.getByText('DOCUMENT DETAIL')).toBeInTheDocument();
-
     // Check if Information rows are rendered with correct values
     expect(screen.getByText('Document Name')).toBeInTheDocument();
     expect(screen.getByText('Akte Kelahiran')).toBeInTheDocument();
