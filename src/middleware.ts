@@ -25,7 +25,10 @@ export async function middleware(request: NextRequest) {
 
     // Redirection for user role
     if (user.role === 'user') {
-      if (nextUrl.pathname !== '/upload-document') {
+      if (
+        nextUrl.pathname !== '/upload-document' &&
+        nextUrl.pathname !== '/audit-log'
+      ) {
         return NextResponse.redirect(new URL('/upload-document', request.url));
       }
       return NextResponse.next();
