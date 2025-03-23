@@ -1,3 +1,5 @@
+'use client';
+
 import { DataTable, useDataTable } from '@/components';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';

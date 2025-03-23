@@ -15,7 +15,11 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       header: 'Timestamp',
       cell: ({ row }) => {
         const date = new Date(row.original.timestamp);
-        const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+        const options: Intl.DateTimeFormatOptions = {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        };
         const formattedDate = date.toLocaleDateString('id-ID', options);
         const formattedTime = date.toLocaleTimeString('id-ID', {
           hour: '2-digit',

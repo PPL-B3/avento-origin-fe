@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/table';
 
 import Image from 'next/image';
-import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
