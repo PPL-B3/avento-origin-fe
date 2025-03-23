@@ -7,7 +7,7 @@ import * as React from 'react';
 import type {
   DataTableFilterableColumn,
   DataTableSearchableColumn,
-} from './interface';
+} from '../../types/data-table';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';

@@ -1,6 +1,6 @@
 import { CheckIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { type Column } from '@tanstack/react-table';
-import type { Option } from './interface';
+import type { Option } from '../../types/data-table';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
