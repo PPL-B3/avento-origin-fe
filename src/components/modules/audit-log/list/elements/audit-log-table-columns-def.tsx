@@ -11,36 +11,36 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
 >[] {
   return [
     {
-      accessorKey: 'agent_id',
-      header: 'Agents ID',
+      id: 'timestamp',
+      header: 'Timestamp',
+      cell: ({ row }) => {
+        const date = new Date(row.original.timestamp);
+        const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+        const formattedDate = date.toLocaleDateString('id-ID', options);
+        const formattedTime = date.toLocaleTimeString('id-ID', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        });
+        return `${formattedDate} ${formattedTime}`;
+      },
     },
     {
-      accessorKey: 'full_name',
-      header: 'Full Name',
+      accessorKey: 'activity',
+      header: 'Aktivitas',
     },
     {
-      accessorKey: 'fee_in_percentage',
-      header: 'Agent Fee',
+      accessorKey: 'detail',
+      header: 'Detail Perubahan',
     },
     {
-      accessorKey: 'discount_percentage',
-      header: 'Discount',
+      accessorKey: 'previous_user',
+      header: 'Pemilik Lama',
     },
     {
-      accessorKey: 'phone_number',
-      header: 'Phone Number',
-    },
-    {
-      accessorKey: 'email',
-      header: 'Email',
-    },
-    {
-      accessorKey: 'nationality',
-      header: 'Nationality',
-    },
-    {
-      accessorKey: 'type',
-      header: 'Type',
+      accessorKey: 'new_user',
+      header: 'Pemilik Baru',
     },
   ];
 }

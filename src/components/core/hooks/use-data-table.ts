@@ -219,7 +219,7 @@ export function useDataTable<TData, TValue>({
   React.useEffect(() => {
     // Initialize new params
     const newParamsObject = {
-      page: 1,
+      page: page,
       limit: perPage,
     };
 

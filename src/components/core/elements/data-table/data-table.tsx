@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
         searchableColumns={searchableColumns}
         deleteRowsAction={deleteRowsAction}
       />
-      <div className="rounded-md border">
+      <div className="rounded-xl border overflow-clip">
         {isFetching ? (
           <div className="w-full h-full py-5 items-center justify-center flex">
             <Image
@@ -108,7 +108,7 @@ export function DataTable<TData, TValue>({
           </div>
         ) : (
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-[#E6EEF4]">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
@@ -133,7 +133,7 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody>
+            <TableBody className="bg-neutral-50 text-neutral-950">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => {
                   const allRows = row
@@ -176,9 +176,9 @@ export function DataTable<TData, TValue>({
           </Table>
         )}
       </div>
-      <div className="space-y-2.5 md:pr-12">
+      {/* <div className="space-y-2.5 md:pr-12">
         <DataTablePagination table={table} />
-      </div>
+      </div> */}
     </div>
   );
 }

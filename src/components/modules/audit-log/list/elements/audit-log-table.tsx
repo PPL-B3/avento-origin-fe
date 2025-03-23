@@ -8,17 +8,17 @@ import {
   searchableColumns,
 } from './audit-log-table-columns-def';
 
-interface AgentsTableProps {
+interface AuditLogTableProps {
   data: AuditLogEntry[];
   pageCount: number;
   isFetching: boolean;
 }
 
-export const AgentsTable = ({
+export const AuditLogTable = ({
   data,
   pageCount,
   isFetching,
-}: AgentsTableProps) => {
+}: AuditLogTableProps) => {
   const columns = useMemo<ColumnDef<AuditLogEntry, unknown>[]>(
     () => fetchAuditLogTableColumnDefs(),
     []
