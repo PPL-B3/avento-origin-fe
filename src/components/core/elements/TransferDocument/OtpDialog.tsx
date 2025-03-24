@@ -13,7 +13,11 @@ interface OtpDialogProps {
   otp: string;
 }
 
-export function OtpDialog({ open, onOpenChange, otp }: OtpDialogProps) {
+export function OtpDialog({
+  open,
+  onOpenChange,
+  otp,
+}: Readonly<OtpDialogProps>) {
   if (!otp) return null;
 
   return (
