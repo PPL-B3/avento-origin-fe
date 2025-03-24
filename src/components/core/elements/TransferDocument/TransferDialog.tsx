@@ -23,7 +23,7 @@ export function TransferDialog({
   email,
   setEmail,
   onSubmit,
-}: TransferDialogProps) {
+}: Readonly<TransferDialogProps>) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-[#001D3D] text-white px-12 w-[90%] sm:w-[80%] md:w-[60%] max-w-md">
@@ -37,14 +37,16 @@ export function TransferDialog({
         </DialogHeader>
 
         <div className="flex flex-col gap-2 font-medium text-xs">
-          <label>Email</label>
-          <Input
-            type="email"
-            placeholder="abc@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="bg-background text-black rounded-lg"
-          />
+          <label>
+            Email
+            <Input
+              type="email"
+              placeholder="abc@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-background text-black rounded-lg"
+            />
+          </label>
         </div>
 
         <DialogFooter className="mt-4">
