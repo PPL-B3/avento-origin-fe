@@ -2,7 +2,13 @@
 
 import { useParams } from 'next/navigation';
 
-function InformationRow({ label, value }: { label: string; value: string }) {
+function InformationRow({
+  label,
+  value,
+}: {
+  readonly label: string;
+  readonly value: string;
+}) {
   return (
     <div className="grid grid-cols-2 gap-3 px-3">
       <p className="font-bold">{label}</p>
