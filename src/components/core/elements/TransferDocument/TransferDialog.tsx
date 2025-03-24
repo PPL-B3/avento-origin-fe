@@ -24,6 +24,9 @@ export function TransferDialog({
   setEmail,
   onSubmit,
 }: Readonly<TransferDialogProps>) {
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-[#001D3D] text-white px-12 w-[90%] sm:w-[80%] md:w-[60%] max-w-md">
@@ -52,7 +55,12 @@ export function TransferDialog({
         <DialogFooter className="mt-4">
           <Button
             variant="default"
-            onClick={onSubmit}
+            onClick={() => {
+              if (isValidEmail(email)) {
+                onSubmit();
+              }
+            }}
+            disabled={!isValidEmail(email)}
             className="w-3/5 text-md font-semibold rounded-lg"
           >
             Send
