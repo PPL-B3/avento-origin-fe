@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { OtpDialog } from './OtpDialog';
 import { TransferDialog } from './TransferDialog';
 
-const emailSchema = z.string().email('Email tidak valid');
+const emailSchema = z.string().email();
 
 export function TransferDocumentModal() {
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ export function TransferDocumentModal() {
     // Validasi email
     const result = emailSchema.safeParse(email);
     if (!result.success) {
-      toast.error(result.error.errors[0].message);
+      toast.error('Email tidak valid');
       return;
     }
 
