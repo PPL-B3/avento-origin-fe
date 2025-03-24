@@ -18,7 +18,7 @@ function InformationRow({
 }
 
 export function encryptEmail(email: string) {
-  if (!email || !email.includes('@')) return '';
+  if (!email || !email?.includes('@')) return '';
 
   const [localPart, domain] = email.split('@');
 
