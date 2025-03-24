@@ -1,5 +1,5 @@
 import { TransferDialog } from '@/components/core/elements/TransferDocument/TransferDialog';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('TransferDialog Component', () => {
@@ -39,11 +39,11 @@ describe('TransferDialog Component', () => {
     expect(defaultProps.setEmail).toHaveBeenCalledWith('d');
   });
 
-  it('calls onSubmit when Send button is clicked', () => {
+  it('calls onSubmit when Send button is clicked', async () => {
     render(<TransferDialog {...defaultProps} email="duljaelani@gmail.com" />);
 
     const sendButton = screen.getByText('Send');
-    fireEvent.click(sendButton);
+    await userEvent.click(sendButton);
 
     expect(defaultProps.onSubmit).toHaveBeenCalled();
   });
@@ -55,12 +55,12 @@ describe('TransferDialog Component', () => {
     expect(screen.queryByText('Transfer Form')).not.toBeInTheDocument();
   });
 
-  it('does not call onSubmit when Send button is clicked while dialog is closed', () => {
+  it('does not call onSubmit when Send button is clicked while dialog is closed', async () => {
     render(<TransferDialog {...defaultProps} open={false} />);
 
     const sendButton = screen.queryByText('Send');
     if (sendButton) {
-      fireEvent.click(sendButton);
+      await userEvent.click(sendButton);
     }
 
     expect(defaultProps.onSubmit).not.toHaveBeenCalled();
