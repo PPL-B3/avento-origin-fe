@@ -24,7 +24,7 @@ export function TransferDocumentModal() {
     }
 
     // Simulasi mendapatkan OTP dari backend
-    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    const generatedOtp = '123456';
     setOtp(generatedOtp);
     toast.success('Email valid, OTP dikirim!');
 
