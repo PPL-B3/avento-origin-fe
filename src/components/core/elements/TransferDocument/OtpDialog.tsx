@@ -11,12 +11,14 @@ interface OtpDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   otp: string;
+  email: string;
 }
 
 export function OtpDialog({
   open,
   onOpenChange,
   otp,
+  email,
 }: Readonly<OtpDialogProps>) {
   if (!otp) return null;
 
@@ -28,8 +30,8 @@ export function OtpDialog({
             Here is your OTP!
           </AlertDialogTitle>
           <AlertDialogDescription className="text-gray-300 text-center md:text-xs">
-            Ask <span className="font-semibold">putarifin@gmail.com</span> to
-            enter this OTP!
+            Ask <span className="font-semibold">{email}</span> to enter this
+            OTP!
           </AlertDialogDescription>
         </AlertDialogHeader>
 

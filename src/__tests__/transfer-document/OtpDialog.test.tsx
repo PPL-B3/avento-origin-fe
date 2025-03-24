@@ -6,6 +6,7 @@ describe('OtpDialog Component', () => {
     open: true,
     onOpenChange: jest.fn(),
     otp: '123456',
+    email: '',
   };
 
   beforeEach(() => {
@@ -35,7 +36,7 @@ describe('OtpDialog Component', () => {
   });
 
   // Corner case
-  it('renders does not render if no OTP is provided', () => {
+  it('does not render if no OTP is provided', () => {
     render(<OtpDialog {...defaultProps} otp="" />);
 
     expect(screen.queryByText('Here is your OTP!')).not.toBeInTheDocument();
