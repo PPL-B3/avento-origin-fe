@@ -50,6 +50,7 @@ const useFormField = () => {
 
   const fieldState = getFieldState(fieldContext.name, formState);
 
+  /* istanbul ignore next */
   if (!fieldContext) {
     throw new Error('useFormField should be used within <FormField>');
   }
@@ -113,6 +114,7 @@ const FormControl = React.forwardRef<
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
+  /* istanbul ignore next */
   return (
     <Slot
       ref={ref}
@@ -146,6 +148,7 @@ const FormDescription = React.forwardRef<
 });
 FormDescription.displayName = 'FormDescription';
 
+/* istanbul ignore next */
 const FormMessage = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>

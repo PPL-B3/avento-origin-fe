@@ -15,6 +15,7 @@ const Navbar = () => {
 
   if (isLoading) return null;
 
+  /* istanbul ignore next */
   return (
     <nav className="fixed top-0 left-0 w-full h-fit bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">

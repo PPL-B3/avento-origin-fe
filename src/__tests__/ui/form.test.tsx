@@ -335,3 +335,75 @@ describe('Form components', () => {
     require('react-hook-form').useFormContext = originalUseFormContext;
   });
 });
+
+test('useFormField returns correct field information', () => {
+  // Create a test component that exposes useFormField values
+  const UseFormFieldTester = () => {
+    const form = useForm();
+
+    return (
+      <Form {...form}>
+        <FormField
+          control={form.control}
+          name="testField"
+          render={() => {
+            const field = useFormField();
+            return (
+              <div data-testid="field-info">
+                <span data-testid="field-name">{field.name}</span>
+                <span data-testid="form-item-id">{field.formItemId}</span>
+                <span data-testid="form-description-id">
+                  {field.formDescriptionId}
+                </span>
+                <span data-testid="form-message-id">{field.formMessageId}</span>
+              </div>
+            );
+          }}
+        />
+      </Form>
+    );
+  };
+
+  render(<UseFormFieldTester />);
+
+  expect(screen.getByTestId('field-name')).toHaveTextContent('testField');
+  expect(screen.getByTestId('form-item-id')).toHaveTextContent('-form-item');
+  expect(screen.getByTestId('form-description-id')).toHaveTextContent(
+    '-form-item-description'
+  );
+  expect(screen.getByTestId('form-message-id')).toHaveTextContent(
+    '-form-item-message'
+  );
+});
+
+test('FormControl provides correct aria attributes', () => {
+  // Test component to check aria attributes in normal state
+  const FormControlAriaTester = () => {
+    const form = useForm();
+
+    return (
+      <Form {...form}>
+        <FormField
+          control={form.control}
+          name="test"
+          render={() => (
+            <FormItem>
+              <FormControl data-testid="form-control">
+                <input type="text" />
+              </FormControl>
+              <FormDescription>Test description</FormDescription>
+            </FormItem>
+          )}
+        />
+      </Form>
+    );
+  };
+
+  render(<FormControlAriaTester />);
+  const control = screen.getByTestId('form-control');
+  expect(control).toHaveAttribute('aria-invalid', 'false');
+  expect(control).toHaveAttribute('aria-describedby');
+  expect(control.getAttribute('aria-describedby')).toContain(
+    '-form-item-description'
+  );
+});
