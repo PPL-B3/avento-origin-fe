@@ -12,7 +12,8 @@ export async function middleware(request: NextRequest) {
   if (!tokenCookie || !userCookie) {
     if (
       nextUrl.pathname !== '/auth/login' &&
-      nextUrl.pathname !== '/auth/register'
+      nextUrl.pathname !== '/auth/register' &&
+      !nextUrl.pathname.startsWith('/design-system')
     ) {
       return NextResponse.redirect(new URL('/auth/login', request.url));
     }

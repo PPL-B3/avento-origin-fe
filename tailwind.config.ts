@@ -69,12 +69,10 @@ export default {
         sans: ['Inter', 'sans-serif'],
       },
       fontSize: {
-        'paragraph-xl': ['48px', { lineHeight: '32px' }],
-        'paragraph-lg': ['36px', { lineHeight: '24px' }],
-        'paragraph-md': ['32px', { lineHeight: '20px' }],
-        'paragraph-sm': ['28px', { lineHeight: '18px', letterSpacing: '2%' }],
-        'paragraph-xs': ['24px', { lineHeight: '16px', letterSpacing: '2%' }],
-        'paragraph-xxs': ['24px', { lineHeight: '14px', letterSpacing: '2%' }],
+        // Simplified typography system
+        title: ['1.5rem', { lineHeight: '2rem', fontWeight: '700' }],
+        subtitle: ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+        body: ['1rem', { lineHeight: '1.5rem' }],
       },
     },
   },
@@ -82,4 +80,4 @@ export default {
 } satisfies Config;
 
 // navy: "#001D3D",
-//         orange: "#FF5D00",
+// orange: "#FF5D00",
