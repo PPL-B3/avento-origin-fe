@@ -63,13 +63,13 @@ export default function TypographyShowcase() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold">With Custom Classes</h2>
         <div className="space-y-4 border p-4 rounded-md">
-          <Typography variant="title" className="text-primary-500">
+          <Typography variant="title" className="text-primary-3">
             Title with primary color
           </Typography>
           <Typography variant="subtitle" className="italic">
             Italic subtitle
           </Typography>
-          <Typography variant="body" className="text-secondary-sec underline">
+          <Typography variant="body" className="text-secondary-2 underline">
             Colored and underlined body text
           </Typography>
         </div>

@@ -30,12 +30,12 @@ export const InputField: React.FC<InputFieldProps> = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-dark bg-transparent rounded-lg border border-[#FF5D00] appearance-none focus:outline-none focus:ring-0 focus:border-primary-500 peer peer-placeholder-shown:border-primary-500"
+        className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-dark bg-transparent rounded-lg border border-[#FF5D00] appearance-none focus:outline-none focus:ring-0 focus:border-primary-3 peer peer-placeholder-shown:border-primary-3"
         aria-label={label}
       />
       <label
         htmlFor={inputId}
-        className="absolute text-sm text-dark duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-primary-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-4 peer-placeholder-shown:top-2"
+        className="absolute text-sm text-dark duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-primary-3 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-4 peer-placeholder-shown:top-2"
       >
         {label}
       </label>
