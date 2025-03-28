@@ -55,6 +55,6 @@ function generateSecureRandomId(): string {
       .substring(0, 16);
   }
 
-  // Fallback for any environment (less secure)
-  return `anonymous-${Math.random().toString(36).substring(2, 15)}`;
+  // Fallback with a constant identifier when crypto API is unavailable
+  return `anonymous-unavailable-crypto-${Date.now()}`;
 }
