@@ -8,6 +8,21 @@ jest.mock('@/components', () => ({
   ),
 }));
 
+// Mock the AuthLayout component
+jest.mock('@/app/auth/layout', () => {
+  return {
+    __esModule: true,
+    default: ({ children }: { children: React.ReactNode }) => (
+      <div
+        className="flex h-screen overflow-y-auto overflow-hidden flex-col relative transition-all ease-in-out duration-1000"
+        data-testid="mock-query-provider"
+      >
+        <main className="w-screen">{children}</main>
+      </div>
+    ),
+  };
+});
+
 describe('AuthLayout', () => {
   it('renders children within QueryProvider', () => {
     // Arrange

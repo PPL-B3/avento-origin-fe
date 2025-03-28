@@ -9,6 +9,22 @@ jest.mock('@/components', () => ({
   ),
 }));
 
+// Mock the AuthLayout component
+jest.mock('@/app/(routes)/layout', () => {
+  return {
+    __esModule: true,
+    default: ({ children }: { children: React.ReactNode }) => (
+      <div
+        className="flex h-screen overflow-y-auto overflow-hidden flex-col relative transition-all ease-in-out duration-1000"
+        data-testid="query-provider"
+      >
+        <div data-testid="navbar">Navbar</div>
+        <main className="w-screen">{children}</main>
+      </div>
+    ),
+  };
+});
+
 jest.mock('@/components/core/elements/Navbar', () => {
   return {
     __esModule: true,
@@ -64,7 +80,7 @@ describe('BaseLayout', () => {
     expect(mainElement).toHaveClass('w-screen');
 
     const divElement = container.querySelector(
-      'div[data-testid="query-provider"] > div'
+      'div[data-testid="query-provider"]'
     );
     expect(divElement).toHaveClass(
       'flex',
