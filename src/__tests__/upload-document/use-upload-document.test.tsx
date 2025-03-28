@@ -19,7 +19,6 @@ jest.mock('sonner', () => ({
   },
 }));
 
-// Create a wrapper with QueryClientProvider
 const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
