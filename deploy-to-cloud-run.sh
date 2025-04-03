@@ -11,10 +11,9 @@ MAX_INSTANCES=5
 MEMORY="512Mi"
 CPU=1
 DOCKER_USERNAME="cybersleeper"
-VERSION="v1.0.7"
 
-# ? uncomment the following line to use the latest version
-VERSION="latest"
+# Get version from version.txt or use v0.0.0 as default
+VERSION=$(cat version.txt 2>/dev/null || echo "v0.0.0")
 
 # Default environment variables
 NEXT_PUBLIC_BASE_URL=""
