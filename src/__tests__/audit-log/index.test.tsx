@@ -1,29 +1,20 @@
-import { AuditLogModule } from '@/components';
+import { AuditLogModule } from '@/components/modules/audit-log/list';
 import { render, screen } from '@testing-library/react';
 
 describe('AuditLogModule', () => {
-  it('renders the component correctly', () => {
+  it('renders the audit log title', () => {
     render(<AuditLogModule />);
-
-    // Check if the component renders
-    const sectionElement = screen.getByRole('region');
-    expect(sectionElement).toBeInTheDocument();
+    expect(screen.getByText('Audit Log')).toBeInTheDocument();
   });
 
-  it('displays the Audit Log heading', () => {
+  it('renders the audit log table with dummy data', () => {
     render(<AuditLogModule />);
-
-    // Check if the heading is present
-    const headingElement = screen.getByRole('heading', { name: /Audit Log/i });
-    expect(headingElement).toBeInTheDocument();
-    expect(headingElement.tagName).toBe('H2');
-  });
-
-  it('has the correct structure', () => {
-    const { container } = render(<AuditLogModule />);
-
-    // Check the structure
-    expect(container.firstChild).toHaveProperty('tagName', 'SECTION');
-    expect(container.firstChild?.firstChild).toHaveProperty('tagName', 'H2');
+    // Check for table entries from dummy data
+    expect(screen.getByText('User login')).toBeInTheDocument();
+    expect(screen.getByText("User 'admin' logged in")).toBeInTheDocument();
+    expect(screen.getByText('Transfer dokumen')).toBeInTheDocument();
+    expect(screen.getByText('Lorem Ipsum')).toBeInTheDocument();
+    expect(screen.getByText('Tuan Krab')).toBeInTheDocument();
+    expect(screen.getByText('Plankton')).toBeInTheDocument();
   });
 });
