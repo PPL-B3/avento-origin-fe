@@ -17,6 +17,35 @@ function InformationRow({
   );
 }
 
+export function encryptEmail(email: string) {
+  if (!email?.includes('@')) return '';
+
+  const [localPart, domain] = email.split('@');
+
+  let maskedLocalPart;
+  if (localPart.length <= 2) {
+    maskedLocalPart = localPart;
+  } else if (localPart.length <= 4) {
+    maskedLocalPart =
+      localPart[0] + localPart[1] + '*'.repeat(localPart.length - 2);
+  } else {
+    maskedLocalPart =
+      localPart.substring(0, 2) +
+      '*'.repeat(localPart.length - 4) +
+      localPart.substring(localPart.length - 2);
+  }
+
+  const domainParts = domain.split('.');
+  const maskedDomain = domainParts
+    .map((part) => {
+      if (part.length <= 2) return part;
+      return part[0] + '*'.repeat(part.length - 2) + part[part.length - 1];
+    })
+    .join('.');
+
+  return `${maskedLocalPart}@${maskedDomain}`;
+}
+
 export function MetadataModule() {
   const { qr_code } = useParams<{
     qr_code: string;
@@ -35,7 +64,10 @@ export function MetadataModule() {
         <div className="flex flex-col gap-y-5">
           <InformationRow label="Document Name" value={DOCUMENT_NAME} />
           <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
-          <InformationRow label="Document Owner" value={DOCUMENT_OWNER} />
+          <InformationRow
+            label="Document Owner"
+            value={encryptEmail(DOCUMENT_OWNER)}
+          />
           <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
           <InformationRow label="Document Type" value={DOCUMENT_TYPE} />
         </div>

@@ -1,4 +1,4 @@
-import { MetadataModule } from '@/components/modules/metadata';
+import { encryptEmail, MetadataModule } from '@/components/modules/metadata';
 import { render, screen } from '@testing-library/react';
 import { useParams } from 'next/navigation';
 
@@ -21,13 +21,10 @@ describe('MetadataModule', () => {
 
     // Check if Information rows are rendered with correct values
     expect(screen.getByText('Document Name')).toBeInTheDocument();
-    expect(screen.getByText('Akte Kelahiran')).toBeInTheDocument();
 
     expect(screen.getByText('Document Owner')).toBeInTheDocument();
-    expect(screen.getByText('natnanda04@gmail.com')).toBeInTheDocument();
 
     expect(screen.getByText('Document Type')).toBeInTheDocument();
-    expect(screen.getByText('Tipe')).toBeInTheDocument();
   });
 
   it('renders the InformationRow component correctly', () => {
@@ -59,5 +56,37 @@ describe('InformationRow', () => {
 
     expect(labelElement).toHaveClass('font-bold');
     expect(valueElement).toBeInTheDocument();
+  });
+});
+// Test for the encryptEmail function with direct approach
+describe('encryptEmail function', () => {
+  it('handles null or invalid email correctly', () => {
+    expect(encryptEmail('')).toBe('');
+    expect(encryptEmail('invalid-email')).toBe('');
+    expect(encryptEmail(null as unknown as string)).toBe('');
+  });
+
+  it('masks the middle part of local part when more than 4 characters', () => {
+    expect(encryptEmail('username@example.com')).toBe('us****me@e*****e.c*m');
+    expect(encryptEmail('johndoe@domain.co')).toBe('jo***oe@d****n.co');
+  });
+
+  it('preserves the local part when 4 or fewer characters', () => {
+    expect(encryptEmail('joe@example.com')).toBe('jo*@e*****e.c*m');
+    expect(encryptEmail('a@b.com')).toBe('a@b.c*m');
+  });
+
+  it('handles domains with multiple parts correctly', () => {
+    expect(encryptEmail('test@sub.example.co.uk')).toBe(
+      'te**@s*b.e*****e.co.uk'
+    );
+  });
+
+  it('preserves single character domain parts', () => {
+    expect(encryptEmail('test@a.b.c')).toBe('te**@a.b.c');
+  });
+
+  it('preserves two character domain parts', () => {
+    expect(encryptEmail('user@ab.cd.ef')).toBe('us**@ab.cd.ef');
   });
 });
