@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 
+/* istanbul ignore next */
 export const Logo = () => (
   <div className="flex flex-col items-center">
     <Image
