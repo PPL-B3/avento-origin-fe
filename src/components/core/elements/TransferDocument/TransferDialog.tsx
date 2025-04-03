@@ -52,7 +52,10 @@ export function TransferDialog({
         <DialogFooter className="mt-4">
           <Button
             variant="default"
-            onClick={onSubmit}
+            onClick={() => {
+              onSubmit();
+            }}
+            disabled={!email}
             className="w-3/5 text-md font-semibold rounded-lg"
           >
             Send
