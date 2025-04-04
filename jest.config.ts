@@ -14,6 +14,15 @@ const customJestConfig: Config = {
     // Handle module aliases
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  // Ignore Playwright test files
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/e2e/',
+    '/.next/',
+    '\\.playwright\\.ts$',
+    '\\.spec\\.ts$',
+    '\\.e2e\\.ts$',
+  ],
   // Collect coverage from all source files except these
   collectCoverageFrom: [
     'src/**/*.{js,jsx,tsx}',
@@ -27,7 +36,7 @@ const customJestConfig: Config = {
     '!src/lib/**',
     '!src/components/ui/**',
     '!src/components/core/elements/data-table/**',
-    '!src/app/design-system/**',
+    '!src/app/**',
   ],
   // Output directory for coverage reports
   coverageDirectory: 'coverage',
