@@ -79,7 +79,7 @@ export function MetadataModule() {
   const DOCUMENT_NAME = 'Akte Kelahiran';
   const DOCUMENT_OWNER = 'natnanda04@gmail.com';
   const DOCUMENT_TYPE = 'Tipe';
-  const IS_OWNER = false;
+  const IS_OWNER = true;
   const HISTORY = [
     {
       email: 'a@gmail.com',
@@ -120,7 +120,7 @@ export function MetadataModule() {
                 <p className="font-bold">Transfer History</p>
                 {HISTORY.map((history: HistoryType, index: number) => (
                   <div key={index} className="flex gap-x-2">
-                    <p className="font-bold">
+                    <p>
                       {history.email} | {formatDateTime(history.datetime)}
                     </p>
                   </div>
