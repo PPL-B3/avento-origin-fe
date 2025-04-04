@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { useParams } from 'next/navigation';
 
 interface HistoryType {
@@ -56,6 +57,25 @@ export function MetadataModule() {
     qr_code: string;
   }>();
 
+  const formatDateTime = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+
+    const formattedDate = date.toLocaleDateString('id-ID', options);
+    const formattedTime = date.toLocaleTimeString('id-ID', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    });
+
+    return `${formattedDate} ${formattedTime}`;
+  };
+
   const DOCUMENT_NAME = 'Akte Kelahiran';
   const DOCUMENT_OWNER = 'natnanda04@gmail.com';
   const DOCUMENT_TYPE = 'Tipe';
@@ -109,6 +129,18 @@ export function MetadataModule() {
             </>
           )}
         </div>
+        {IS_OWNER && (
+          <div className="flex w-full justify-end">
+            <div className="w-fit flex flex-col gap-4">
+              <Button size="lg" variant="default">
+                Transfer Document
+              </Button>
+              <Button size="lg" variant="secondary">
+                View Document
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
