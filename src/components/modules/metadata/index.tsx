@@ -2,6 +2,11 @@
 
 import { useParams } from 'next/navigation';
 
+interface HistoryType {
+  email: string;
+  datetime: string;
+}
+
 function InformationRow({
   label,
   value,
