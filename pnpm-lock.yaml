@@ -136,7 +136,7 @@ importers:
         specifier: ^29.5.5
         version: 29.5.14
       '@types/node':
-        specifier: ^20
+        specifier: ^20.17.30
         version: 20.17.30
       '@types/react':
         specifier: ^19
@@ -171,6 +171,9 @@ importers:
       lint-staged:
         specifier: ^15.4.3
         version: 15.5.0
+      playwright:
+        specifier: ^1.51.1
+        version: 1.51.1
       postcss:
         specifier: ^8
         version: 8.5.3
