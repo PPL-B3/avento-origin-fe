@@ -90,6 +90,24 @@ export function MetadataModule() {
           />
           <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
           <InformationRow label="Document Type" value={DOCUMENT_TYPE} />
+          {IS_OWNER && (
+            <>
+              <div
+                data-testid="divider"
+                className="w-full h-0.5 bg-neutral-950"
+              />
+              <div className="grid grid-cols-1 gap-3 px-3">
+                <p className="font-bold">Transfer History</p>
+                {HISTORY.map((history: HistoryType, index: number) => (
+                  <div key={index} className="flex gap-x-2">
+                    <p className="font-bold">
+                      {history.email} | {formatDateTime(history.datetime)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </section>
