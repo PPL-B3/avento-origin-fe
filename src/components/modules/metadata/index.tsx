@@ -59,6 +59,21 @@ export function MetadataModule() {
   const DOCUMENT_NAME = 'Akte Kelahiran';
   const DOCUMENT_OWNER = 'natnanda04@gmail.com';
   const DOCUMENT_TYPE = 'Tipe';
+  const IS_OWNER = false;
+  const HISTORY = [
+    {
+      email: 'a@gmail.com',
+      datetime: '2023-10-01 12:00:00',
+    },
+    {
+      email: 'b@gmail.com',
+      datetime: '2023-10-02 12:00:00',
+    },
+    {
+      email: 'c@gmail.com',
+      datetime: '2023-10-03 12:00:00',
+    },
+  ];
 
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
