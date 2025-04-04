@@ -1,7 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Login Form Validation', () => {
-  test('should validate inputs and show appropriate error messages', async ({ page }) => {
+  test('should validate inputs and show appropriate error messages', async ({
+    page,
+  }) => {
     // Navigate to the application and expect redirect to login page
     await page.goto('/');
 
@@ -36,7 +38,9 @@ test.describe('Login Form Validation', () => {
 
     // Check if the email input is marked as invalid (HTML5 validation)
     const emailValid = await page.evaluate(() => {
-      const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+      const emailInput = document.querySelector(
+        'input[type="email"]'
+      ) as HTMLInputElement;
       return emailInput ? emailInput.checkValidity() : true;
     });
 
@@ -84,7 +88,9 @@ test('should check field-level validations', async ({ page }) => {
   // Check if the email field shows HTML5 validation error
   // This works if your app uses the browser's built-in validation
   const emailValid = await page.evaluate(() => {
-    const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+    const emailInput = document.querySelector(
+      'input[type="email"]'
+    ) as HTMLInputElement;
     return emailInput ? emailInput.checkValidity() : true;
   });
 
