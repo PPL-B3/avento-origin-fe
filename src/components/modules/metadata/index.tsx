@@ -1,14 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { UseMetadata } from './hooks/use-metadata';
+import { HistoryType } from './types';
 
-interface HistoryType {
-  email: string;
-  datetime: string;
-}
-
-function InformationRow({
+export function InformationRow({
   label,
   value,
 }: {
@@ -52,87 +49,95 @@ export function encryptEmail(email: string) {
   return `${maskedLocalPart}@${maskedDomain}`;
 }
 
+export const formatDateTime = (dateString: string) => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
+  const formattedDate = date.toLocaleDateString('id-ID', options);
+  const formattedTime = date.toLocaleTimeString('id-ID', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+
+  return `${formattedDate} ${formattedTime}`;
+};
+
+/* istanbul ignore next */
 export function MetadataModule() {
   const { qr_code } = useParams<{
     qr_code: string;
   }>();
 
-  const formatDateTime = (dateString: string) => {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
+  const router = useRouter();
 
-    const formattedDate = date.toLocaleDateString('id-ID', options);
-    const formattedTime = date.toLocaleTimeString('id-ID', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
-    });
+  const { data, isFetching } = UseMetadata(qr_code);
 
-    return `${formattedDate} ${formattedTime}`;
-  };
-
-  const DOCUMENT_NAME = 'Akte Kelahiran';
-  const DOCUMENT_OWNER = 'natnanda04@gmail.com';
-  const DOCUMENT_TYPE = 'Tipe';
-  const IS_OWNER = true;
-  const HISTORY = [
-    {
-      email: 'a@gmail.com',
-      datetime: '2023-10-01 12:00:00',
-    },
-    {
-      email: 'b@gmail.com',
-      datetime: '2023-10-02 12:00:00',
-    },
-    {
-      email: 'c@gmail.com',
-      datetime: '2023-10-03 12:00:00',
-    },
-  ];
-
+  /* istanbul ignore next */
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
       <div className="bg-neutral-50 text-neutral-950 p-5 rounded-lg w-2/3 h-fit py-12 px-10">
         <h2 className="text-neutral-950 pb-8 font-extrabold">
-          DOCUMENT DETAIL {qr_code}
+          DOCUMENT DETAIL {data?.filePath && ' (Owner)'}
         </h2>
-        <div className="flex flex-col gap-y-5">
-          <InformationRow label="Document Name" value={DOCUMENT_NAME} />
-          <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
-          <InformationRow
-            label="Document Owner"
-            value={encryptEmail(DOCUMENT_OWNER)}
-          />
-          <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
-          <InformationRow label="Document Type" value={DOCUMENT_TYPE} />
-          {IS_OWNER && (
-            <>
-              <div
-                data-testid="divider"
-                className="w-full h-0.5 bg-neutral-950"
-              />
-              <div className="grid grid-cols-1 gap-3 px-3">
-                <p className="font-bold">Transfer History</p>
-                {HISTORY.map((history: HistoryType, index: number) => (
-                  <div key={index} className="flex gap-x-2">
-                    <p>
-                      {history.email} | {formatDateTime(history.datetime)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-        {IS_OWNER && (
+        {isFetching || !data ? (
+          <div className="flex items-center justify-center w-full h-full">
+            <p className="text-neutral-950">Loading...</p>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-y-5">
+            <InformationRow label="Document Name" value={data.documentName} />
+            <div
+              data-testid="divider"
+              className="w-full h-0.5 bg-neutral-950"
+            />
+            <InformationRow
+              label="Document Owner"
+              value={encryptEmail(data.currentOwner)}
+            />
+            {/* <div
+              data-testid="divider"
+              className="w-full h-0.5 bg-neutral-950"
+            />
+            <InformationRow label="Document Type" value={data.} /> */}
+            {data?.filePath && (
+              <>
+                <div
+                  data-testid="divider"
+                  className="w-full h-0.5 bg-neutral-950"
+                />
+                <div className="grid grid-cols-1 gap-3 px-3">
+                  <p className="font-bold">Transfer History</p>
+                  {data.ownershipHistory.map(
+                    (history: HistoryType, index: number) => (
+                      <div key={index} className="flex gap-x-2">
+                        <p>
+                          {history.owner} |{' '}
+                          {formatDateTime(history.generatedDate)}
+                        </p>
+                      </div>
+                    )
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        )}
+        {data?.filePath && (
           <div className="flex w-full justify-end">
             <div className="w-fit flex flex-col gap-4">
-              <Button size="lg" variant="default">
+              <Button
+                size="lg"
+                variant="default"
+                onClick={() => {
+                  router.push(`${data.filePath}`);
+                }}
+              >
                 Transfer Document
               </Button>
               <Button size="lg" variant="secondary">
