@@ -85,48 +85,59 @@ export function MetadataModule() {
         <h2 className="text-neutral-950 pb-8 font-extrabold">
           DOCUMENT DETAIL {data?.filePath && ' (Owner)'}
         </h2>
-        {isFetching || !data ? (
+        {isFetching ? (
           <div className="flex items-center justify-center w-full h-full">
             <p className="text-neutral-950">Loading...</p>
           </div>
         ) : (
-          <div className="flex flex-col gap-y-5">
-            <InformationRow label="Document Name" value={data.documentName} />
-            <div
-              data-testid="divider"
-              className="w-full h-0.5 bg-neutral-950"
-            />
-            <InformationRow
-              label="Document Owner"
-              value={encryptEmail(data.currentOwner)}
-            />
-            {/* <div
-              data-testid="divider"
-              className="w-full h-0.5 bg-neutral-950"
-            />
-            <InformationRow label="Document Type" value={data.} /> */}
-            {data?.filePath && (
-              <>
+          <>
+            {!!data ? (
+              <div className="flex flex-col gap-y-5">
+                <InformationRow
+                  label="Document Name"
+                  value={data.documentName}
+                />
                 <div
                   data-testid="divider"
                   className="w-full h-0.5 bg-neutral-950"
                 />
-                <div className="grid grid-cols-1 gap-3 px-3">
-                  <p className="font-bold">Transfer History</p>
-                  {data.ownershipHistory.map(
-                    (history: HistoryType, index: number) => (
-                      <div key={index} className="flex gap-x-2">
-                        <p>
-                          {history.owner} |{' '}
-                          {formatDateTime(history.generatedDate)}
-                        </p>
-                      </div>
-                    )
-                  )}
-                </div>
-              </>
+                <InformationRow
+                  label="Document Owner"
+                  value={encryptEmail(data.currentOwner)}
+                />
+                {/* <div
+              data-testid="divider"
+              className="w-full h-0.5 bg-neutral-950"
+            />
+            <InformationRow label="Document Type" value={data.} /> */}
+                {data?.filePath && (
+                  <>
+                    <div
+                      data-testid="divider"
+                      className="w-full h-0.5 bg-neutral-950"
+                    />
+                    <div className="grid grid-cols-1 gap-3 px-3">
+                      <p className="font-bold">Transfer History</p>
+                      {data.ownershipHistory.map(
+                        (history: HistoryType, index: number) => (
+                          <div key={index} className="flex gap-x-2">
+                            <p>
+                              {history.owner} |{' '}
+                              {formatDateTime(history.generatedDate)}
+                            </p>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-full h-full">
+                <p className="text-neutral-950">Document not found</p>
+              </div>
             )}
-          </div>
+          </>
         )}
         {data?.filePath && (
           <div className="flex w-full justify-end">
