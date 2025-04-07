@@ -5,7 +5,7 @@ import { SubmissionProps } from '@/components/core/elements/FileInput/interface'
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import QRCode from 'react-qr-code';
 import { toast } from 'sonner';
@@ -47,12 +47,17 @@ export function UploadDocumentModule() {
 
     try {
       await onUploadDocument(values);
-      setShowQR(true);
     } catch (error) {
       toast.error('Failed to upload document');
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (qrCodes.privateId && qrCodes.publicId) {
+      setShowQR(true);
+    }
+  }, [qrCodes]);
 
   const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/metadata/`;
 
