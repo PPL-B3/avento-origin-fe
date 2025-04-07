@@ -1,5 +1,6 @@
 'use client';
 
+import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { Button } from '@/components/ui/button';
 import { useParams, useRouter } from 'next/navigation';
 import { UseMetadata } from './hooks/use-metadata';
@@ -142,7 +143,7 @@ export function MetadataModule() {
         {data?.filePath && (
           <div className="flex w-full justify-end">
             <div className="w-fit flex flex-col gap-4">
-              <Button
+              {/* <Button
                 size="lg"
                 variant="default"
                 onClick={() => {
@@ -150,7 +151,10 @@ export function MetadataModule() {
                 }}
               >
                 Transfer Document
-              </Button>
+              </Button> */}
+              {data?.documentId && (
+                <TransferDocumentModal documentId={data.documentId} />
+              )}
               <Button size="lg" variant="secondary">
                 View Document
               </Button>
