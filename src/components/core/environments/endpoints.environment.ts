@@ -5,4 +5,6 @@ export class ENDPOINTS {
   static readonly LOGOUT = `/auth/logout`;
   static readonly AUDIT_LOG = `/audit-log`;
   static readonly METADATA = `/documents/view`;
+  static readonly TRANSFER_DOCUMENT = `/documents/transfer`;
+  static readonly TRANSFER = `/documents/claim`;
 }
