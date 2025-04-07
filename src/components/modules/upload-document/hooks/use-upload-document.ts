@@ -1,6 +1,7 @@
 'use client';
 
 import { ENDPOINTS, useAventoClient } from '@/components/core';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -8,6 +9,7 @@ import { uploadDocumentSchema } from '../schema';
 
 export const useUploadDocument = () => {
   const client = useAventoClient();
+  const [qrCodes, setQrCodes] = useState({ privateId: '', publicId: '' });
 
   const { isLoading: mutateLoadingContent, mutate: onUploadDocument } =
     useMutation('upload-document', {
@@ -42,7 +44,22 @@ export const useUploadDocument = () => {
           },
         });
 
-        return await promise;
+        const response = await promise;
+        // Store the QR IDs from the response
+
+        console.log('Response:', response);
+        if (
+          response.data &&
+          response.data.privateId &&
+          response.data.publicId
+        ) {
+          setQrCodes({
+            privateId: response.data.privateId,
+            publicId: response.data.publicId,
+          });
+        }
+
+        return response;
       },
     });
 
@@ -51,5 +68,6 @@ export const useUploadDocument = () => {
   return {
     onUploadDocument,
     isLoadingUploadDocument,
+    qrCodes,
   };
 };
