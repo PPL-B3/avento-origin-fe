@@ -1,19 +1,31 @@
 'use client';
 
 import { ENDPOINTS, useAventoClient } from '@/components/core';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { toast } from 'sonner';
 
 export const useClaimDocument = () => {
   const client = useAventoClient();
-  const router = useRouter();
+  const [qrCodes, setQrCodes] = useState({ privateId: '', publicId: '' });
 
   const { isLoading, mutate: onClaimDocument } = useMutation('claim-document', {
     mutationFn: async (data: { documentId: string; otp: string }) => {
       const apiUrl = ENDPOINTS.CLAIM_DOCUMENT;
 
-      await client.post(apiUrl, data);
+      const promise = client.post(apiUrl, data);
+
+      const response = await promise;
+      // Store the QR IDs from the response
+
+      if (response.data && response.data.privateId && response.data.publicId) {
+        setQrCodes({
+          privateId: response.data.privateId,
+          publicId: response.data.publicId,
+        });
+      }
+
+      return response;
     },
     onError: (error: {
       response?: { data?: { message?: string } };
@@ -27,7 +39,6 @@ export const useClaimDocument = () => {
     },
     onSuccess: () => {
       toast.success('OTP Verified. Redirecting...');
-      router.push('/');
     },
   });
 
@@ -36,5 +47,6 @@ export const useClaimDocument = () => {
   return {
     onClaimDocument,
     isLoadingClaimDocument,
+    qrCodes,
   };
 };

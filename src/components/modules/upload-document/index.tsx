@@ -54,7 +54,7 @@ export function UploadDocumentModule() {
     }
   };
 
-  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/`;
+  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/metadata/`;
 
   const downloadQRCode = (id: string, filename: string) => {
     const svg = document.getElementById(id);
@@ -152,7 +152,9 @@ export function UploadDocumentModule() {
                       variant="secondary"
                       size="sm"
                       onClick={() => {
-                        navigator.clipboard.writeText(qrCodes.privateId);
+                        navigator.clipboard.writeText(
+                          `${baseUrl}${qrCodes.privateId}`
+                        );
                         toast.success('Copied to clipboard');
                       }}
                       className="text-xs"
@@ -208,7 +210,9 @@ export function UploadDocumentModule() {
                       variant="secondary"
                       size="sm"
                       onClick={() => {
-                        navigator.clipboard.writeText(qrCodes.publicId);
+                        navigator.clipboard.writeText(
+                          `${baseUrl}${qrCodes.publicId}`
+                        );
                         toast.success('Copied to clipboard');
                       }}
                       className="text-xs"

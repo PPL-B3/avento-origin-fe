@@ -26,10 +26,21 @@ export function TransferDocumentModal({ documentId }: { documentId: string }) {
       return;
     }
 
-    const res = await onTransferDocument({ documentId, pendingOwner: email });
-    setOtp(res.otp);
-    setOpenTransferDialog(false);
-    setOpenOtpDialog(true);
+    const loadingToastId = toast.loading(
+      'Memproses permintaan transfer dokumen...'
+    );
+
+    try {
+      const res = await onTransferDocument({ documentId, pendingOwner: email });
+      setOtp(res.otp);
+      setOpenTransferDialog(false);
+      setOpenOtpDialog(true);
+    } catch (error) {
+      console.error(error);
+      toast.error('Terjadi kesalahan saat mentransfer dokumen');
+    } finally {
+      toast.dismiss(loadingToastId);
+    }
   };
 
   return (
