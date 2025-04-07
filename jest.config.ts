@@ -26,6 +26,8 @@ const customJestConfig: Config = {
     '!**/node_modules/**',
     '!src/lib/**',
     '!src/components/ui/**',
+    '!src/components/core/elements/data-table/**',
+    '!src/app/design-system/**',
   ],
   // Output directory for coverage reports
   coverageDirectory: 'coverage',

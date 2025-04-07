@@ -11,10 +11,6 @@ interface NavLinksProps {
 export function NavLinks({ user }: Readonly<NavLinksProps>) {
   const router = useRouter();
 
-  console.log('user', user);
-
-  // Define links based on user state
-
   const [links, setLinks] = useState<{ label: string; href: string }[]>([]);
 
   useEffect(() => {
