@@ -14,7 +14,8 @@ export async function middleware(request: NextRequest) {
       nextUrl.pathname !== '/auth/login' &&
       nextUrl.pathname !== '/auth/register' &&
       !nextUrl.pathname.startsWith('/design-system') &&
-      !nextUrl.pathname.startsWith('/metadata')
+      !nextUrl.pathname.startsWith('/metadata') &&
+      !nextUrl.pathname.startsWith('/transfer-request')
     ) {
       return NextResponse.redirect(new URL('/auth/login', request.url));
     }
