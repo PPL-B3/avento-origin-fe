@@ -1,5 +1,5 @@
 export interface AuditLogEntry {
-  logID: string
+  logID: string;
   timestamp: string;
   eventType: string;
   userID: string;

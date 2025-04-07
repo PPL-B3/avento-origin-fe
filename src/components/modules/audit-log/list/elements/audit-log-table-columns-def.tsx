@@ -5,7 +5,6 @@ import {
 import { ColumnDef } from '@tanstack/react-table';
 import { AuditLogEntry } from '../types';
 
-
 /* istanbul ignore next */
 export function fetchAuditLogTableColumnDefs(): ColumnDef<
   AuditLogEntry,

@@ -9,7 +9,7 @@ export const UseAuditLog = () => {
     ['audit-log'],
     {
       queryFn: async () => {
-        let apiUrl = `${ENDPOINTS.AUDIT_LOG}`;
+        const apiUrl = `${ENDPOINTS.AUDIT_LOG}`;
 
         const { data } = await client.get(apiUrl);
         return data as AuditLogEntry[];
