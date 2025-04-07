@@ -6,5 +6,5 @@ export class ENDPOINTS {
   static readonly AUDIT_LOG = `/audit-log`;
   static readonly METADATA = `/documents/view`;
   static readonly TRANSFER_DOCUMENT = `/documents/transfer`;
-  static readonly TRANSFER = `/documents/claim`;
+  static readonly CLAIM_DOCUMENT = `/documents/claim`;
 }

@@ -4,25 +4,32 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from '@/components/ui/input-otp';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { UseMetadata } from '../metadata/hooks/use-metadata';
+import { useClaimDocument } from './hooks/use-claim-document';
+import { encryptEmail } from '../metadata';
 
 export function TransferRequestModule() {
-  // const { qr_code } = useParams<{
-  //   qr_code: string;
-  // }>();
+  const { qr_code } = useParams<{
+    qr_code: string;
+  }>();
 
-  // const router = useRouter();
+  const { data, isFetching } = UseMetadata(qr_code);
+  const { onClaimDocument, isLoadingClaimDocument } = useClaimDocument();
+
   const [otp, setOtp] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Dummy data sementara
-  const DOCUMENT_OWNER = 'j****lia@gmail.com';
-  const DOCUMENT_NAME = 'Akte Kelahiran';
 
   const handleSubmit = async () => {
-    // TODO: implement API call to verify OTP
-    setIsSubmitting(true);
+    onClaimDocument({
+      documentId: data?.documentId ?? '',
+      otp: otp,
+    });
   };
+
+  if (isFetching) {
+    return null;
+  }
 
   return (
     <section
@@ -37,11 +44,11 @@ export function TransferRequestModule() {
 
         <div>
           <p className="text-xs">
-            From: <span className="font-semibold">{DOCUMENT_OWNER}</span>
+            From: <span className="font-semibold">{encryptEmail(data?.currentOwner ?? '')}</span>
           </p>
           <p className="text-xs">
             Document Name:{' '}
-            <span className="font-semibold">{DOCUMENT_NAME}</span>
+            <span className="font-semibold">{data?.documentName}</span>
           </p>
         </div>
 
@@ -65,9 +72,9 @@ export function TransferRequestModule() {
             variant="default"
             className="w-full"
             onClick={handleSubmit}
-            disabled={otp.length !== 6 || isSubmitting}
+            disabled={otp.length !== 6 || isLoadingClaimDocument}
           >
-            {isSubmitting ? 'Verifying...' : 'Verify'}
+            {isLoadingClaimDocument ? 'Verifying...' : 'Verify'}
           </Button>
         </div>
       </div>
