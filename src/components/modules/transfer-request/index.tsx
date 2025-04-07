@@ -5,7 +5,7 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { toast } from 'sonner';
 import { encryptEmail } from '../metadata';
@@ -29,8 +29,14 @@ export function TransferRequestModule() {
       documentId: data?.documentId ?? '',
       otp: otp,
     });
-    setShowQR(true);
   };
+
+  useEffect(() => {
+    if (qrCodes.privateId && qrCodes.publicId) {
+      setOtp('');
+      setShowQR(true);
+    }
+  }, [qrCodes]);
 
   const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/metadata/`;
 
@@ -245,14 +251,6 @@ export function TransferRequestModule() {
               )}
             </div>
           </div>
-
-          <Button
-            onClick={() => setShowQR(false)}
-            className="mt-8 bg-[#0067CC]"
-            variant="default"
-          >
-            Upload Another Document
-          </Button>
         </div>
       )}
     </section>
