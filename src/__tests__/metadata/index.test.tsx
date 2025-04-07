@@ -38,7 +38,7 @@ describe('MetadataModule', () => {
 
     // Check that dividers are present (can check number of dividers if needed)
     const dividers = screen.getAllByTestId('divider');
-    expect(dividers.length).toBe(2);
+    expect(dividers.length).toBe(3);
   });
 });
 

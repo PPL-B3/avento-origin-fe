@@ -1,6 +1,12 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { useParams } from 'next/navigation';
+
+interface HistoryType {
+  email: string;
+  datetime: string;
+}
 
 function InformationRow({
   label,
@@ -51,9 +57,43 @@ export function MetadataModule() {
     qr_code: string;
   }>();
 
+  const formatDateTime = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+
+    const formattedDate = date.toLocaleDateString('id-ID', options);
+    const formattedTime = date.toLocaleTimeString('id-ID', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    });
+
+    return `${formattedDate} ${formattedTime}`;
+  };
+
   const DOCUMENT_NAME = 'Akte Kelahiran';
   const DOCUMENT_OWNER = 'natnanda04@gmail.com';
   const DOCUMENT_TYPE = 'Tipe';
+  const IS_OWNER = true;
+  const HISTORY = [
+    {
+      email: 'a@gmail.com',
+      datetime: '2023-10-01 12:00:00',
+    },
+    {
+      email: 'b@gmail.com',
+      datetime: '2023-10-02 12:00:00',
+    },
+    {
+      email: 'c@gmail.com',
+      datetime: '2023-10-03 12:00:00',
+    },
+  ];
 
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
@@ -70,7 +110,37 @@ export function MetadataModule() {
           />
           <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
           <InformationRow label="Document Type" value={DOCUMENT_TYPE} />
+          {IS_OWNER && (
+            <>
+              <div
+                data-testid="divider"
+                className="w-full h-0.5 bg-neutral-950"
+              />
+              <div className="grid grid-cols-1 gap-3 px-3">
+                <p className="font-bold">Transfer History</p>
+                {HISTORY.map((history: HistoryType, index: number) => (
+                  <div key={index} className="flex gap-x-2">
+                    <p>
+                      {history.email} | {formatDateTime(history.datetime)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
+        {IS_OWNER && (
+          <div className="flex w-full justify-end">
+            <div className="w-fit flex flex-col gap-4">
+              <Button size="lg" variant="default">
+                Transfer Document
+              </Button>
+              <Button size="lg" variant="secondary">
+                View Document
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
