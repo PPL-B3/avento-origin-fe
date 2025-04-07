@@ -4,6 +4,7 @@ export interface HistoryType {
 }
 
 export interface DocumentMetadataResponse {
+  documentId: string;
   documentName: string;
   uploadDate: string;
   publisher: string;
