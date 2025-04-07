@@ -1,19 +1,34 @@
 'use client';
 
-import { ENDPOINTS, useAventoClient } from '@/components/core';
 import { useMutation } from 'react-query';
+import { toast } from 'sonner';
+import { ENDPOINTS, useAventoClient } from '@/components/core';
 
 export const useTransferDocument = () => {
   const client = useAventoClient();
 
-  return useMutation(
-    async ({ documentId, email }: { documentId: string; email: string }) => {
-      const { data } = await client.post(ENDPOINTS.TRANSFER_DOCUMENT, {
-        documentId,
-        email,
-      });
-
-      return data as { otp: string };
+  const { isLoading, mutateAsync: onTransferDocument } = useMutation(
+    'transfer-document',
+    {
+      mutationFn: async (data: { documentId: string; pendingOwner: string }) => {
+      const res = await client.post(ENDPOINTS.TRANSFER_DOCUMENT, data);
+      return res.data as { otp: string };
+    },
+      onError: (error: any) => {
+        const errorMessage =
+          error?.response?.data?.message || error?.message || 'Something went wrong.';
+        toast.error(errorMessage);
+      },
+      onSuccess: () => {
+        toast.success('Email valid, OTP dikirim!');
+      },
     }
   );
+
+  const isLoadingTransferDocument = isLoading;
+
+  return {
+    onTransferDocument,
+    isLoadingTransferDocument,
+  };
 };
