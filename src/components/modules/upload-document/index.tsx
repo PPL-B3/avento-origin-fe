@@ -54,14 +54,48 @@ export function UploadDocumentModule() {
     }
   };
 
-  const baseUrl = 'avento.com/qr/';
+  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/`;
+
+  const downloadQRCode = (id: string, filename: string) => {
+    const svg = document.getElementById(id);
+    if (!svg) return;
+
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const img = new Image();
+    const svgBlob = new Blob([svgData], {
+      type: 'image/svg+xml;charset=utf-8',
+    });
+    const url = URL.createObjectURL(svgBlob);
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx?.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+
+      const pngUrl = canvas.toDataURL('image/png');
+      const downloadLink = document.createElement('a');
+      downloadLink.href = pngUrl;
+      downloadLink.download = `${filename}.png`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    };
+
+    img.src = url;
+  };
 
   return (
     <section
       data-testid="upload-document-module"
       className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50"
     >
-      <h4 className="w-full text-center text-4xl font-bold">UPLOAD HERE!</h4>
+      <h4 className="w-full text-center text-4xl font-bold">
+        {!showQR ? 'UPLOAD HERE!' : 'UPLOAD SUCCESSFUL!'}
+      </h4>
 
       {!showQR ? (
         <Form {...form}>
@@ -96,19 +130,55 @@ export function UploadDocumentModule() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
             <div className="flex flex-col items-center bg-white p-6 rounded-lg">
               <h5 className="text-black text-xl font-semibold mb-4">
-                Private QR Code {qrCodes.privateId}
+                Private QR Code
               </h5>
               {qrCodes.privateId && (
                 <>
-                  <QRCode
-                    value={`${baseUrl}${qrCodes.privateId}`}
-                    size={200}
-                    style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
-                    viewBox={`0 0 256 256`}
-                  />
-                  <p className="text-black mt-4 text-center break-all">
+                  <div id="private-qr-container">
+                    <QRCode
+                      id="private-qr"
+                      value={`${baseUrl}${qrCodes.privateId}`}
+                      size={200}
+                      style={{
+                        height: 'auto',
+                        maxWidth: '100%',
+                        width: '100%',
+                      }}
+                      viewBox={`0 0 256 256`}
+                    />
+                  </div>
+                  <div className="flex gap-2 mt-4">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => {
+                        navigator.clipboard.writeText(qrCodes.privateId);
+                        toast.success('Copied to clipboard');
+                      }}
+                      className="text-xs"
+                    >
+                      Copy URL
+                    </Button>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() =>
+                        downloadQRCode(
+                          'private-qr',
+                          `private-${qrCodes.privateId}`
+                        )
+                      }
+                      className="text-xs"
+                    >
+                      Download QR
+                    </Button>
+                  </div>
+                  <p className="text-black mt-4 text-center break-all font-bold">
                     URL: {baseUrl}
                     {qrCodes.privateId}
+                  </p>
+                  <p className="mt-3">
+                    Penggunaan PRIBADI. Untuk transfer dokumen & lihat dokumen
                   </p>
                 </>
               )}
@@ -116,19 +186,56 @@ export function UploadDocumentModule() {
 
             <div className="flex flex-col items-center bg-white p-6 rounded-lg">
               <h5 className="text-black text-xl font-semibold mb-4">
-                Public QR Code 2
+                Public QR Code
               </h5>
               {qrCodes.publicId && (
                 <>
-                  <QRCode
-                    value={`${baseUrl}${qrCodes.publicId}`}
-                    size={200}
-                    style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
-                    viewBox={`0 0 256 256`}
-                  />
-                  <p className="text-black mt-4 text-center break-all">
+                  <div id="public-qr-container">
+                    <QRCode
+                      id="public-qr"
+                      value={`${baseUrl}${qrCodes.publicId}`}
+                      size={200}
+                      style={{
+                        height: 'auto',
+                        maxWidth: '100%',
+                        width: '100%',
+                      }}
+                      viewBox={`0 0 256 256`}
+                    />
+                  </div>
+                  <div className="flex gap-2 mt-4">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => {
+                        navigator.clipboard.writeText(qrCodes.publicId);
+                        toast.success('Copied to clipboard');
+                      }}
+                      className="text-xs"
+                    >
+                      Copy URL
+                    </Button>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() =>
+                        downloadQRCode(
+                          'public-qr',
+                          `public-${qrCodes.publicId}`
+                        )
+                      }
+                      className="text-xs"
+                    >
+                      Download QR
+                    </Button>
+                  </div>
+                  <p className="text-black mt-4 text-center break-all font-bold">
                     URL: {baseUrl}
                     {qrCodes.publicId}
+                  </p>
+                  <p className="mt-3">
+                    Untuk disebarluaskan. Berisi email pemilik dokumen dan
+                    riwayat transfer dokumen
                   </p>
                 </>
               )}
