@@ -12,7 +12,10 @@ export async function middleware(request: NextRequest) {
   if (!tokenCookie || !userCookie) {
     if (
       nextUrl.pathname !== '/auth/login' &&
-      nextUrl.pathname !== '/auth/register'
+      nextUrl.pathname !== '/auth/register' &&
+      !nextUrl.pathname.startsWith('/design-system') &&
+      !nextUrl.pathname.startsWith('/metadata') &&
+      !nextUrl.pathname.startsWith('/transfer-request')
     ) {
       return NextResponse.redirect(new URL('/auth/login', request.url));
     }
@@ -25,7 +28,11 @@ export async function middleware(request: NextRequest) {
 
     // Redirection for user role
     if (user.role === 'user') {
-      if (nextUrl.pathname !== '/upload-document') {
+      if (
+        nextUrl.pathname !== '/upload-document' &&
+        !nextUrl.pathname.startsWith('/metadata') &&
+        nextUrl.pathname !== '/audit-log'
+      ) {
         return NextResponse.redirect(new URL('/upload-document', request.url));
       }
       return NextResponse.next();

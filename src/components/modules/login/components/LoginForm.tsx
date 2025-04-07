@@ -29,13 +29,8 @@ export const LoginForm = () => {
       toast.error('Email tidak valid!');
       return;
     }
-    if (password.search(/\d/) < 0) {
-      toast.error('Password harus memiliki minimal 1 angka!');
-      return;
-    }
-
-    if (password.search(/[a-zA-Z]/) < 0) {
-      toast.error('Password harus memiliki minimal 1 huruf!');
+    if (password.length < 8) {
+      toast.error('Password harus memiliki minimal 8 karakter!');
       return;
     }
 
