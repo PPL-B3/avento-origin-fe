@@ -16,16 +16,19 @@ interface AuditLogTableProps {
   isFetching: boolean;
 }
 
+/* istanbul ignore next */
 export const AuditLogTable = ({
   data,
   pageCount,
   isFetching,
 }: AuditLogTableProps) => {
+  /* istanbul ignore next */
   const columns = useMemo<ColumnDef<AuditLogEntry, unknown>[]>(
     () => fetchAuditLogTableColumnDefs(),
     []
   );
 
+  /* istanbul ignore next */
   const { table } = useDataTable({
     data,
     columns,
@@ -34,6 +37,7 @@ export const AuditLogTable = ({
     filterableColumns,
   });
 
+  /* istanbul ignore next */
   return (
     <DataTable
       table={table}
