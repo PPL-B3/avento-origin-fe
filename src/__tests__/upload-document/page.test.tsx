@@ -1,6 +1,6 @@
 import { UploadDocumentModule } from '@/components';
 import { render, screen } from '@testing-library/react';
-import UploadDocumentPage from '../../app/(routes)/upload-document/page';
+import UploadDocumentPage from '../../app/(routes)/(user)/upload-document/page';
 
 // Mock the UploadDocumentModule component
 jest.mock('@/components', () => ({

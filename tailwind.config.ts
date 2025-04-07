@@ -24,16 +24,15 @@ export default {
           foreground: 'hsl(var(--popover-foreground))',
         },
         primary: {
-          900: '#1F327E',
-          800: '#2F4CBC',
-          700: '#3F66FB',
-          600: '#9FB2FD',
-          500: '#FF5D00',
+          1: '#001D3D',
+          2: '#FFFFFF',
+          3: '#FF5D00',
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          sec: '#0067CC',
+          1: '#E6EEF4',
+          2: '#0067CC',
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
@@ -69,12 +68,10 @@ export default {
         sans: ['Inter', 'sans-serif'],
       },
       fontSize: {
-        'paragraph-xl': ['48px', { lineHeight: '32px' }],
-        'paragraph-lg': ['36px', { lineHeight: '24px' }],
-        'paragraph-md': ['32px', { lineHeight: '20px' }],
-        'paragraph-sm': ['28px', { lineHeight: '18px', letterSpacing: '2%' }],
-        'paragraph-xs': ['24px', { lineHeight: '16px', letterSpacing: '2%' }],
-        'paragraph-xxs': ['24px', { lineHeight: '14px', letterSpacing: '2%' }],
+        // Simplified typography system
+        title: ['1.5rem', { lineHeight: '2rem', fontWeight: '700' }],
+        subtitle: ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+        body: ['1rem', { lineHeight: '1.5rem' }],
       },
     },
   },
@@ -82,4 +79,4 @@ export default {
 } satisfies Config;
 
 // navy: "#001D3D",
-//         orange: "#FF5D00",
+// orange: "#FF5D00",
