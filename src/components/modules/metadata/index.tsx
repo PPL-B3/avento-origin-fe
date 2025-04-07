@@ -143,7 +143,7 @@ export function MetadataModule() {
         {data?.filePath && (
           <div className="flex w-full justify-end">
             <div className="w-fit flex flex-col gap-4">
-              {/* <Button
+              <Button
                 size="lg"
                 variant="default"
                 onClick={() => {
@@ -151,7 +151,7 @@ export function MetadataModule() {
                 }}
               >
                 Transfer Document
-              </Button> */}
+              </Button>
               {data?.documentId && (
                 <TransferDocumentModal documentId={data.documentId} />
               )}

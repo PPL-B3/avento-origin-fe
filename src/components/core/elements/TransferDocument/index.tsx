@@ -32,8 +32,8 @@ export function TransferDocumentModal({ documentId }: { documentId: string }) {
 
       setOpenTransferDialog(false);
       setOpenOtpDialog(true);
-    } catch (err: any) {
-      toast.error(err?.response?.data?.message || 'Something went wrong');
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Something went wrong');
     }
   };
 

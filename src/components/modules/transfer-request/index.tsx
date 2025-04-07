@@ -4,15 +4,14 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export function TransferRequestModule() {
-  const { qr_code } = useParams<{
-    qr_code: string;
-  }>();
+  // const { qr_code } = useParams<{
+  //   qr_code: string;
+  // }>();
 
-  const router = useRouter();
+  // const router = useRouter();
   const [otp, setOtp] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
