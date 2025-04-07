@@ -4,11 +4,11 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
+import { encryptEmail } from '../metadata';
 import { UseMetadata } from '../metadata/hooks/use-metadata';
 import { useClaimDocument } from './hooks/use-claim-document';
-import { encryptEmail } from '../metadata';
 
 export function TransferRequestModule() {
   const { qr_code } = useParams<{
@@ -44,7 +44,10 @@ export function TransferRequestModule() {
 
         <div>
           <p className="text-xs">
-            From: <span className="font-semibold">{encryptEmail(data?.currentOwner ?? '')}</span>
+            From:{' '}
+            <span className="font-semibold">
+              {encryptEmail(data?.currentOwner ?? '')}
+            </span>
           </p>
           <p className="text-xs">
             Document Name:{' '}

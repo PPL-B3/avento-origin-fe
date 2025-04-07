@@ -16,7 +16,8 @@ export function TransferDocumentModal({ documentId }: { documentId: string }) {
   const [openTransferDialog, setOpenTransferDialog] = useState(false);
   const [openOtpDialog, setOpenOtpDialog] = useState(false);
 
-  const { onTransferDocument, isLoadingTransferDocument } = useTransferDocument();
+  const { onTransferDocument, isLoadingTransferDocument } =
+    useTransferDocument();
 
   const handleSubmit = async () => {
     const result = emailSchema.safeParse(email);
@@ -24,7 +25,7 @@ export function TransferDocumentModal({ documentId }: { documentId: string }) {
       toast.error('Email tidak valid');
       return;
     }
-    
+
     const res = await onTransferDocument({ documentId, pendingOwner: email });
     setOtp(res.otp);
     setOpenTransferDialog(false);
