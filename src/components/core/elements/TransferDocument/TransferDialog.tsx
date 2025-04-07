@@ -15,6 +15,7 @@ interface TransferDialogProps {
   email: string;
   setEmail: (email: string) => void;
   onSubmit: () => void;
+  isLoading: boolean;
 }
 
 export function TransferDialog({
@@ -23,6 +24,7 @@ export function TransferDialog({
   email,
   setEmail,
   onSubmit,
+  isLoading,
 }: Readonly<TransferDialogProps>) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -52,13 +54,11 @@ export function TransferDialog({
         <DialogFooter className="mt-4">
           <Button
             variant="default"
-            onClick={() => {
-              onSubmit();
-            }}
-            disabled={!email}
+            onClick={onSubmit}
+            disabled={!email || isLoading}
             className="w-3/5 text-md font-semibold rounded-lg"
           >
-            Send
+            {isLoading ? 'Sending...' : 'Send'}
           </Button>
         </DialogFooter>
       </DialogContent>
