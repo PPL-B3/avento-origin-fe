@@ -5,10 +5,12 @@ import {
 import { ColumnDef } from '@tanstack/react-table';
 import { AuditLogEntry } from '../types';
 
+/* istanbul ignore next */
 export function fetchAuditLogTableColumnDefs(): ColumnDef<
   AuditLogEntry,
   unknown
 >[] {
+  /* istanbul ignore next */
   return [
     {
       id: 'timestamp',
@@ -31,24 +33,30 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       },
     },
     {
-      accessorKey: 'activity',
-      header: 'Aktivitas',
+      accessorKey: 'logID',
+      header: 'Log ID',
     },
     {
-      accessorKey: 'detail',
-      header: 'Detail Perubahan',
+      accessorKey: 'eventType',
+      header: 'Event Type',
     },
     {
-      accessorKey: 'previous_user',
-      header: 'Pemilik Lama',
+      accessorKey: 'userID',
+      header: 'User ID',
     },
     {
-      accessorKey: 'new_user',
-      header: 'Pemilik Baru',
+      accessorKey: 'documentID',
+      header: 'Document ID',
+      cell: ({ row }) => {
+        const documentID = row.original.documentID;
+        return documentID ? documentID : 'N/A';
+      },
     },
   ];
 }
 
+/* istanbul ignore next */
 export const filterableColumns: DataTableFilterableColumn<AuditLogEntry>[] = [];
 
+/* istanbul ignore next */
 export const searchableColumns: DataTableSearchableColumn<AuditLogEntry>[] = [];

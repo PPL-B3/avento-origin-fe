@@ -3,5 +3,6 @@ export class ENDPOINTS {
   static readonly REGISTER = `/auth/register`;
   static readonly LOGIN = `/auth/login`;
   static readonly LOGOUT = `/auth/logout`;
-  static readonly METADATA = '/documents/view';
+  static readonly AUDIT_LOG = `/audit-log`;
+  static readonly METADATA = `/documents/view`;
 }
