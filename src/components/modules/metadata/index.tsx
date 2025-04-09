@@ -2,7 +2,7 @@
 
 import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { Button } from '@/components/ui/button';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { UseMetadata } from './hooks/use-metadata';
 import { HistoryType } from './types';
 
@@ -75,8 +75,6 @@ export function MetadataModule() {
     qr_code: string;
   }>();
 
-  const router = useRouter();
-
   const { data, isFetching } = UseMetadata(qr_code);
 
   /* istanbul ignore next */
@@ -143,15 +141,6 @@ export function MetadataModule() {
         {data?.filePath && (
           <div className="flex w-full justify-end">
             <div className="w-fit flex flex-col gap-4">
-              <Button
-                size="lg"
-                variant="default"
-                onClick={() => {
-                  router.push(`${data.filePath}`);
-                }}
-              >
-                Transfer Document
-              </Button>
               {data?.documentId && (
                 <TransferDocumentModal documentId={data.documentId} />
               )}

@@ -16,7 +16,8 @@ export function TransferDocumentModal({ documentId }: { documentId: string }) {
   const [openTransferDialog, setOpenTransferDialog] = useState(false);
   const [openOtpDialog, setOpenOtpDialog] = useState(false);
 
-  const transferMutation = useTransferDocument();
+  const { onTransferDocument, isLoadingTransferDocument } =
+    useTransferDocument();
 
   const handleSubmit = async () => {
     const result = emailSchema.safeParse(email);
@@ -25,15 +26,20 @@ export function TransferDocumentModal({ documentId }: { documentId: string }) {
       return;
     }
 
-    try {
-      const res = await transferMutation.mutateAsync({ documentId, email });
-      setOtp(res.otp); // simpan OTP dari backend
-      toast.success('Email valid, OTP dikirim!');
+    const loadingToastId = toast.loading(
+      'Memproses permintaan transfer dokumen...'
+    );
 
+    try {
+      const res = await onTransferDocument({ documentId, pendingOwner: email });
+      setOtp(res.otp);
       setOpenTransferDialog(false);
       setOpenOtpDialog(true);
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Something went wrong');
+    } catch (error) {
+      console.error(error);
+      toast.error('Terjadi kesalahan saat mentransfer dokumen');
+    } finally {
+      toast.dismiss(loadingToastId);
     }
   };
 
@@ -53,6 +59,7 @@ export function TransferDocumentModal({ documentId }: { documentId: string }) {
         email={email}
         setEmail={setEmail}
         onSubmit={handleSubmit}
+        isLoading={isLoadingTransferDocument}
       />
 
       <OtpDialog

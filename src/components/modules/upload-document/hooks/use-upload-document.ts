@@ -47,7 +47,6 @@ export const useUploadDocument = () => {
         const response = await promise;
         // Store the QR IDs from the response
 
-        console.log('Response:', response);
         if (
           response.data &&
           response.data.privateId &&
