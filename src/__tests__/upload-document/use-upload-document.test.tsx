@@ -221,4 +221,116 @@ describe('useUploadDocument', () => {
     // Should no longer be in loading state
     expect(result.current.isLoadingUploadDocument).toBe(false);
   });
+  it('should store QR codes after successful upload', async () => {
+    const mockResponse = {
+      data: {
+        message: 'Document uploaded successfully',
+        privateId: 'mock-private-id',
+        publicId: 'mock-public-id',
+      },
+    };
+    mockClient.post.mockResolvedValueOnce(mockResponse);
+
+    const { result } = renderHook(() => useUploadDocument(), {
+      wrapper: createWrapper(),
+    });
+
+    const mockFile = new File(['test'], 'test.pdf', {
+      type: 'application/pdf',
+    });
+    const mockValues = {
+      documentName: 'Test Document',
+      ownerName: 'Test Owner',
+      file: mockFile,
+    };
+
+    await act(async () => {
+      await result.current.onUploadDocument(mockValues);
+    });
+
+    expect(result.current.qrCodes).toEqual({
+      privateId: 'mock-private-id',
+      publicId: 'mock-public-id',
+    });
+  });
+  it('should store QR codes from successful response', async () => {
+    // Mock successful response with QR codes
+    const mockResponse = {
+      data: {
+        message: 'Document uploaded successfully',
+        privateId: 'private-qr-id',
+        publicId: 'public-qr-id',
+      },
+    };
+    mockClient.post.mockResolvedValueOnce(mockResponse);
+
+    const { result } = renderHook(() => useUploadDocument(), {
+      wrapper: createWrapper(),
+    });
+
+    const mockFile = new File(['test'], 'test.pdf', {
+      type: 'application/pdf',
+    });
+    const mockValues = {
+      documentName: 'Test Document',
+      ownerName: 'Test Owner',
+      file: mockFile,
+    };
+
+    await act(async () => {
+      await result.current.onUploadDocument(mockValues);
+    });
+
+    // Verify QR codes are stored correctly
+    expect(result.current.qrCodes).toEqual({
+      privateId: 'private-qr-id',
+      publicId: 'public-qr-id',
+    });
+  });
+
+  it('should not store QR codes if they are missing from response', async () => {
+    // Mock successful response without QR codes
+    const mockResponse = {
+      data: {
+        message: 'Document uploaded successfully',
+        // No privateId or publicId
+      },
+    };
+    mockClient.post.mockResolvedValueOnce(mockResponse);
+
+    const { result } = renderHook(() => useUploadDocument(), {
+      wrapper: createWrapper(),
+    });
+
+    const mockFile = new File(['test'], 'test.pdf', {
+      type: 'application/pdf',
+    });
+    const mockValues = {
+      documentName: 'Test Document',
+      ownerName: 'Test Owner',
+      file: mockFile,
+    };
+
+    await act(async () => {
+      await result.current.onUploadDocument(mockValues);
+    });
+
+    // Verify QR codes remain empty
+    expect(result.current.qrCodes).toEqual({
+      privateId: '',
+      publicId: '',
+    });
+  });
+
+  it('should initialize with empty QR codes', () => {
+    const { result } = renderHook(() => useUploadDocument(), {
+      wrapper: createWrapper(),
+    });
+
+    // Verify initial state
+    expect(result.current.qrCodes).toEqual({
+      privateId: '',
+      publicId: '',
+    });
+  });
 });
