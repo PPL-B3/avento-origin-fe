@@ -68,7 +68,8 @@ jobs:
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
           flavor: |
             latest=false
-            prefix=${{ steps.extract_branch.outputs.BRANCH_NAME }}-,enable=${{ github.ref != 'refs/heads/main' }}
+            prefix=${{ steps.extract_branch.outputs.BRANCH_NAME }}-
+            enable=${{ github.ref != 'refs/heads/main' }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
