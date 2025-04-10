@@ -9,16 +9,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  versioning-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -33,39 +36,46 @@ jobs:
       - name: Install dependencies
         run: pnpm install --ignore-scripts
 
+      - name: Semantic Release
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/exec
+          BRANCH="${GITHUB_REF#refs/heads/}"
+          
+          # Configure semantic-release based on branch
+          if [ "$BRANCH" = "main" ]; then
+            RELEASE_BRANCH="main"
+            PRE_RELEASE=false
+          elif [ "$BRANCH" = "staging" ]; then
+            RELEASE_BRANCH="staging"
+            PRE_RELEASE=true
+          else
+            RELEASE_BRANCH="dev"
+            PRE_RELEASE=true
+          fi
+          
+          # Run semantic-release
+          VERSION=$(semantic-release --branches $RELEASE_BRANCH --no-ci --dry-run | grep -oP 'Published release \K[0-9]+\.[0-9]+\.[0-9]+' || echo "0.0.0")
+          
+          if [ "$PRE_RELEASE" = true ]; then
+            # Add branch-specific prerelease identifier
+            VERSION="${VERSION}-${BRANCH}.$(date +%s)"
+          fi
+          
+          echo "New version: v${VERSION}"
+          echo "VERSION=v${VERSION}" >> $GITHUB_ENV
+          
+          # Actually run semantic-release (not dry run)
+          semantic-release --branches $RELEASE_BRANCH --no-ci
+
       - name: Build
         run: pnpm build
         env:
           NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
           LOGROCKET_ID: ${{ secrets.LOGROCKET_ID }}
-      - name: Extract branch name
-        id: extract_branch
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')" >> $GITHUB_ENV
-
-      - name: Set flavor
-        id: set_flavor
-        run: |
-          if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
-            echo "FLAVOR=prefix=${{ env.BRANCH_NAME }}-,latest=false" >> $GITHUB_ENV
-          else
-            echo "FLAVOR=latest=false" >> $GITHUB_ENV
-          fi
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ secrets.DOCKER_USERNAME }}/avento-origin-fe
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=ref,event=branch
-            type=ref,event=pr
-            type=sha,format=short
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-          flavor: ${{ env.FLAVOR }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -75,6 +85,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/avento-origin-fe
+          tags: |
+            type=raw,value=${{ env.VERSION }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -109,7 +128,7 @@ jobs:
           fi
 
           gcloud run deploy $service_name \
-            --image ${{ secrets.DOCKER_USERNAME }}/avento-origin-fe:${{ env.BRANCH_NAME }}-${{ steps.meta.outputs.version }} \
+            --image ${{ secrets.DOCKER_USERNAME }}/avento-origin-fe:${{ env.VERSION }} \
             --platform managed \
             --region asia-southeast2 \
             --max-instances 5 \
