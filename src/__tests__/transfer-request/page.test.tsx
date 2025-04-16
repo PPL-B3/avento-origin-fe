@@ -148,15 +148,28 @@ describe('TransferRequestModule', () => {
       qrCodes: { privateId: 'private123', publicId: 'public123' },
     });
 
+    const mockWriteText = jest.fn().mockImplementation(() => Promise.resolve());
     Object.assign(navigator, {
       clipboard: {
-        writeText: jest.fn().mockImplementation(() => Promise.resolve()),
+        writeText: mockWriteText,
       },
     });
 
     process.env.NEXT_PUBLIC_BASE_URL = 'https://example.com';
 
     render(<TransferRequestModule />);
+
+    // Find and click the first Copy URL button
+    const copyButtons = screen.getAllByText('Copy URL');
+    fireEvent.click(copyButtons[0]);
+
+    // Verify clipboard.writeText was called with the correct URL
+    expect(mockWriteText).toHaveBeenCalledWith(
+      'https://example.com/metadata/private123'
+    );
+    expect(require('sonner').toast.success).toHaveBeenCalledWith(
+      'Copied to clipboard'
+    );
   });
 
   it('returns null when isFetching is true', () => {
