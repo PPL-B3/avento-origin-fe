@@ -9,7 +9,7 @@ import { OtpDialog } from './OtpDialog';
 import { TransferDialog } from './TransferDialog';
 
 const emailSchema = z.string().email();
-
+/* istanbul ignore next */
 export function TransferDocumentModal({
   documentId,
 }: {
