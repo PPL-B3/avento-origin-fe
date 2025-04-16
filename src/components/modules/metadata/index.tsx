@@ -117,16 +117,17 @@ export function MetadataModule() {
                     />
                     <div className="grid grid-cols-1 gap-3 px-3">
                       <p className="font-bold">Transfer History</p>
-                      {data.ownershipHistory.map(
-                        (history: HistoryType) => (
-                          <div key={`${history.owner}-${history.generatedDate}`} className="flex gap-x-2">
-                            <p>
-                              {history.owner} |{' '}
-                              {formatDateTime(history.generatedDate)}
-                            </p>
-                          </div>
-                        )
-                      )}
+                      {data.ownershipHistory.map((history: HistoryType) => (
+                        <div
+                          key={`${history.owner}-${history.generatedDate}`}
+                          className="flex gap-x-2"
+                        >
+                          <p>
+                            {history.owner} |{' '}
+                            {formatDateTime(history.generatedDate)}
+                          </p>
+                        </div>
+                      ))}
                     </div>
                   </>
                 )}

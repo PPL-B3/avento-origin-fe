@@ -47,10 +47,7 @@ export const useUploadDocument = () => {
         const response = await promise;
         // Store the QR IDs from the response
 
-        if (
-          response.data?.privateId &&
-          response.data?.publicId
-        ) {
+        if (response.data?.privateId && response.data?.publicId) {
           setQrCodes({
             privateId: response.data.privateId,
             publicId: response.data.publicId,

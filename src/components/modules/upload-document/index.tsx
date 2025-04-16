@@ -13,6 +13,39 @@ import { z } from 'zod';
 import { useUploadDocument } from './hooks/use-upload-document';
 import { uploadDocumentSchema } from './schema';
 
+/* istanbul ignore next */
+export const downloadQRCode = (id: string, filename: string) => {
+  const svg = document.getElementById(id);
+  if (!svg) return;
+
+  const svgData = new XMLSerializer().serializeToString(svg);
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  const img = new Image();
+  const svgBlob = new Blob([svgData], {
+    type: 'image/svg+xml;charset=utf-8',
+  });
+  const url = URL.createObjectURL(svgBlob);
+
+  img.onload = () => {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx?.drawImage(img, 0, 0);
+    URL.revokeObjectURL(url);
+
+    const pngUrl = canvas.toDataURL('image/png');
+    const downloadLink = document.createElement('a');
+    downloadLink.href = pngUrl;
+    downloadLink.download = `${filename}.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
+  img.src = url;
+};
+
 export function UploadDocumentModule() {
   const [file, setFile] = useState<SubmissionProps>({
     file: null,
@@ -47,7 +80,7 @@ export function UploadDocumentModule() {
     setShowQR(false);
 
     try {
-      await onUploadDocument(values);
+      onUploadDocument(values);
     } catch (error) {
       toast.error('Failed to upload document');
       console.error(error);
@@ -62,39 +95,6 @@ export function UploadDocumentModule() {
   }, [qrCodes]);
 
   const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/metadata/`;
-
-  /* istanbul ignore next */
-  const downloadQRCode = (id: string, filename: string) => {
-    const svg = document.getElementById(id);
-    if (!svg) return;
-
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const img = new Image();
-    const svgBlob = new Blob([svgData], {
-      type: 'image/svg+xml;charset=utf-8',
-    });
-    const url = URL.createObjectURL(svgBlob);
-
-    img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx?.drawImage(img, 0, 0);
-      URL.revokeObjectURL(url);
-
-      const pngUrl = canvas.toDataURL('image/png');
-      const downloadLink = document.createElement('a');
-      downloadLink.href = pngUrl;
-      downloadLink.download = `${filename}.png`;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-    };
-
-    img.src = url;
-  };
 
   /* istanbul ignore next */
   return (

@@ -10,6 +10,7 @@ import QRCode from 'react-qr-code';
 import { toast } from 'sonner';
 import { encryptEmail } from '../metadata';
 import { UseMetadata } from '../metadata/hooks/use-metadata';
+import { downloadQRCode } from '../upload-document';
 import { useClaimDocument } from './hooks/use-claim-document';
 
 export function TransferRequestModule() {
@@ -40,39 +41,6 @@ export function TransferRequestModule() {
   }, [qrCodes]);
 
   const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/metadata/`;
-
-  /* istanbul ignore next */
-  const downloadQRCode = (id: string, filename: string) => {
-    const svg = document.getElementById(id);
-    if (!svg) return;
-
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const img = new Image();
-    const svgBlob = new Blob([svgData], {
-      type: 'image/svg+xml;charset=utf-8',
-    });
-    const url = URL.createObjectURL(svgBlob);
-
-    img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx?.drawImage(img, 0, 0);
-      URL.revokeObjectURL(url);
-
-      const pngUrl = canvas.toDataURL('image/png');
-      const downloadLink = document.createElement('a');
-      downloadLink.href = pngUrl;
-      downloadLink.download = `${filename}.png`;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-    };
-
-    img.src = url;
-  };
 
   if (isFetching) {
     return null;
