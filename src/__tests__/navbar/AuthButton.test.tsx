@@ -25,7 +25,17 @@ describe('AuthButtons Component', () => {
   });
 
   it('renders logout button when user is logged in', () => {
-    render(<AuthButtons user={{ id: '1', name: 'dul' }} logout={mockLogout} />);
+    render(
+      <AuthButtons
+        user={{
+          id: '1',
+          email: 'john-doe@gmail.com',
+          role: 'user',
+          lastLogout: new Date().toISOString(),
+        }}
+        logout={mockLogout}
+      />
+    );
 
     const logoutButton = screen.getByText('Logout');
     expect(logoutButton).toBeInTheDocument();
@@ -41,7 +51,17 @@ describe('AuthButtons Component', () => {
   });
 
   it('calls logout function when logout button is clicked', () => {
-    render(<AuthButtons user={{ id: '1', name: 'dul' }} logout={mockLogout} />);
+    render(
+      <AuthButtons
+        user={{
+          id: '1',
+          email: 'john-doe@gmail.com',
+          role: 'user',
+          lastLogout: new Date().toISOString(),
+        }}
+        logout={mockLogout}
+      />
+    );
 
     fireEvent.click(screen.getByText('Logout'));
     expect(mockLogout).toHaveBeenCalledTimes(1);

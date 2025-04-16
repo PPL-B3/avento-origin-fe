@@ -3,9 +3,7 @@
 import { AuditLogTable } from './elements';
 import { UseAuditLog } from './hooks';
 
-/* istanbul ignore next */
 export function AuditLogModule() {
-  /* istanbul ignore next */
   const { data, isFetching } = UseAuditLog();
 
   /* istanbul ignore next */
