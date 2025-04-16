@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { UploadDocumentModule } from '../../components/modules/upload-document/index';
+const { downloadQRCode } = require('@/components/modules/upload-document');
 
 // Mock dependencies
 jest.mock('sonner', () => ({
@@ -242,5 +243,41 @@ describe('LoginModule', () => {
     expect(screen.getByLabelText('Email')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
     expect(screen.getByText('Login')).toBeInTheDocument();
+  });
+
+  it('should test downloadQRCode function', () => {
+    // Setup document with mock SVG
+    const mockSvg = document.createElement('svg');
+    mockSvg.id = 'test-qr';
+    document.body.appendChild(mockSvg);
+
+    // Mock functions
+    const mockSerializeToString = jest.fn().mockReturnValue('<svg></svg>');
+    window.XMLSerializer = jest.fn().mockImplementation(() => ({
+      serializeToString: mockSerializeToString,
+    }));
+
+    const mockCreateObjectURL = jest.fn().mockReturnValue('blob:url');
+    URL.createObjectURL = mockCreateObjectURL;
+
+    const mockRevokeObjectURL = jest.fn();
+    URL.revokeObjectURL = mockRevokeObjectURL;
+
+    const mockToDataURL = jest
+      .fn()
+      .mockReturnValue('data:image/png;base64,test');
+    HTMLCanvasElement.prototype.toDataURL = mockToDataURL;
+
+    const mockClick = jest.fn();
+    HTMLAnchorElement.prototype.click = mockClick;
+
+    // Test downloadQRCode function
+    downloadQRCode('test-qr', 'test-filename');
+
+    // Verify expected behaviors
+    expect(mockCreateObjectURL).toHaveBeenCalled();
+
+    // Clean up
+    document.body.removeChild(mockSvg);
   });
 });

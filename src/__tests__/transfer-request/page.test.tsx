@@ -4,7 +4,6 @@ import { TransferRequestModule } from '@/components/modules/transfer-request';
 import { useClaimDocument } from '@/components/modules/transfer-request/hooks/use-claim-document';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { useParams } from 'next/navigation';
-import React from 'react';
 
 // Add ResizeObserver mock
 class ResizeObserverMock {

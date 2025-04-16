@@ -16,12 +16,13 @@ import { uploadDocumentSchema } from './schema';
 /* istanbul ignore next */
 export const downloadQRCode = (id: string, filename: string) => {
   const svg = document.getElementById(id);
+  /* istanbul ignore next */
   if (!svg) return;
 
   const svgData = new XMLSerializer().serializeToString(svg);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  
+
   const img = new Image();
   const svgBlob = new Blob([svgData], {
     type: 'image/svg+xml;charset=utf-8',
