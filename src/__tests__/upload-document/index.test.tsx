@@ -1,4 +1,5 @@
 import { FileInput, LoginModule } from '@/components';
+import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -279,5 +280,39 @@ describe('LoginModule', () => {
 
     // Clean up
     document.body.removeChild(mockSvg);
+  });
+
+  describe('TransferDocumentModal', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    // Mock useTransferDocument hook
+    const mockOnTransferDocument = jest.fn();
+    jest.mock('@/components/core/hooks/use-transfer-document', () => ({
+      useTransferDocument: () => ({
+        onTransferDocument: mockOnTransferDocument,
+        isLoadingTransferDocument: false,
+      }),
+    }));
+
+    it('renders transfer button correctly', () => {
+      render(<TransferDocumentModal documentId="test-doc-id" />, {
+        wrapper: createWrapper(),
+      });
+
+      expect(screen.getByText('Transfer Document')).toBeInTheDocument();
+    });
+
+    it('opens transfer dialog when button is clicked', () => {
+      render(<TransferDocumentModal documentId="test-doc-id" />, {
+        wrapper: createWrapper(),
+      });
+
+      const transferButton = screen.getByText('Transfer Document');
+      fireEvent.click(transferButton);
+
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
   });
 });
