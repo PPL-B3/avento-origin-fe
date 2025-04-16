@@ -2,8 +2,9 @@ import { encryptEmail } from '@/components/modules/metadata';
 import { UseMetadata } from '@/components/modules/metadata/hooks/use-metadata';
 import { TransferRequestModule } from '@/components/modules/transfer-request';
 import { useClaimDocument } from '@/components/modules/transfer-request/hooks/use-claim-document';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { useParams } from 'next/navigation';
+import React from 'react';
 
 // Add ResizeObserver mock
 class ResizeObserverMock {
@@ -118,26 +119,26 @@ describe('TransferRequestModule', () => {
 
   it('calls onClaimDocument when submitting the OTP', () => {
     const mockOnClaimDocument = jest.fn();
-
-    // Mock with an OTP that's already filled
     (useClaimDocument as jest.Mock).mockReturnValue({
       onClaimDocument: mockOnClaimDocument,
       isLoadingClaimDocument: false,
       qrCodes: { privateId: '', publicId: '' },
     });
 
-    // Create the element with the Verify button enabled
     render(<TransferRequestModule />);
 
-    // Get the button, which should be disabled initially
-    const button = screen.getByText('Verify');
-    expect(button).toBeDisabled();
+    // Find the OTP input and enter a value
+    const otpInput = screen.getByRole('textbox');
+    fireEvent.change(otpInput, { target: { value: '123456' } });
 
-    // Instead of mocking React.useState, mock the hook to return enabled button state
-    (useClaimDocument as jest.Mock).mockReturnValue({
-      onClaimDocument: mockOnClaimDocument,
-      isLoadingClaimDocument: false,
-      qrCodes: { privateId: '', publicId: '' },
+    // Button should now be enabled
+    const verifyButton = screen.getByText('Verify');
+    fireEvent.click(verifyButton);
+
+    // Verify onClaimDocument was called with the right parameters
+    expect(mockOnClaimDocument).toHaveBeenCalledWith({
+      documentId: '123',
+      otp: '123456',
     });
   });
 
