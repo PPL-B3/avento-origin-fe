@@ -9,12 +9,7 @@ import { OtpDialog } from './OtpDialog';
 import { TransferDialog } from './TransferDialog';
 
 const emailSchema = z.string().email();
-/* istanbul ignore next */
-export function TransferDocumentModal({
-  documentId,
-}: {
-  readonly documentId: string;
-}) {
+export function TransferDocumentModal({documentId,}: {readonly documentId: string;}) {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [openTransferDialog, setOpenTransferDialog] = useState(false);
@@ -23,6 +18,7 @@ export function TransferDocumentModal({
   const { onTransferDocument, isLoadingTransferDocument } =
     useTransferDocument();
 
+  /* istanbul ignore next */
   const handleSubmit = async () => {
     const result = emailSchema.safeParse(email);
     if (!result.success) {
@@ -47,6 +43,7 @@ export function TransferDocumentModal({
     }
   };
 
+  /* istanbul ignore next */
   return (
     <div>
       <Button

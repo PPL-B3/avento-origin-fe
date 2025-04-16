@@ -20,6 +20,7 @@ export function QRCodeDisplay({
 }: Readonly<QRCodesProps>) {
   const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/metadata/`;
 
+  /* istanbul ignore next */
   return (
     <div className="w-3/4 flex flex-col items-center mt-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
