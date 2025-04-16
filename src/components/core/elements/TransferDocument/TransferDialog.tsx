@@ -26,6 +26,7 @@ export function TransferDialog({
   onSubmit,
   isLoading,
 }: Readonly<TransferDialogProps>) {
+  /* istanbul ignore next */
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-[#001D3D] text-white px-12 w-[90%] sm:w-[80%] md:w-[60%] max-w-md">

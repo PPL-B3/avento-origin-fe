@@ -22,8 +22,8 @@ export const useTransferDocument = () => {
         message?: string;
       }) => {
         const errorMessage =
-          error?.response?.data?.message ||
-          error?.message ||
+          error?.response?.data?.message ??
+          error?.message ??
           'Something went wrong.';
         toast.error(errorMessage);
       },
