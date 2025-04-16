@@ -9,7 +9,11 @@ import { OtpDialog } from './OtpDialog';
 import { TransferDialog } from './TransferDialog';
 
 const emailSchema = z.string().email();
-export function TransferDocumentModal({documentId,}: {readonly documentId: string;}) {
+export function TransferDocumentModal({
+  documentId,
+}: {
+  readonly documentId: string;
+}) {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [openTransferDialog, setOpenTransferDialog] = useState(false);

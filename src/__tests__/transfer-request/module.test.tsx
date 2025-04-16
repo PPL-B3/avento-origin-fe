@@ -4,7 +4,9 @@ import { render, screen } from '@testing-library/react';
 
 // Mock the TransferRequestModule component
 jest.mock('@/components', () => ({
-  TransferRequestModule: jest.fn(() => <div data-testid="transfer-request-module" />),
+  TransferRequestModule: jest.fn(() => (
+    <div data-testid="transfer-request-module" />
+  )),
 }));
 
 describe('TransferRequestPage', () => {
