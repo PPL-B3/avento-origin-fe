@@ -35,7 +35,7 @@ export const useUploadDocument = () => {
           error: (error) => {
             const errorMessage = error.response?.data?.message;
             if (Array.isArray(errorMessage)) {
-              return errorMessage[0] || 'Something went wrong';
+              return errorMessage[0] ?? 'Something went wrong';
             } else if (typeof errorMessage === 'string') {
               return errorMessage;
             } else {
@@ -48,9 +48,8 @@ export const useUploadDocument = () => {
         // Store the QR IDs from the response
 
         if (
-          response.data &&
-          response.data.privateId &&
-          response.data.publicId
+          response.data?.privateId &&
+          response.data?.publicId
         ) {
           setQrCodes({
             privateId: response.data.privateId,

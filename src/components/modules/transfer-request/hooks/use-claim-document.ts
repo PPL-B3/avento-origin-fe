@@ -18,7 +18,7 @@ export const useClaimDocument = () => {
       const response = await promise;
       // Store the QR IDs from the response
 
-      if (response.data && response.data.privateId && response.data.publicId) {
+      if (response.data?.privateId && response.data?.publicId) {
         setQrCodes({
           privateId: response.data.privateId,
           publicId: response.data.publicId,
@@ -32,8 +32,8 @@ export const useClaimDocument = () => {
       message?: string;
     }) => {
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
+        error?.response?.data?.message ??
+        error?.message ??
         'Something went wrong.';
       toast.error(errorMessage);
     },

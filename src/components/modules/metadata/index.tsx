@@ -90,7 +90,7 @@ export function MetadataModule() {
           </div>
         ) : (
           <>
-            {!!data ? (
+            {data ? (
               <div className="flex flex-col gap-y-5">
                 <InformationRow
                   label="Document Name"
@@ -118,8 +118,8 @@ export function MetadataModule() {
                     <div className="grid grid-cols-1 gap-3 px-3">
                       <p className="font-bold">Transfer History</p>
                       {data.ownershipHistory.map(
-                        (history: HistoryType, index: number) => (
-                          <div key={index} className="flex gap-x-2">
+                        (history: HistoryType) => (
+                          <div key={`${history.owner}-${history.generatedDate}`} className="flex gap-x-2">
                             <p>
                               {history.owner} |{' '}
                               {formatDateTime(history.generatedDate)}
