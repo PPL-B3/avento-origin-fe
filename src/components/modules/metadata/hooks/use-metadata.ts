@@ -8,7 +8,7 @@ export const UseMetadata = (qr_id: string) => {
   const client = useAventoClient();
 
   const { data, isFetching, error } = useQuery<DocumentMetadataResponse, Error>(
-    ['get-my-project', status],
+    ['get-my-project'],
     {
       queryFn: async () => {
         const apiUrl = `${ENDPOINTS.METADATA}/${qr_id}`;

@@ -1,4 +1,4 @@
-name: Cloud Run CI/CD with Versioning
+name: Cloud Run CI/CD
 
 on:
   push:
@@ -13,59 +13,20 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-
-      - name: Read current version
-        id: read-version
-        run: |
-          VERSION=$(cat version.txt || echo "v0.0.0")
-          echo "Current version: $VERSION"
-          echo "CURRENT_VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Update version based on branch
-        id: update-version
-        run: |
-          current_version="${CURRENT_VERSION}"
-          major=$(echo $current_version | cut -d. -f1 | sed 's/v//')
-          minor=$(echo $current_version | cut -d. -f2)
-          patch=$(echo $current_version | cut -d. -f3)
-
-          branch="${GITHUB_REF#refs/heads/}"
-          echo "Branch: $branch"
-
-          if [ "$branch" == "main" ]; then
-            major=$((major + 1))
-            minor=0
-            patch=0
-          elif [ "$branch" == "staging" ]; then
-            minor=$((minor + 1))
-            patch=0
-          elif [ "$branch" == "dev" ]; then
-            patch=$((patch + 1))
-          fi
-
-          new_version="v$major.$minor.$patch"
-          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
-          echo "New version: $new_version"
-
-      - name: Write new version to file
-        run: |
-          echo "$NEW_VERSION" > version.txt
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "actions@github.com"
-          git add version.txt
-          git commit -m "Bump version to $NEW_VERSION [skip ci]"
-          git push origin ${GITHUB_REF#refs/heads/}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v3
@@ -74,6 +35,40 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --ignore-scripts
+
+      - name: Semantic Release
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/exec
+          BRANCH="${GITHUB_REF#refs/heads/}"
+
+          # Configure semantic-release based on branch
+          if [ "$BRANCH" = "main" ]; then
+            RELEASE_BRANCH="main"
+            PRE_RELEASE=false
+          elif [ "$BRANCH" = "staging" ]; then
+            RELEASE_BRANCH="staging"
+            PRE_RELEASE=true
+          else
+            RELEASE_BRANCH="dev"
+            PRE_RELEASE=true
+          fi
+
+          # Run semantic-release
+          VERSION=$(semantic-release --branches $RELEASE_BRANCH --no-ci --dry-run | grep -oP 'Published release \K[0-9]+\.[0-9]+\.[0-9]+' || echo "0.0.0")
+
+          if [ "$PRE_RELEASE" = true ]; then
+            # Add branch-specific prerelease identifier
+            VERSION="${VERSION}-${BRANCH}.$(date +%s)"
+          fi
+
+          echo "New version: v${VERSION}"
+          echo "VERSION=v${VERSION}" >> $GITHUB_ENV
+
+          # Actually run semantic-release (not dry run)
+          semantic-release --branches $RELEASE_BRANCH --no-ci
 
       - name: Build
         run: pnpm build
@@ -91,12 +86,22 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/avento-origin-fe
+          tags: |
+            type=raw,value=${{ env.VERSION }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/avento-origin-fe:${{ env.NEW_VERSION }},${{ secrets.DOCKER_USERNAME }}/avento-origin-fe:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
@@ -123,7 +128,7 @@ jobs:
           fi
 
           gcloud run deploy $service_name \
-            --image ${{ secrets.DOCKER_USERNAME }}/avento-origin-fe:${{ env.NEW_VERSION }} \
+            --image ${{ secrets.DOCKER_USERNAME }}/avento-origin-fe:${{ env.VERSION }} \
             --platform managed \
             --region asia-southeast2 \
             --max-instances 5 \

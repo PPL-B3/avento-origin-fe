@@ -1,8 +1,10 @@
-import { FileInput, LoginModule } from '@/components';
+import { AuditLogModule, FileInput, LoginModule } from '@/components';
+import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { UploadDocumentModule } from '../../components/modules/upload-document/index';
+const { downloadQRCode } = require('@/components/modules/upload-document');
 
 // Mock dependencies
 jest.mock('sonner', () => ({
@@ -242,5 +244,116 @@ describe('LoginModule', () => {
     expect(screen.getByLabelText('Email')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
     expect(screen.getByText('Login')).toBeInTheDocument();
+  });
+
+  it('should test downloadQRCode function', () => {
+    // Setup document with mock SVG
+    const mockSvg = document.createElement('svg');
+    mockSvg.id = 'test-qr';
+    document.body.appendChild(mockSvg);
+
+    // Mock functions
+    const mockSerializeToString = jest.fn().mockReturnValue('<svg></svg>');
+    window.XMLSerializer = jest.fn().mockImplementation(() => ({
+      serializeToString: mockSerializeToString,
+    }));
+
+    const mockCreateObjectURL = jest.fn().mockReturnValue('blob:url');
+    URL.createObjectURL = mockCreateObjectURL;
+
+    const mockRevokeObjectURL = jest.fn();
+    URL.revokeObjectURL = mockRevokeObjectURL;
+
+    const mockToDataURL = jest
+      .fn()
+      .mockReturnValue('data:image/png;base64,test');
+    HTMLCanvasElement.prototype.toDataURL = mockToDataURL;
+
+    const mockClick = jest.fn();
+    HTMLAnchorElement.prototype.click = mockClick;
+
+    // Test downloadQRCode function
+    downloadQRCode('test-qr', 'test-filename');
+
+    // Verify expected behaviors
+    expect(mockCreateObjectURL).toHaveBeenCalled();
+
+    // Clean up
+    document.body.removeChild(mockSvg);
+  });
+});
+
+describe('TransferDocumentModal', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  // Mock useTransferDocument hook
+  const mockOnTransferDocument = jest.fn();
+  jest.mock('@/components/core/hooks/use-transfer-document', () => ({
+    useTransferDocument: () => ({
+      onTransferDocument: mockOnTransferDocument,
+      isLoadingTransferDocument: false,
+    }),
+  }));
+
+  it('renders transfer button correctly', () => {
+    render(<TransferDocumentModal documentId="test-doc-id" />, {
+      wrapper: createWrapper(),
+    });
+
+    expect(screen.getByText('Transfer Document')).toBeInTheDocument();
+  });
+
+  it('opens transfer dialog when button is clicked', () => {
+    render(<TransferDocumentModal documentId="test-doc-id" />, {
+      wrapper: createWrapper(),
+    });
+
+    const transferButton = screen.getByText('Transfer Document');
+    fireEvent.click(transferButton);
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('renders correctly', () => {
+    // Mock the UseAuditLog hook
+    const mockData = [
+      {
+        id: '1',
+        user: 'test user',
+        action: 'created',
+        timestamp: '2023-01-01T00:00:00Z',
+      },
+    ];
+    jest.mock('@/components/modules/audit-log/list/hooks', () => ({
+      UseAuditLog: () => ({ data: mockData, isFetching: false }),
+    }));
+
+    render(<AuditLogModule />, { wrapper: createWrapper() });
+
+    expect(screen.getByText('Audit Log')).toBeInTheDocument();
+  });
+
+  it('shows loading state when fetching data', () => {
+    // Mock the UseAuditLog hook with loading state
+    jest.mock('@/components/modules/audit-log/list/hooks', () => ({
+      UseAuditLog: () => ({ data: null, isFetching: true }),
+    }));
+
+    render(<AuditLogModule />, { wrapper: createWrapper() });
+
+    expect(screen.getByText('Loading audit logs...')).toBeInTheDocument();
+  });
+
+  it('shows loading state when data is null', () => {
+    // Mock the UseAuditLog hook with null data
+    jest.mock('@/components/modules/audit-log/list/hooks', () => ({
+      UseAuditLog: () => ({ data: null, isFetching: false }),
+    }));
+
+    render(<AuditLogModule />, { wrapper: createWrapper() });
+
+    expect(screen.getByText('Loading audit logs...')).toBeInTheDocument();
   });
 });

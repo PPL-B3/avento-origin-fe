@@ -49,7 +49,7 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       header: 'Document ID',
       cell: ({ row }) => {
         const documentID = row.original.documentID;
-        return documentID ? documentID : 'N/A';
+        return documentID || 'N/A';
       },
     },
   ];
