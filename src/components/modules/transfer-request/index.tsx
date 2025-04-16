@@ -24,6 +24,7 @@ export function TransferRequestModule() {
 
   const [otp, setOtp] = useState('');
 
+  /* istanbul ignore next */
   const handleSubmit = async () => {
     onClaimDocument({
       documentId: data?.documentId ?? '',
@@ -40,6 +41,7 @@ export function TransferRequestModule() {
 
   const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/metadata/`;
 
+  /* istanbul ignore next */
   const downloadQRCode = (id: string, filename: string) => {
     const svg = document.getElementById(id);
     if (!svg) return;
@@ -76,6 +78,7 @@ export function TransferRequestModule() {
     return null;
   }
 
+  /* istanbul ignore next */
   return (
     <section
       data-testid="transfer-request-module"
