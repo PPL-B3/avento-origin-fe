@@ -9,6 +9,7 @@ describe('TransferDialog Component', () => {
     email: '',
     setEmail: jest.fn(),
     onSubmit: jest.fn(),
+    isLoading: false,
   };
 
   beforeEach(() => {
@@ -74,4 +75,19 @@ describe('TransferDialog Component', () => {
 
     expect(defaultProps.onOpenChange).toHaveBeenCalledWith(false);
   });
+  
+  it('disables Send button when email is empty', () => {
+    render(<TransferDialog {...defaultProps} email="" />);
+
+    const sendButton = screen.getByText('Send');
+    expect(sendButton).toBeDisabled();
+  });
+
+  it('disables Send button when isLoading is true', () => {
+    render(<TransferDialog {...defaultProps} isLoading={true} />);
+
+    const sendButton = screen.getByText('Sending...');
+    expect(sendButton).toBeDisabled();
+  }
+  );
 });
