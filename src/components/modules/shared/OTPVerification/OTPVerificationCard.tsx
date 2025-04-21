@@ -25,7 +25,7 @@ export function OTPVerificationCard({
   onSubmit,
   onResend,
   isResending,
-}: OtpVerificationCardProps) {
+}: Readonly<OtpVerificationCardProps>) {
   return (
     <div className="bg-white p-16 rounded-xl w-full max-w-md text-center space-y-4">
       <p className="text-2xl font-extrabold text-primary-1">{title}</p>

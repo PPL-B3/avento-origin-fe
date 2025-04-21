@@ -8,7 +8,7 @@ interface DocumentInfoProps {
 export function DocumentInfo({
   currentOwnerEmail,
   documentName,
-}: DocumentInfoProps) {
+}: Readonly<DocumentInfoProps>) {
   if (!currentOwnerEmail && !documentName) return null;
 
   return (

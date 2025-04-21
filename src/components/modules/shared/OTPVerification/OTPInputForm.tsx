@@ -21,7 +21,7 @@ export function OtpInputForm({
   onSubmit,
   onResend,
   isResending,
-}: OtpInputFormProps) {
+}: Readonly<OtpInputFormProps>) {
   return (
     <div className="flex flex-col items-center gap-4 w-full">
       <p className="text-primary-1 font-bold">Enter OTP:</p>
