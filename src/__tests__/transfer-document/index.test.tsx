@@ -60,7 +60,7 @@ describe('TransferDocumentModal', () => {
 
   it('submits valid email and triggers OTP process', async () => {
     renderWithQueryClient(<TransferDocumentModal documentId={'123'} />);
-    
+
     await userEvent.click(screen.getByText('Transfer Document'));
     await userEvent.type(
       screen.getByPlaceholderText('abc@gmail.com'),
@@ -144,6 +144,4 @@ describe('TransferDocumentModal', () => {
     await userEvent.click(screen.getByText('Transfer Document'));
     expect(screen.getByText('Sending...')).toBeDisabled();
   });
-
-  
 });

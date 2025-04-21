@@ -3,11 +3,11 @@ import { render, screen } from '@testing-library/react';
 
 // Add ResizeObserver mock
 class ResizeObserverMock {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  }
-  
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
 global.ResizeObserver = ResizeObserverMock;
 
 describe('OTPVerificationCard', () => {
@@ -45,7 +45,13 @@ describe('OTPVerificationCard', () => {
   });
 
   it('should render DocumentInfo with currentOwnerEmail and documentName', () => {
-    render(<OTPVerificationCard {...defaultProps} currentOwnerEmail="duljaelani@gmail.com" documentName="Roman Picisan.pdf" />);
+    render(
+      <OTPVerificationCard
+        {...defaultProps}
+        currentOwnerEmail="duljaelani@gmail.com"
+        documentName="Roman Picisan.pdf"
+      />
+    );
     expect(screen.getByText(/From:/i)).toBeInTheDocument();
     expect(screen.getByText(/Document Name:/i)).toBeInTheDocument();
   });

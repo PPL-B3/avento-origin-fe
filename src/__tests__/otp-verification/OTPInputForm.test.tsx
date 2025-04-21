@@ -1,13 +1,13 @@
 import { OtpInputForm } from '@/components/modules/shared/OTPVerification/OTPInputForm';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 // Add ResizeObserver mock
 class ResizeObserverMock {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  }
-  
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
 global.ResizeObserver = ResizeObserverMock;
 
 describe('OtpInputForm', () => {
@@ -56,7 +56,7 @@ describe('OtpInputForm', () => {
     const button = screen.getByRole('button', { name: 'Verify' });
     expect(button).toBeDisabled();
   });
-  
+
   it('should disable Verify button if isLoading is true', () => {
     render(<OtpInputForm {...baseProps} isLoading={true} />);
     const button = screen.getByRole('button', { name: 'Verifying...' });
@@ -78,7 +78,11 @@ describe('OtpInputForm', () => {
   });
 
   it('should show loading text when isResending is true', () => {
-    const propsWithResend = { ...baseProps, onResend: jest.fn(), isResending: true };
+    const propsWithResend = {
+      ...baseProps,
+      onResend: jest.fn(),
+      isResending: true,
+    };
     render(<OtpInputForm {...propsWithResend} />);
     const resend = screen.getByRole('button', { name: /Resending.../i });
     expect(resend).toBeDisabled();

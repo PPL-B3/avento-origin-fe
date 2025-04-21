@@ -75,7 +75,7 @@ describe('TransferDialog Component', () => {
 
     expect(defaultProps.onOpenChange).toHaveBeenCalledWith(false);
   });
-  
+
   it('disables Send button when email is empty', () => {
     render(<TransferDialog {...defaultProps} email="" />);
 
@@ -88,6 +88,5 @@ describe('TransferDialog Component', () => {
 
     const sendButton = screen.getByText('Sending...');
     expect(sendButton).toBeDisabled();
-  }
-  );
+  });
 });

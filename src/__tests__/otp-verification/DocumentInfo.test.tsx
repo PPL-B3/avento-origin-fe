@@ -34,7 +34,9 @@ describe('DocumentInfo', () => {
   });
 
   it('should render nothing when both props are empty strings', () => {
-    const { container } = render(<DocumentInfo currentOwnerEmail="" documentName="" />);
+    const { container } = render(
+      <DocumentInfo currentOwnerEmail="" documentName="" />
+    );
     expect(container).toBeEmptyDOMElement();
   });
 });
