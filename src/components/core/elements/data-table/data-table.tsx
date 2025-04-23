@@ -20,6 +20,7 @@ import {
 
 import Image from 'next/image';
 import { DataTableToolbar } from './data-table-toolbar';
+import { DataTablePagination } from './data-table-pagination';
 
 interface DataTableProps<TData, TValue> {
   /**
@@ -175,9 +176,9 @@ export function DataTable<TData, TValue>({
           </Table>
         )}
       </div>
-      {/* <div className="space-y-2.5 md:pr-12">
+      <div className="space-y-2.5 md:pr-12">
         <DataTablePagination table={table} />
-      </div> */}
+      </div>
     </div>
   );
 }
