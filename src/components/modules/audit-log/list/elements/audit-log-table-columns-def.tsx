@@ -56,7 +56,20 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
 }
 
 /* istanbul ignore next */
-export const filterableColumns: DataTableFilterableColumn<AuditLogEntry>[] = [];
+export const filterableColumns: DataTableFilterableColumn<AuditLogEntry>[] = [
+  {
+    id: 'eventType',
+    title: 'Event Type',
+    options: [
+      { label: 'Login', value: 'login' },
+      { label: 'Logout', value: 'logout' },
+      { label: 'Create', value: 'create' },
+      { label: 'Update', value: 'update' },
+      { label: 'Delete', value: 'delete' },
+      { label: 'View', value: 'view' },
+    ],
+  },
+];
 
 /* istanbul ignore next */
 export const searchableColumns: DataTableSearchableColumn<AuditLogEntry>[] = [];
