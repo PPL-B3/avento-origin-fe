@@ -72,4 +72,17 @@ export const filterableColumns: DataTableFilterableColumn<AuditLogEntry>[] = [
 ];
 
 /* istanbul ignore next */
-export const searchableColumns: DataTableSearchableColumn<AuditLogEntry>[] = [];
+export const searchableColumns: DataTableSearchableColumn<AuditLogEntry>[] = [
+  {
+    id: 'logID',
+    title: 'Log ID',
+  },
+  {
+    id: 'userID',
+    title: 'User ID',
+  },
+  {
+    id: 'documentID',
+    title: 'Document ID',
+  },
+];
