@@ -88,7 +88,7 @@ export function DataTable<TData, TValue>({
   isFetching,
 }: Readonly<DataTableProps<TData, TValue>>) {
   return (
-    <div className="w-full space-y-2.5 overflow-auto">
+    <div className="w-full space-y-2.5 overflow-auto pt-4">
       <DataTableToolbar
         table={table}
         filterableColumns={filterableColumns}
