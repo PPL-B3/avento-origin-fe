@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
         nextUrl.pathname !== '/upload-document' &&
         !nextUrl.pathname.startsWith('/metadata') &&
         !nextUrl.pathname.startsWith('/transfer-request') &&
-        nextUrl.pathname !== '/audit-log'
+        !nextUrl.pathname.startsWith('/audit-log')
       ) {
         return NextResponse.redirect(new URL('/upload-document', request.url));
       }
