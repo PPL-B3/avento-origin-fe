@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
 import { DocumentMetadataResponse, HistoryType } from './types';
 import { useParams } from 'next/navigation';
-import { UseMetadata } from './hooks/use-metadata';
+import { UseMetadata } from './hooks';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
@@ -13,7 +13,31 @@ export function AuditLogDetailModule() {
     doc_id: string;
   }>();
 
-  const { data, isFetching } = UseMetadata(doc_id);
+  // const { data, isFetching } = UseMetadata(doc_id);
+
+  const data: DocumentMetadataResponse = {
+    documentId: 'doc-12345',
+    documentName: 'Annual Financial Report 2023.pdf',
+    uploadDate: '2023-05-15T09:30:00Z',
+    publisher: 'Finance Department',
+    currentOwner: 'JohnDoe@gmail.com',
+    ownershipHistory: [
+      {
+        owner: 'JaneSmith@gmail.com',
+        generatedDate: '2023-05-15T09:30:00Z',
+      },
+      {
+        owner: 'MichaelJohnson@gmail.com',
+        generatedDate: '2023-06-20T14:45:00Z',
+      },
+      {
+        owner: 'JohnDoe@gmail.com',
+        generatedDate: '2023-07-10T11:15:00Z',
+      },
+    ],
+    filePath: '/documents/finance/annual-reports/2023.pdf',
+  };
+  const isFetching = false;
 
   /* istanbul ignore next */
   return (
