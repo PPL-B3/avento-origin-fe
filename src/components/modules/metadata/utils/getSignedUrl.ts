@@ -12,12 +12,9 @@ export const getSignedUrlFromSpaces = async (
       signatureVersion: 'v4',
     });
 
-    // ------ ini tambahan supaya filePath dipakai beneran ------
     if (!filePath) {
       throw new Error('filePath is required');
     }
-    //------------------------------------------------------------
-
     const signedUrl = s3.getSignedUrl('getObject', {
       Bucket: process.env.NEXT_PUBLIC_DO_SPACES_BUCKET!,
       Key: filePath, // Pakai filePath disini
