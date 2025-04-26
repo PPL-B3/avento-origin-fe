@@ -83,4 +83,45 @@ describe('getSignedUrlFromSpaces', () => {
     });
     expect(result).toBe('https://mocked-signed-url.com');
   });
+
+  it('should handle paths with URL encoding', async () => {
+    // Arrange
+    const filePath = 'path/to/file%20with%20spaces.pdf';
+
+    // Act
+    const result = await getSignedUrlFromSpaces(filePath);
+
+    // Assert
+    expect(getSignedUrlMock).toHaveBeenCalledWith('getObject', {
+      Bucket: 'avento',
+      Key: 'file with spaces.pdf',
+      Expires: 900,
+      ResponseContentType: 'application/pdf',
+      ResponseContentDisposition: 'inline',
+    });
+    expect(result).toBe('https://mocked-signed-url.com');
+  });
+
+  it('should throw error when file path is empty', async () => {
+    // Arrange
+    const filePath = '';
+
+    // Act & Assert
+    await expect(getSignedUrlFromSpaces(filePath)).rejects.toThrow(
+      'Gagal menghasilkan URL'
+    );
+  });
+
+  it('should throw error when AWS S3 fails', async () => {
+    // Arrange
+    const filePath = 'test-file.pdf';
+    getSignedUrlMock.mockImplementation(() => {
+      throw new Error('AWS S3 Error');
+    });
+
+    // Act & Assert
+    await expect(getSignedUrlFromSpaces(filePath)).rejects.toThrow(
+      'Gagal menghasilkan URL'
+    );
+  });
 });

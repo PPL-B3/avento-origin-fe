@@ -17,7 +17,7 @@ export const getSignedUrlFromSpaces = async (
     }
     const signedUrl = s3.getSignedUrl('getObject', {
       Bucket: process.env.NEXT_PUBLIC_DO_SPACES_BUCKET!,
-      Key: filePath, // Pakai filePath disini
+      Key: filePath,
       Expires: 900,
       ResponseContentType: 'application/pdf',
       ResponseContentDisposition: 'inline',
