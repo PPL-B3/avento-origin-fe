@@ -1,11 +1,9 @@
 'use client';
 
-import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
 import { DocumentMetadataResponse, HistoryType } from './types';
-import { useParams } from 'next/navigation';
-import { UseMetadata } from './hooks';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
@@ -103,18 +101,6 @@ export function AuditLogDetailModule() {
               </div>
             )}
           </>
-        )}
-        {data?.filePath && (
-          <div className="flex w-full justify-end">
-            <div className="w-fit flex flex-col gap-4">
-              {data?.documentId && (
-                <TransferDocumentModal documentId={data.documentId} />
-              )}
-              <Button size="lg" variant="secondary">
-                View Document
-              </Button>
-            </div>
-          </div>
         )}
       </div>
     </section>
