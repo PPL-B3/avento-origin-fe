@@ -1,3 +1,4 @@
+import { getSignedUrlFromSpaces } from '@/components/modules/metadata/utils/getSignedUrl';
 import AWS from 'aws-sdk';
 
 // Mock AWS SDK
