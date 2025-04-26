@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
-import { DocumentMetadataResponse, HistoryType } from './types';
+import { DocumentAdminMetadataResponse, HistoryType } from './types';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
@@ -14,7 +14,7 @@ export function AuditLogDetailModule() {
 
   // const { data, isFetching } = UseMetadata(doc_id);
 
-  const data: DocumentMetadataResponse = {
+  const data: DocumentAdminMetadataResponse = {
     documentId: 'doc-12345',
     documentName: 'Annual Financial Report 2023.pdf',
     uploadDate: '2023-05-15T09:30:00Z',
