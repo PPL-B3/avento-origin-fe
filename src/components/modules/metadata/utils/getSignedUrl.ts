@@ -19,7 +19,7 @@ export const getSignedUrlFromSpaces = async (
       key = decodeURIComponent(url.pathname.substring(1));
     } catch (error) {
       console.error('Error parsing filePath:', error);
-      key = decodeURIComponent(filePath.split('/').filter(Boolean).pop() || '');
+      key = decodeURIComponent(filePath.split('/').filter(Boolean).pop() ?? '');
     }
 
     if (!key) {
