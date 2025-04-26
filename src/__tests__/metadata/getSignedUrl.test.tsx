@@ -21,6 +21,12 @@ describe('getSignedUrlFromSpaces', () => {
   let getSignedUrlMock: jest.Mock;
 
   beforeEach(() => {
+    process.env.NEXT_PUBLIC_DO_SPACES_BUCKET = 'avento';
+    process.env.NEXT_PUBLIC_DO_SPACES_ACCESS_KEY = 'dummy-access-key';
+    process.env.NEXT_PUBLIC_DO_SPACES_SECRET_KEY = 'dummy-secret-key';
+    process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT =
+      'https://sgp1.digitaloceanspaces.com';
+    process.env.NEXT_PUBLIC_DO_SPACES_REGION = 'sgp1';
     // Reset mocks before each test
     jest.clearAllMocks();
 
