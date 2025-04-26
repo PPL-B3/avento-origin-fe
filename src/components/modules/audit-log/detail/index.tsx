@@ -39,7 +39,8 @@ export function AuditLogDetailModule() {
   const isFetching = false;
 
   const handleRevert = (owner: string) => {
-    toast.success(`Success revert owner to ${owner}`);
+    // toast.success(`Success revert owner to ${owner}`);
+    toast.error(`Error revert owner to ${owner}`);
   };
 
   /* istanbul ignore next */
