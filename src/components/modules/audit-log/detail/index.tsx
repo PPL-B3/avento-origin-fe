@@ -1,16 +1,15 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
-import { DocumentMetadataResponse, HistoryType } from './types';
+import { DocumentMetadataResponse, HistoryType } from '../../metadata/types';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
-  const { doc_id } = useParams<{
-    doc_id: string;
-  }>();
+  // const { doc_id } = useParams<{
+  //   doc_id: string;
+  // }>();
 
   // const { data, isFetching } = UseMetadata(doc_id);
 
