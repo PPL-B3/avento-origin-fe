@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useParams } from 'next/navigation';
+import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
 import { DocumentMetadataResponse, HistoryType } from './types';
 
@@ -36,6 +37,10 @@ export function AuditLogDetailModule() {
     filePath: '/documents/finance/annual-reports/2023.pdf',
   };
   const isFetching = false;
+
+  const handleRevert = (owner: string) => {
+    toast.success(`Success revert owner to ${owner}`);
+  };
 
   /* istanbul ignore next */
   return (
@@ -86,7 +91,11 @@ export function AuditLogDetailModule() {
                             {history.owner} |{' '}
                             {formatDateTime(history.generatedDate)}
                           </p>
-                          <Button variant="default" className="w-fit h-fit">
+                          <Button
+                            variant="default"
+                            className="w-fit h-fit"
+                            onClick={() => handleRevert(history.owner)}
+                          >
                             Revert
                           </Button>
                         </div>
