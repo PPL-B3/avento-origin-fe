@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
 import { DocumentAdminMetadataResponse, HistoryType } from './types';
