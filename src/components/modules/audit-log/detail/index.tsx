@@ -2,10 +2,10 @@
 
 import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { Button } from '@/components/ui/button';
-import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
-import { DocumentMetadataResponse, HistoryType } from './types';
 import { useParams } from 'next/navigation';
-import { UseMetadata } from './hooks/use-metadata';
+import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
+import { UseMetadata } from './hooks';
+import { HistoryType } from './types';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
