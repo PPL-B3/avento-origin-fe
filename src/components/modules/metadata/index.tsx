@@ -95,6 +95,29 @@ export function MetadataModule() {
     }
   }, [isModalOpen, data?.filePath]);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      setLoadError(false);
+    }
+  }, [isModalOpen]);
+
+  const documentContent = !signedUrl ? (
+    <div className="flex items-center justify-center w-full h-full">
+      <p className="text-gray-500">Loading document...</p>
+    </div>
+  ) : loadError ? (
+    <div className="flex items-center justify-center w-full h-full">
+      <p className="text-red-500">Failed to load document.</p>
+    </div>
+  ) : (
+    <iframe
+      src={`${signedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+      title="Document Viewer"
+      className="w-full h-full border-0"
+      onError={() => setLoadError(true)}
+    />
+  );
+
   /* istanbul ignore next */
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
@@ -180,26 +203,7 @@ export function MetadataModule() {
                 {data?.documentName}
               </h2>
             </div>
-            <div className="w-full h-[80vh]">
-              {signedUrl ? (
-                loadError ? (
-                  <div className="flex items-center justify-center w-full h-full">
-                    <p className="text-red-500">Failed to load document.</p>
-                  </div>
-                ) : (
-                  <iframe
-                    src={`${signedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                    title="Document Viewer"
-                    className="w-full h-full border-0"
-                    onError={() => setLoadError(true)}
-                  />
-                )
-              ) : (
-                <div className="flex items-center justify-center w-full h-full">
-                  <p className="text-gray-500">Loading document...</p>
-                </div>
-              )}
-            </div>
+            <div className="w-full h-[80vh]">{documentContent}</div>
           </DialogContent>
         </Dialog>
       </div>
