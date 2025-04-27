@@ -81,6 +81,7 @@ export function MetadataModule() {
   const { data, isFetching } = UseMetadata(qr_code);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     const fetchSignedUrl = async () => {
@@ -181,11 +182,18 @@ export function MetadataModule() {
             </div>
             <div className="w-full h-[80vh]">
               {signedUrl ? (
-                <iframe
-                  src={`${signedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                  title="Document Viewer"
-                  className="w-full h-full border-0"
-                />
+                loadError ? (
+                  <div className="flex items-center justify-center w-full h-full">
+                    <p className="text-red-500">Failed to load document.</p>
+                  </div>
+                ) : (
+                  <iframe
+                    src={`${signedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                    title="Document Viewer"
+                    className="w-full h-full border-0"
+                    onError={() => setLoadError(true)}
+                  />
+                )
               ) : (
                 <div className="flex items-center justify-center w-full h-full">
                   <p className="text-gray-500">Loading document...</p>
