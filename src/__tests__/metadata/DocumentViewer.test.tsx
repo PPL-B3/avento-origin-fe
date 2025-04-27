@@ -188,4 +188,23 @@ describe('MetadataModule - View Document Feature', () => {
       screen.queryByTestId('view-document-button')
     ).not.toBeInTheDocument();
   });
+
+  it('should not call getSignedUrlFromSpaces if filePath is missing', async () => {
+    (UseMetadata as jest.Mock).mockReturnValue({
+      data: { ...mockData, filePath: undefined },
+      isFetching: false,
+    });
+
+    render(<MetadataModule />);
+
+    const viewButton = screen.queryByTestId('view-document-button');
+
+    if (viewButton) {
+      await userEvent.click(viewButton);
+    }
+
+    await waitFor(() => {
+      expect(getSignedUrlFromSpaces).not.toHaveBeenCalled();
+    });
+  });
 });
