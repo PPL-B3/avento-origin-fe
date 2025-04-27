@@ -2,7 +2,9 @@
 
 import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
 import { UseMetadata } from './hooks/use-metadata';
 import { HistoryType } from './types';
 
@@ -76,6 +78,7 @@ export function MetadataModule() {
   }>();
 
   const { data, isFetching } = UseMetadata(qr_code);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   /* istanbul ignore next */
   return (
@@ -145,12 +148,25 @@ export function MetadataModule() {
               {data?.documentId && (
                 <TransferDocumentModal documentId={data.documentId} />
               )}
-              <Button size="lg" variant="secondary">
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => setIsModalOpen(true)}
+              >
                 View Document
               </Button>
             </div>
           </div>
         )}
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="sm:max-w-[425px]">
+            <div className="flex items-center justify-between p-4 border-b">
+              <h2 className="text-lg font-semibold text-blue-600">
+                {data?.documentName}
+              </h2>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
