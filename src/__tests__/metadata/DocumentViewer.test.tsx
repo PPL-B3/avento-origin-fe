@@ -2,7 +2,8 @@ import { MetadataModule } from '@/components';
 import { UseMetadata } from '@/components/modules/metadata/hooks/use-metadata';
 import { getSignedUrlFromSpaces } from '@/components/modules/metadata/utils/getSignedUrl';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 // Mock hook use-metadata
 jest.mock('@/components/modules/metadata/hooks/use-metadata', () => ({
@@ -92,5 +93,99 @@ describe('MetadataModule - View Document Feature', () => {
 
     const dialog = screen.getByTestId('dialog');
     expect(dialog).toHaveAttribute('data-open', 'true');
+  });
+
+  it('shows loading state before the signed URL is fetched', () => {
+    render(<MetadataModule />);
+
+    const viewButton = screen.getByTestId('view-document-button');
+    fireEvent.click(viewButton);
+
+    expect(screen.getByText('Loading document...')).toBeInTheDocument();
+  });
+
+  it('fetches signed URL when modal opens', async () => {
+    render(<MetadataModule />);
+
+    const viewButton = screen.getByTestId('view-document-button');
+
+    await userEvent.click(viewButton); // userEvent sudah otomatis async + act
+    await waitFor(() => {
+      expect(getSignedUrlFromSpaces).toHaveBeenCalledWith(
+        'path/to/document.pdf'
+      );
+    });
+  });
+
+  it('displays iframe with correct URL when signed URL is available', async () => {
+    render(<MetadataModule />);
+
+    const viewButton = screen.getByTestId('view-document-button');
+    fireEvent.click(viewButton);
+
+    await waitFor(() => {
+      const iframe = screen.getByTitle('Document Viewer');
+      expect(iframe).toBeInTheDocument();
+      expect(iframe).toHaveAttribute(
+        'src',
+        'https://mocked-signed-url.com#toolbar=0&navpanes=0&scrollbar=0'
+      );
+    });
+  });
+
+  it('does not fetch URL if filePath is not available', async () => {
+    (UseMetadata as jest.Mock).mockReturnValue({
+      data: { ...mockData, filePath: undefined },
+      isFetching: false,
+    });
+
+    render(<MetadataModule />);
+    const viewButton = screen.queryByTestId('view-document-button');
+
+    expect(viewButton).not.toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(getSignedUrlFromSpaces).not.toHaveBeenCalled();
+    });
+  });
+
+  it('closes the modal when clicking outside content', async () => {
+    render(<MetadataModule />);
+
+    const viewButton = screen.getByTestId('view-document-button');
+    fireEvent.click(viewButton);
+
+    const dialog = screen.getByTestId('dialog');
+    fireEvent.click(dialog);
+
+    await waitFor(() => {
+      expect(dialog).toHaveAttribute('data-open', 'false');
+    });
+  });
+
+  it('does not show View Document button when document does not exist', () => {
+    (UseMetadata as jest.Mock).mockReturnValue({
+      data: null,
+      isFetching: false,
+    });
+
+    render(<MetadataModule />);
+
+    expect(
+      screen.queryByTestId('view-document-button')
+    ).not.toBeInTheDocument();
+  });
+
+  it('does not show View Document button when still fetching data', () => {
+    (UseMetadata as jest.Mock).mockReturnValue({
+      data: null,
+      isFetching: true,
+    });
+
+    render(<MetadataModule />);
+
+    expect(
+      screen.queryByTestId('view-document-button')
+    ).not.toBeInTheDocument();
   });
 });
