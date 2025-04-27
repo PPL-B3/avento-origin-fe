@@ -4,9 +4,10 @@ import { TransferDocumentModal } from '@/components/core/elements/TransferDocume
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UseMetadata } from './hooks/use-metadata';
 import { HistoryType } from './types';
+import { getSignedUrlFromSpaces } from './utils/getSignedUrl';
 
 export function InformationRow({
   label,
@@ -79,6 +80,19 @@ export function MetadataModule() {
 
   const { data, isFetching } = UseMetadata(qr_code);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [signedUrl, setSignedUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchSignedUrl = async () => {
+      if (!data?.filePath) return;
+      const url = await getSignedUrlFromSpaces(data.filePath);
+      setSignedUrl(url);
+    };
+
+    if (isModalOpen && data?.filePath) {
+      fetchSignedUrl();
+    }
+  }, [isModalOpen, data?.filePath]);
 
   /* istanbul ignore next */
   return (
@@ -159,11 +173,24 @@ export function MetadataModule() {
           </div>
         )}
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="max-w-7xl p-0 overflow-hidden">
             <div className="flex items-center justify-between p-4 border-b">
               <h2 className="text-lg font-semibold text-blue-600">
                 {data?.documentName}
               </h2>
+            </div>
+            <div className="w-full h-[80vh]">
+              {signedUrl ? (
+                <iframe
+                  src={`${signedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                  title="Document Viewer"
+                  className="w-full h-full border-0"
+                />
+              ) : (
+                <div className="flex items-center justify-center w-full h-full">
+                  <p className="text-gray-500">Loading document...</p>
+                </div>
+              )}
             </div>
           </DialogContent>
         </Dialog>
