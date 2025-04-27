@@ -101,22 +101,35 @@ export function MetadataModule() {
     }
   }, [isModalOpen]);
 
-  const documentContent = !signedUrl ? (
-    <div className="flex items-center justify-center w-full h-full">
-      <p className="text-gray-500">Loading document...</p>
-    </div>
-  ) : loadError ? (
-    <div className="flex items-center justify-center w-full h-full">
-      <p className="text-red-500">Failed to load document.</p>
-    </div>
-  ) : (
-    <iframe
-      src={`${signedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-      title="Document Viewer"
-      className="w-full h-full border-0"
-      onError={() => setLoadError(true)}
-    />
-  );
+  const renderDocumentContent = () => {
+    if (!signedUrl) {
+      return (
+        <div className="flex items-center justify-center w-full h-full">
+          <p className="text-gray-500">Loading document...</p>
+        </div>
+      );
+    }
+
+    if (loadError) {
+      return (
+        <div className="flex items-center justify-center w-full h-full">
+          <p className="text-red-500">Failed to load document.</p>
+        </div>
+      );
+    }
+
+    return (
+      <iframe
+        src={`${signedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+        title="Document Viewer"
+        className="w-full h-full border-0"
+        onError={() => setLoadError(true)}
+      />
+    );
+  };
+
+  // Call the function to get the content
+  const documentContent = renderDocumentContent();
 
   /* istanbul ignore next */
   return (
