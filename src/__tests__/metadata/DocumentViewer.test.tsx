@@ -207,4 +207,22 @@ describe('MetadataModule - View Document Feature', () => {
       expect(getSignedUrlFromSpaces).not.toHaveBeenCalled();
     });
   });
+
+  it('should fetch signed URL when modal opens and filePath exists', async () => {
+    render(<MetadataModule />);
+
+    fireEvent.click(screen.getByTestId('view-document-button'));
+
+    await waitFor(() => {
+      expect(getSignedUrlFromSpaces).toHaveBeenCalledWith(
+        'path/to/document.pdf'
+      );
+    });
+  });
+
+  it('should not fetch signed URL when modal is closed', async () => {
+    render(<MetadataModule />);
+
+    expect(getSignedUrlFromSpaces).not.toHaveBeenCalled();
+  });
 });

@@ -129,7 +129,7 @@ export function MetadataModule() {
   };
 
   // Call the function to get the content
-  const documentContent = renderDocumentContent();
+  // const documentContent = renderDocumentContent();
 
   /* istanbul ignore next */
   return (
@@ -216,7 +216,7 @@ export function MetadataModule() {
                 {data?.documentName}
               </h2>
             </div>
-            <div className="w-full h-[80vh]">{documentContent}</div>
+            <div className="w-full h-[80vh]">{renderDocumentContent()}</div>
           </DialogContent>
         </Dialog>
       </div>
