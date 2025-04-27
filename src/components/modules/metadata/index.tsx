@@ -81,7 +81,6 @@ export function MetadataModule() {
   const { data, isFetching } = UseMetadata(qr_code);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
-  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     const fetchSignedUrl = async () => {
@@ -95,12 +94,6 @@ export function MetadataModule() {
     }
   }, [isModalOpen, data?.filePath]);
 
-  useEffect(() => {
-    if (isModalOpen) {
-      setLoadError(false);
-    }
-  }, [isModalOpen]);
-
   const renderDocumentContent = () => {
     if (!signedUrl) {
       return (
@@ -109,27 +102,14 @@ export function MetadataModule() {
         </div>
       );
     }
-
-    if (loadError) {
-      return (
-        <div className="flex items-center justify-center w-full h-full">
-          <p className="text-red-500">Failed to load document.</p>
-        </div>
-      );
-    }
-
     return (
       <iframe
         src={`${signedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
         title="Document Viewer"
         className="w-full h-full border-0"
-        onError={() => setLoadError(true)}
       />
     );
   };
-
-  // Call the function to get the content
-  // const documentContent = renderDocumentContent();
 
   /* istanbul ignore next */
   return (
