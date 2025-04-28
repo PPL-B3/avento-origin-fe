@@ -3,6 +3,7 @@ import {
   DataTableSearchableColumn,
 } from '@/components';
 import { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 import { AuditLogEntry } from '../types';
 
 /* istanbul ignore next */
@@ -49,7 +50,17 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       header: 'Document ID',
       cell: ({ row }) => {
         const documentID = row.original.documentID;
-        return documentID || 'N/A';
+        if (!documentID) {
+          return 'N/A';
+        }
+        return (
+          <Link
+            href={`/audit-log/${documentID}`}
+            className="text-blue-600 underline"
+          >
+            {documentID}
+          </Link>
+        );
       },
     },
   ];

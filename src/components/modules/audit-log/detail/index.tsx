@@ -1,11 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
-import { HistoryType } from './types';
-import { useParams } from 'next/navigation';
 import { UseMetadata } from '../../metadata/hooks/use-metadata';
+import { HistoryType } from './types';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
@@ -19,7 +19,7 @@ export function AuditLogDetailModule() {
     toast.success(`Success revert owner to ${owner}`);
     // toast.error(`Error revert owner to ${owner}`);
   };
-  
+
   /* istanbul ignore next */
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">

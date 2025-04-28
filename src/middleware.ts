@@ -26,8 +26,7 @@ export async function middleware(request: NextRequest) {
   try {
     const user = JSON.parse(userCookie.value);
 
-    // Redirection for user role
-    if (user.role === 'user') {
+    if (user.role === 'ADMIN') {
       if (
         nextUrl.pathname !== '/upload-document' &&
         !nextUrl.pathname.startsWith('/metadata') &&
@@ -39,7 +38,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    if (user.role === 'user') {
+    if (user.role === 'USER') {
       if (
         nextUrl.pathname !== '/upload-document' &&
         !nextUrl.pathname.startsWith('/metadata') &&
