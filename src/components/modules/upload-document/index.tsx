@@ -1,6 +1,6 @@
 'use client';
 
-import { FileInput, useAuth } from '@/components/core';
+import { FileInput } from '@/components/core';
 import { SubmissionProps } from '@/components/core/elements/FileInput/interface';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -58,7 +58,6 @@ export function UploadDocumentModule() {
 
   const { isLoadingUploadDocument, onUploadDocument, qrCodes } =
     useUploadDocument();
-  const { user } = useAuth();
 
   const form = useForm({
     resolver: zodResolver(uploadDocumentSchema),
