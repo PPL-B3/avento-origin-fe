@@ -1,3 +1,12 @@
+# [2.12.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.11.0...v2.12.0) (2025-04-28)
+
+
+### Features
+
+* add endpoint document access ([5b94206](https://github.com/PPL-B3/avento-origin-fe/commit/5b942069178a05904f94b959a48fc18a276f557b))
+* add hook for OTP verification to access document API integration ([cddd917](https://github.com/PPL-B3/avento-origin-fe/commit/cddd917c5d510ffcb82d8bcd030fda53cd39fed2))
+* add hook for request document access API integration ([f41cc14](https://github.com/PPL-B3/avento-origin-fe/commit/f41cc1409eb3f52be60cbc138755959b90fbac09))
+
 # [2.11.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.10.0...v2.11.0) (2025-04-28)
 
 
