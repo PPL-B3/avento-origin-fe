@@ -182,7 +182,13 @@ describe('InformationRow component', () => {
     expect(labelElement).toHaveClass('font-bold');
 
     const container = labelElement.closest('div');
-    expect(container).toHaveClass('grid', 'grid-cols-2');
+    expect(container).toHaveClass(
+      'grid',
+      'grid-cols-1',
+      'gap-1',
+      'md:gap-3',
+      'px-3'
+    );
   });
 });
 
