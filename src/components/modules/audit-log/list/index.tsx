@@ -1,10 +1,19 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { AuditLogTable } from './elements';
 import { UseAuditLog } from './hooks';
+import { auditLogParamsSchema } from './types'; // Make sure this import exists
 
 export function AuditLogModule() {
-  const { data, isFetching } = UseAuditLog();
+  const searchParams = useSearchParams();
+  const params = auditLogParamsSchema.parse(Object.fromEntries(searchParams));
+  console.log('Audit Log Params:', params);
+  const { data, isFetching } = UseAuditLog(
+    params.query,
+    params.limit,
+    params.page
+  );
 
   /* istanbul ignore next */
   return (
