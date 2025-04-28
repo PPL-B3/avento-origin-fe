@@ -182,7 +182,7 @@ export function MetadataModule() {
                         className="flex gap-x-2"
                       >
                         <p>
-                          {history.owner} |{' '}
+                          {encryptEmail(history.owner)} |{' '}
                           {formatDateTime(history.generatedDate)}
                         </p>
                       </div>
