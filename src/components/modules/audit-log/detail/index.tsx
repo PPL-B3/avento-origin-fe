@@ -1,19 +1,46 @@
 'use client';
 
-import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { Button } from '@/components/ui/button';
-import { useParams } from 'next/navigation';
+import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
-import { UseMetadata } from './hooks';
-import { HistoryType } from './types';
+import { DocumentMetadataResponse, HistoryType } from '../../metadata/types';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
-  const { doc_id } = useParams<{
-    doc_id: string;
-  }>();
+  // const { doc_id } = useParams<{
+  //   doc_id: string;
+  // }>();
 
-  const { data, isFetching } = UseMetadata(doc_id);
+  // const { data, isFetching } = UseMetadata(doc_id);
+
+  const data: DocumentMetadataResponse = {
+    documentId: 'doc-12345',
+    documentName: 'Annual Financial Report 2023.pdf',
+    uploadDate: '2023-05-15T09:30:00Z',
+    publisher: 'Finance Department',
+    currentOwner: 'JohnDoe@gmail.com',
+    ownershipHistory: [
+      {
+        owner: 'JaneSmith@gmail.com',
+        generatedDate: '2023-05-15T09:30:00Z',
+      },
+      {
+        owner: 'MichaelJohnson@gmail.com',
+        generatedDate: '2023-06-20T14:45:00Z',
+      },
+      {
+        owner: 'JohnDoe@gmail.com',
+        generatedDate: '2023-07-10T11:15:00Z',
+      },
+    ],
+    filePath: '/documents/finance/annual-reports/2023.pdf',
+  };
+  const isFetching = false;
+
+  const handleRevert = (owner: string) => {
+    // toast.success(`Success revert owner to ${owner}`);
+    toast.error(`Error revert owner to ${owner}`);
+  };
 
   /* istanbul ignore next */
   return (
@@ -64,7 +91,11 @@ export function AuditLogDetailModule() {
                             {history.owner} |{' '}
                             {formatDateTime(history.generatedDate)}
                           </p>
-                          <Button variant="default" className="w-fit h-fit">
+                          <Button
+                            variant="default"
+                            className="w-fit h-fit"
+                            onClick={() => handleRevert(history.owner)}
+                          >
                             Revert
                           </Button>
                         </div>
@@ -79,18 +110,6 @@ export function AuditLogDetailModule() {
               </div>
             )}
           </>
-        )}
-        {data?.filePath && (
-          <div className="flex w-full justify-end">
-            <div className="w-fit flex flex-col gap-4">
-              {data?.documentId && (
-                <TransferDocumentModal documentId={data.documentId} />
-              )}
-              <Button size="lg" variant="secondary">
-                View Document
-              </Button>
-            </div>
-          </div>
         )}
       </div>
     </section>
