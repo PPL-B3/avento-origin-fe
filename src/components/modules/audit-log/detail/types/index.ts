@@ -15,5 +15,5 @@ export interface DocumentAdminMetadataResponse {
 
 export interface RevertDocumentSchema {
   documentId: string;
-  index: string;
+  index: number;
 }

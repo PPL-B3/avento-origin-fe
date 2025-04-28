@@ -2,9 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import { useParams } from 'next/navigation';
-import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
-import { UseMetadata } from '../../metadata/hooks/use-metadata';
+import { UseAdminDocDetail } from './hooks';
 import { HistoryType } from './types';
 
 /* istanbul ignore next */
@@ -13,11 +12,17 @@ export function AuditLogDetailModule() {
     doc_id: string;
   }>();
 
-  const { data, isFetching } = UseMetadata(doc_id);
+  const { data, isFetching, onRevert } = UseAdminDocDetail(doc_id);
 
   const handleRevert = (owner: string) => {
-    toast.success(`Success revert owner to ${owner}`);
-    // toast.error(`Error revert owner to ${owner}`);
+    if (!data) return;
+
+    onRevert({
+      documentId: doc_id,
+      index: data?.ownershipHistory.findIndex(
+        (history: HistoryType) => history.owner === owner
+      ),
+    });
   };
 
   /* istanbul ignore next */
@@ -60,24 +65,26 @@ export function AuditLogDetailModule() {
                     />
                     <div className="grid grid-cols-1 px-3 pb-8">
                       <p className="font-bold pb-2">Transfer History</p>
-                      {data.ownershipHistory.map((history: HistoryType) => (
-                        <div
-                          key={`${history.owner}-${history.generatedDate}`}
-                          className="flex justify-between gap-x-2 bg-neutral-300 items-center hover:bg-neutral-200 p-2 rounded-lg mt-2 transition-colors duration-200"
-                        >
-                          <p>
-                            {history.owner} |{' '}
-                            {formatDateTime(history.generatedDate)}
-                          </p>
-                          <Button
-                            variant="default"
-                            className="w-fit h-fit"
-                            onClick={() => handleRevert(history.owner)}
+                      {[...data.ownershipHistory]
+                        .reverse()
+                        .map((history: HistoryType) => (
+                          <div
+                            key={`${history.owner}-${history.generatedDate}`}
+                            className="flex justify-between gap-x-2 bg-neutral-300 items-center hover:bg-neutral-200 p-2 rounded-lg mt-2 transition-colors duration-200"
                           >
-                            Revert
-                          </Button>
-                        </div>
-                      ))}
+                            <p>
+                              {history.owner} |{' '}
+                              {formatDateTime(history.generatedDate)}
+                            </p>
+                            <Button
+                              variant="default"
+                              className="w-fit h-fit"
+                              onClick={() => handleRevert(history.owner)}
+                            >
+                              Revert
+                            </Button>
+                          </div>
+                        ))}
                     </div>
                   </>
                 )}

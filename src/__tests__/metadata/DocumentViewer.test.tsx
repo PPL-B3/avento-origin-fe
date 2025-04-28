@@ -121,9 +121,9 @@ describe('MetadataModule - View Document Feature', () => {
 
   it('shows OTP Verification Card when user is not verified', () => {
     mockIsOtpVerified = false;
-  
+
     renderWithQueryClient(<MetadataModule />);
-  
+
     expect(screen.getByText('Verify Document Ownership')).toBeInTheDocument();
   });
 

@@ -38,6 +38,10 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       header: 'Log ID',
     },
     {
+      accessorKey: 'q',
+      header: 'Q',
+    },
+    {
       accessorKey: 'eventType',
       header: 'Event Type',
     },
@@ -67,33 +71,12 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
 }
 
 /* istanbul ignore next */
-export const filterableColumns: DataTableFilterableColumn<AuditLogEntry>[] = [
-  {
-    id: 'eventType',
-    title: 'Event Type',
-    options: [
-      { label: 'Login', value: 'login' },
-      { label: 'Logout', value: 'logout' },
-      { label: 'Create', value: 'create' },
-      { label: 'Update', value: 'update' },
-      { label: 'Delete', value: 'delete' },
-      { label: 'View', value: 'view' },
-    ],
-  },
-];
+export const filterableColumns: DataTableFilterableColumn<AuditLogEntry>[] = [];
 
 /* istanbul ignore next */
 export const searchableColumns: DataTableSearchableColumn<AuditLogEntry>[] = [
   {
-    id: 'logID',
-    title: 'Log ID',
-  },
-  {
-    id: 'userID',
-    title: 'User ID',
-  },
-  {
-    id: 'documentID',
-    title: 'Document ID',
+    id: 'q',
+    title: 'User ID or Details',
   },
 ];

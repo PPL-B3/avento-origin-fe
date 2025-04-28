@@ -1,6 +1,6 @@
 'use client';
 
-import { FileInput, useAuth } from '@/components/core';
+import { FileInput } from '@/components/core';
 import { SubmissionProps } from '@/components/core/elements/FileInput/interface';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -58,19 +58,16 @@ export function UploadDocumentModule() {
 
   const { isLoadingUploadDocument, onUploadDocument, qrCodes } =
     useUploadDocument();
-  const { user } = useAuth();
 
   const form = useForm({
     resolver: zodResolver(uploadDocumentSchema),
     defaultValues: {
       documentName: 'a document name',
-      ownerName: user?.email ?? 'owner name not detected',
     },
   });
 
   /* istanbul ignore next */
   const onSubmit = async (values: z.infer<typeof uploadDocumentSchema>) => {
-    values.ownerName = user?.email ?? 'owner name not detected';
     values.documentName = file.file?.name ?? 'a document name';
 
     if (file.file === null) {
