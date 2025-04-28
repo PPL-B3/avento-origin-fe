@@ -125,12 +125,67 @@ export function MetadataModule() {
   } = useOtpVerification(qr_code, data);
 
   /* istanbul ignore next */
+  let content;
+
+  if (isFetching) {
+    content = (
+      <div className="flex items-center justify-center w-full h-full">
+        <p className="text-neutral-950">Loading...</p>
+      </div>
+    );
+  } else if (isLoadingRequestAccess) {
+    content = (
+      <div className="flex items-center justify-center w-full h-full">
+        <p className="text-neutral-950">Requesting access...</p>
+      </div>
+    );
+  } else if (data) {
+    content = (
+      <div className="flex flex-col gap-y-5">
+        <h2 className="text-neutral-950 pb-8 font-extrabold">
+          DOCUMENT DETAIL {data?.filePath && ' (Owner)'}
+        </h2>
+        <InformationRow label="Document Name" value={data.documentName} />
+        <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
+        <InformationRow label="Document Owner" value={encryptEmail(data.currentOwner)} />
+        
+        {data?.filePath && (
+          <>
+            <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
+            <div className="grid grid-cols-1 gap-3 px-3">
+              <p className="font-bold">Transfer History</p>
+              {data.ownershipHistory.map((history: HistoryType) => (
+                <div key={`${history.owner}-${history.generatedDate}`} className="flex gap-x-2">
+                  <p>{history.owner} | {formatDateTime(history.generatedDate)}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {data?.filePath && (
+          <div className="flex w-full justify-center md:justify-end mt-6">
+            <div className="w-fit flex flex-col gap-4">
+              {data?.documentId && <TransferDocumentModal documentId={data.documentId} />}
+              <Button size="lg" variant="secondary" onClick={() => setIsModalOpen(true)}>
+                View Document
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  } else {
+    content = (
+      <div className="flex items-center justify-center w-full h-full">
+        <p className="text-neutral-950">Document not found</p>
+      </div>
+    );
+  }
+
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
-      {data?.filePath &&
-      !isOtpVerified &&
-      !isFetching &&
-      !isLoadingRequestAccess ? (
+      {data?.filePath && !isOtpVerified && !isFetching && !isLoadingRequestAccess ? (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4 text-neutral-950">
           <OTPVerificationCard
             title="Verify Document Ownership"
@@ -145,84 +200,15 @@ export function MetadataModule() {
         </div>
       ) : (
         <div className="bg-neutral-50 text-neutral-950 p-5 rounded-lg w-full md:w-2/3 h-fit py-12 px-10">
-          {isFetching ? (
-            <div className="flex items-center justify-center w-full h-full">
-              <p className="text-neutral-950">Loading...</p>
-            </div>
-          ) : isLoadingRequestAccess ? (
-            <div className="flex items-center justify-center w-full h-full">
-              <p className="text-neutral-950">Requesting access...</p>
-            </div>
-          ) : data ? (
-            <div className="flex flex-col gap-y-5">
-              <h2 className="text-neutral-950 pb-8 font-extrabold">
-                DOCUMENT DETAIL {data?.filePath && ' (Owner)'}
-              </h2>
-              <InformationRow label="Document Name" value={data.documentName} />
-              <div
-                data-testid="divider"
-                className="w-full h-0.5 bg-neutral-950"
-              />
-              <InformationRow
-                label="Document Owner"
-                value={encryptEmail(data.currentOwner)}
-              />
-
-              {data?.filePath && (
-                <>
-                  <div
-                    data-testid="divider"
-                    className="w-full h-0.5 bg-neutral-950"
-                  />
-                  <div className="grid grid-cols-1 gap-3 px-3">
-                    <p className="font-bold">Transfer History</p>
-                    {data.ownershipHistory.map((history: HistoryType) => (
-                      <div
-                        key={`${history.owner}-${history.generatedDate}`}
-                        className="flex gap-x-2"
-                      >
-                        <p>
-                          {history.owner} |{' '}
-                          {formatDateTime(history.generatedDate)}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {data?.filePath && (
-                <div className="flex w-full justify-center md:justify-end mt-6">
-                  <div className="w-fit flex flex-col gap-4">
-                    {data?.documentId && (
-                      <TransferDocumentModal documentId={data.documentId} />
-                    )}
-                    <Button
-                      size="lg"
-                      variant="secondary"
-                      onClick={() => setIsModalOpen(true)}
-                    >
-                      View Document
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex items-center justify-center w-full h-full">
-              <p className="text-neutral-950">Document not found</p>
-            </div>
-          )}
-        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <DialogContent className="max-w-7xl p-0 overflow-hidden">
-            <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-semibold text-blue-600">
-                {data?.documentName}
-              </h2>
-            </div>
-            <div className="w-full h-[80vh]">{renderDocumentContent()}</div>
-          </DialogContent>
-        </Dialog>
+          {content}
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogContent className="max-w-7xl p-0 overflow-hidden">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h2 className="text-lg font-semibold text-blue-600">{data?.documentName}</h2>
+              </div>
+              <div className="w-full h-[80vh]">{renderDocumentContent()}</div>
+            </DialogContent>
+          </Dialog>
         </div>
       )}
     </section>
