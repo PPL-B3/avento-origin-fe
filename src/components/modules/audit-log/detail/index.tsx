@@ -7,11 +7,6 @@ import { DocumentAdminMetadataResponse, HistoryType } from './types';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
-  // const { doc_id } = useParams<{
-  //   doc_id: string;
-  // }>();
-
-  // const { data, isFetching } = UseMetadata(doc_id);
 
   const data: DocumentAdminMetadataResponse = {
     documentId: 'doc-12345',
@@ -38,7 +33,6 @@ export function AuditLogDetailModule() {
   const isFetching = false;
 
   const handleRevert = (owner: string) => {
-    // toast.success(`Success revert owner to ${owner}`);
     toast.error(`Error revert owner to ${owner}`);
   };
 
