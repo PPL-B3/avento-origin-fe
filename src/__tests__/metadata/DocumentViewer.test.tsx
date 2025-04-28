@@ -4,6 +4,32 @@ import { getSignedUrlFromSpaces } from '@/components/modules/metadata/utils/getS
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+// Add ResizeObserver mock
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+global.ResizeObserver = ResizeObserverMock;
+
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
+
+const renderWithQueryClient = (ui: React.ReactElement) => {
+  const queryClient = createTestQueryClient();
+  return render(
+    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+  );
+};
 
 // Mock hook use-metadata
 jest.mock('@/components/modules/metadata/hooks/use-metadata', () => ({
@@ -55,6 +81,21 @@ jest.mock('@/components/core/elements/TransferDocument', () => ({
   ),
 }));
 
+let mockIsOtpVerified = true;
+
+jest.mock('@/components/modules/metadata/hooks/use-otp-verification', () => ({
+  useOtpVerification: () => ({
+    isOtpVerified: mockIsOtpVerified,
+    otp: '',
+    setOtp: jest.fn(),
+    responseMessage: '',
+    handleSubmit: jest.fn(),
+    handleResend: jest.fn(),
+    isLoadingRequestAccess: false,
+    isLoadingAccessDocument: false,
+  }),
+}));
+
 describe('MetadataModule - View Document Feature', () => {
   const mockData = {
     documentName: 'Test Document',
@@ -75,10 +116,20 @@ describe('MetadataModule - View Document Feature', () => {
     (getSignedUrlFromSpaces as jest.Mock).mockResolvedValue(
       'https://mocked-signed-url.com'
     );
+    mockIsOtpVerified = true;
+  });
+
+  it('shows OTP Verification Card when user is not verified', () => {
+    mockIsOtpVerified = false;
+  
+    renderWithQueryClient(<MetadataModule />);
+  
+    expect(screen.getByText('Verify Document Ownership')).toBeInTheDocument();
   });
 
   it('renders the View Document button when document exists', () => {
-    render(<MetadataModule />);
+    mockIsOtpVerified = true;
+    renderWithQueryClient(<MetadataModule />);
 
     const viewButton = screen.getByTestId('view-document-button');
     expect(viewButton).toBeInTheDocument();
@@ -86,7 +137,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('opens the document viewer modal when View Document button is clicked', () => {
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     const viewButton = screen.getByTestId('view-document-button');
     fireEvent.click(viewButton);
@@ -96,7 +147,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('shows loading state before the signed URL is fetched', () => {
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     const viewButton = screen.getByTestId('view-document-button');
     fireEvent.click(viewButton);
@@ -105,7 +156,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('fetches signed URL when modal opens', async () => {
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     const viewButton = screen.getByTestId('view-document-button');
 
@@ -118,7 +169,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('displays iframe with correct URL when signed URL is available', async () => {
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     const viewButton = screen.getByTestId('view-document-button');
     fireEvent.click(viewButton);
@@ -139,7 +190,7 @@ describe('MetadataModule - View Document Feature', () => {
       isFetching: false,
     });
 
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
     const viewButton = screen.queryByTestId('view-document-button');
 
     expect(viewButton).not.toBeInTheDocument();
@@ -150,7 +201,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('closes the modal when clicking outside content', async () => {
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     const viewButton = screen.getByTestId('view-document-button');
     fireEvent.click(viewButton);
@@ -169,7 +220,7 @@ describe('MetadataModule - View Document Feature', () => {
       isFetching: false,
     });
 
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     expect(
       screen.queryByTestId('view-document-button')
@@ -182,7 +233,7 @@ describe('MetadataModule - View Document Feature', () => {
       isFetching: true,
     });
 
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     expect(
       screen.queryByTestId('view-document-button')
@@ -195,7 +246,7 @@ describe('MetadataModule - View Document Feature', () => {
       isFetching: false,
     });
 
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     const viewButton = screen.queryByTestId('view-document-button');
 
@@ -209,7 +260,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('should fetch signed URL when modal opens and filePath exists', async () => {
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     fireEvent.click(screen.getByTestId('view-document-button'));
 
@@ -221,7 +272,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('should not fetch signed URL when modal is closed', async () => {
-    render(<MetadataModule />);
+    renderWithQueryClient(<MetadataModule />);
 
     expect(getSignedUrlFromSpaces).not.toHaveBeenCalled();
   });
