@@ -7,7 +7,6 @@ import { DocumentAdminMetadataResponse, HistoryType } from './types';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
-
   const data: DocumentAdminMetadataResponse = {
     documentId: 'doc-12345',
     documentName: 'Annual Financial Report 2023.pdf',
