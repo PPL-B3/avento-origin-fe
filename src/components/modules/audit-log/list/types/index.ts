@@ -9,11 +9,15 @@ export interface AuditLogEntry {
   documentID: string;
 }
 
-export interface AuditLogPaginatedResponse {
-  auditLogs: AuditLogEntry[];
+export interface PaginationMeta {
+  total: number;
+  page: number;
+  limit: number;
   totalPages: number;
-  currentPage: number;
-  totalLogs: number;
+}
+export interface AuditLogPaginatedResponse {
+  data: AuditLogEntry[];
+  meta: PaginationMeta;
 }
 
 export const auditLogParamsSchema = z.object({

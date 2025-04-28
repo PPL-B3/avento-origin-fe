@@ -9,7 +9,7 @@ export const UseAuditLog = (query?: string, limit = 10, page = 1) => {
     ['get-audit-log', query, limit, page],
     {
       queryFn: async () => {
-        let apiUrl = `${ENDPOINTS.AUDIT_LOG}?limit=${limit}&page=${page}`;
+        let apiUrl = `${ENDPOINTS.AUDIT_LOG_SEARCH}?limit=${limit}&page=${page}`;
         if (query) {
           apiUrl += `&query=${encodeURIComponent(query)}`;
         }
