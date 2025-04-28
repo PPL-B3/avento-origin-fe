@@ -7,11 +7,12 @@ import {
 
 interface OtpInputFormProps {
   otp: string;
-  setOtp: (val: string) => void;
+  setOtp: (value: string) => void;
   isLoading: boolean;
   onSubmit: () => void;
   onResend?: () => void;
   isResending?: boolean;
+  responseMessage?: string;
 }
 
 export function OtpInputForm({
@@ -21,9 +22,16 @@ export function OtpInputForm({
   onSubmit,
   onResend,
   isResending,
+  responseMessage,
 }: Readonly<OtpInputFormProps>) {
   return (
-    <div className="flex flex-col items-center gap-4 w-full">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+      className="flex flex-col items-center gap-4 w-full"
+    >
       <p className="text-primary-1 font-bold">Enter OTP:</p>
       <div className="flex justify-center">
         <InputOTP maxLength={6} value={otp} onChange={setOtp}>
@@ -39,26 +47,32 @@ export function OtpInputForm({
         </InputOTP>
       </div>
 
-      {onResend && (
-        <button
-          type="button"
-          className="text-xs text-primary-1 underline"
-          onClick={onResend}
-          disabled={isResending}
-        >
-          {isResending ? 'Resending...' : "Didn't get the code? Resend OTP"}
-        </button>
+      {responseMessage ? (
+        <p className="text-xs text-primary-1">{responseMessage}</p>
+      ) : (
+        onResend && (
+          <div className="flex items-center gap-1">
+            <p className="text-xs text-primary-1">Didn&apos;t get the code? </p>
+            <button
+              type="button"
+              className="text-xs text-primary-1 underline"
+              onClick={onResend}
+              disabled={isResending}
+            >
+              {isResending ? 'Resending...' : 'Resend OTP'}
+            </button>
+          </div>
+        )
       )}
 
       <Button
         type="submit"
         variant="default"
         className="w-full"
-        onClick={onSubmit}
         disabled={otp.length !== 6 || isLoading}
       >
         {isLoading ? 'Verifying...' : 'Verify'}
       </Button>
-    </div>
+    </form>
   );
 }
