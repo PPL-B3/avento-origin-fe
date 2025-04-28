@@ -12,6 +12,7 @@ interface OtpVerificationCardProps {
   onSubmit: () => void;
   onResend?: () => void;
   isResending?: boolean;
+  responseMessage?: string;
 }
 
 export function OTPVerificationCard({
@@ -25,6 +26,7 @@ export function OTPVerificationCard({
   onSubmit,
   onResend,
   isResending,
+  responseMessage,
 }: Readonly<OtpVerificationCardProps>) {
   return (
     <div className="bg-white p-16 rounded-xl w-full max-w-md text-center space-y-4">
@@ -43,6 +45,7 @@ export function OTPVerificationCard({
         onSubmit={onSubmit}
         onResend={onResend}
         isResending={isResending}
+        responseMessage={responseMessage}
       />
     </div>
   );
