@@ -9,6 +9,13 @@ export interface AuditLogEntry {
   documentID: string;
 }
 
+export interface AuditLogPaginatedResponse {
+  auditLogs: AuditLogEntry[];
+  totalPages: number;
+  currentPage: number;
+  totalLogs: number;
+}
+
 export const auditLogParamsSchema = z.object({
   page: z.coerce.number().default(1),
   limit: z.coerce.number().default(10),

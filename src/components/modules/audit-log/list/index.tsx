@@ -22,7 +22,7 @@ export function AuditLogModule() {
       {isFetching || !data ? (
         <div>Loading audit logs...</div>
       ) : (
-        <AuditLogTable data={data} pageCount={3} isFetching={isFetching} />
+        <AuditLogTable data={data.auditLogs} pageCount={data.totalPages} isFetching={isFetching} />
       )}
     </section>
   );
