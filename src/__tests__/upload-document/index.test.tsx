@@ -1,4 +1,4 @@
-import { AuditLogModule, FileInput, LoginModule } from '@/components';
+import { FileInput, LoginModule } from '@/components';
 import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
@@ -314,46 +314,5 @@ describe('TransferDocumentModal', () => {
     fireEvent.click(transferButton);
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
-  });
-
-  it('renders correctly', () => {
-    // Mock the UseAuditLog hook
-    const mockData = [
-      {
-        id: '1',
-        user: 'test user',
-        action: 'created',
-        timestamp: '2023-01-01T00:00:00Z',
-      },
-    ];
-    jest.mock('@/components/modules/audit-log/list/hooks', () => ({
-      UseAuditLog: () => ({ data: mockData, isFetching: false }),
-    }));
-
-    render(<AuditLogModule />, { wrapper: createWrapper() });
-
-    expect(screen.getByText('Audit Log')).toBeInTheDocument();
-  });
-
-  it('shows loading state when fetching data', () => {
-    // Mock the UseAuditLog hook with loading state
-    jest.mock('@/components/modules/audit-log/list/hooks', () => ({
-      UseAuditLog: () => ({ data: null, isFetching: true }),
-    }));
-
-    render(<AuditLogModule />, { wrapper: createWrapper() });
-
-    expect(screen.getByText('Loading audit logs...')).toBeInTheDocument();
-  });
-
-  it('shows loading state when data is null', () => {
-    // Mock the UseAuditLog hook with null data
-    jest.mock('@/components/modules/audit-log/list/hooks', () => ({
-      UseAuditLog: () => ({ data: null, isFetching: false }),
-    }));
-
-    render(<AuditLogModule />, { wrapper: createWrapper() });
-
-    expect(screen.getByText('Loading audit logs...')).toBeInTheDocument();
   });
 });

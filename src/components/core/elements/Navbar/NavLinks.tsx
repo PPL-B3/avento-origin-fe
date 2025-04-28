@@ -14,8 +14,24 @@ export function NavLinks({ user }: Readonly<NavLinksProps>) {
   const [links, setLinks] = useState<{ label: string; href: string }[]>([]);
 
   useEffect(() => {
-    if (user) {
-      setLinks([{ label: 'Upload Document', href: '/upload-document' }]);
+    if (user?.role === 'ADMIN') {
+      setLinks([
+        {
+          label: 'Upload Document',
+          href: '/upload-document',
+        },
+        {
+          label: 'Audit Log',
+          href: '/audit-log',
+        },
+      ]);
+    } else if (user?.role === 'USER') {
+      setLinks([
+        {
+          label: 'Upload Document',
+          href: '/upload-document',
+        },
+      ]);
     } else {
       setLinks([]);
     }

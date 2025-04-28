@@ -4,7 +4,11 @@ export class ENDPOINTS {
   static readonly LOGIN = `/auth/login`;
   static readonly LOGOUT = `/auth/logout`;
   static readonly AUDIT_LOG = `/audit-log`;
+  static readonly AUDIT_LOG_SEARCH = `/audit-log/search`;
   static readonly METADATA = `/documents/view`;
   static readonly TRANSFER_DOCUMENT = `/documents/transfer`;
   static readonly CLAIM_DOCUMENT = `/documents/claim`;
+  static readonly ACCESS_DOCUMENT = `/documents/access`;
+  static readonly ADMIN_METADATA = `/documents/get-document`;
+  static readonly REVERT = `/documents/reverse`;
 }

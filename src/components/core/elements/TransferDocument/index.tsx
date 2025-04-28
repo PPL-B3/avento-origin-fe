@@ -22,7 +22,6 @@ export function TransferDocumentModal({
   const { onTransferDocument, isLoadingTransferDocument } =
     useTransferDocument();
 
-  /* istanbul ignore next */
   const handleSubmit = async () => {
     const result = emailSchema.safeParse(email);
     if (!result.success) {
@@ -47,7 +46,6 @@ export function TransferDocumentModal({
     }
   };
 
-  /* istanbul ignore next */
   return (
     <div>
       <Button
