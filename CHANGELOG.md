@@ -1,3 +1,11 @@
+# [2.9.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.8.0...v2.9.0) (2025-04-28)
+
+
+### Features
+
+* add detail audit log ([325ca11](https://github.com/PPL-B3/avento-origin-fe/commit/325ca1103cb57d0dba38375d815bf461100859e1))
+* add document detail ([df18f96](https://github.com/PPL-B3/avento-origin-fe/commit/df18f96fd29395fda1eaed292b6962e260836902))
+
 # [2.8.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.7.0...v2.8.0) (2025-04-28)
 
 
