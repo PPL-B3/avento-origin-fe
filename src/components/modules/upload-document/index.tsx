@@ -64,13 +64,11 @@ export function UploadDocumentModule() {
     resolver: zodResolver(uploadDocumentSchema),
     defaultValues: {
       documentName: 'a document name',
-      ownerName: user?.email ?? 'owner name not detected',
     },
   });
 
   /* istanbul ignore next */
   const onSubmit = async (values: z.infer<typeof uploadDocumentSchema>) => {
-    values.ownerName = user?.email ?? 'owner name not detected';
     values.documentName = file.file?.name ?? 'a document name';
 
     if (file.file === null) {
