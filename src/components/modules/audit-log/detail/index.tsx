@@ -62,31 +62,27 @@ export function AuditLogDetailModule() {
                   label="Document Owner"
                   value={encryptEmail(data.currentOwner)}
                 />
-                {/* <div
-              data-testid="divider"
-              className="w-full h-0.5 bg-neutral-950"
-            />
-            <InformationRow label="Document Type" value={data.} /> */}
                 {data?.filePath && (
                   <>
                     <div
                       data-testid="divider"
                       className="w-full h-0.5 bg-neutral-950"
                     />
-                    <div className="grid grid-cols-1 px-3 pb-8">
-                      <p className="font-bold pb-2">Transfer History</p>
+                    <div className="grid-cols-1 grid px-3 pb-8">
+                      <p className="pb-2 font-bold">Transfer History</p>
                       {data.ownershipHistory.map((history: HistoryType) => (
                         <div
                           key={`${history.owner}-${history.generatedDate}`}
-                          className="flex justify-between gap-x-2 bg-neutral-300 items-center hover:bg-neutral-200 p-2 rounded-lg mt-2 transition-colors duration-200"
+                          className="flex gap-x-2 bg-neutral-300 items-center hover:bg-neutral-200 p-2 rounded-lg mt-2 transition-colors duration-200 justify-between"
                         >
                           <p>
-                            {history.owner} |{' '}
+                            {history.owner}
+                            {' | '}
                             {formatDateTime(history.generatedDate)}
                           </p>
                           <Button
                             variant="default"
-                            className="w-fit h-fit"
+                            className="h-fit w-fit"
                             onClick={() => handleRevert(history.owner)}
                           >
                             Revert
@@ -98,7 +94,7 @@ export function AuditLogDetailModule() {
                 )}
               </div>
             ) : (
-              <div className="flex items-center justify-center w-full h-full">
+              <div className="justify-center w-full h-full flex items-center">
                 <p className="text-neutral-950">Document not found</p>
               </div>
             )}
