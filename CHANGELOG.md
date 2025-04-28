@@ -1,3 +1,11 @@
+# [2.3.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.2.0...v2.3.0) (2025-04-28)
+
+
+### Features
+
+* [GREEN] add implementation for otp verification components ([9d6082d](https://github.com/PPL-B3/avento-origin-fe/commit/9d6082d65fa89ac26d0530839b273dbb29f83cb5))
+* [RED]  add inital tests for otp verification components ([836afde](https://github.com/PPL-B3/avento-origin-fe/commit/836afdeec13a4ed90826a9189224e44fd785f727))
+
 # [2.2.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.1.0...v2.2.0) (2025-04-16)
 
 ### Bug Fixes
