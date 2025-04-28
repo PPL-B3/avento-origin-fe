@@ -1,3 +1,16 @@
+# [2.8.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.7.0...v2.8.0) (2025-04-28)
+
+
+### Bug Fixes
+
+* export ([8780150](https://github.com/PPL-B3/avento-origin-fe/commit/87801506c4896839141bb940326e98cfe20c9388))
+* folder structure ([b44c067](https://github.com/PPL-B3/avento-origin-fe/commit/b44c067683ad90cd8dea9e767c748c0414255b6d))
+
+
+### Features
+
+* iniitialize page ([fa0356a](https://github.com/PPL-B3/avento-origin-fe/commit/fa0356a8f15d409caaab909ebf85c2b317a33623))
+
 # [2.2.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.1.0...v2.2.0) (2025-04-16)
 
 ### Bug Fixes
