@@ -1,3 +1,13 @@
+# [2.13.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.12.0...v2.13.0) (2025-04-28)
+
+
+### Features
+
+* [GREEN] implement test ([e6c66c4](https://github.com/PPL-B3/avento-origin-fe/commit/e6c66c4b111533411295365bea02f4ecc5f2f454))
+* **metadata:** [RED] add new tests for document detail page ([aac55ff](https://github.com/PPL-B3/avento-origin-fe/commit/aac55ff96901877eadb968a0d4dd81260017f97e))
+* **metadata:** [REFACTOR] conditional rendering document detail page via otp verification ([629bc0e](https://github.com/PPL-B3/avento-origin-fe/commit/629bc0e67b42f64f34c407ef0313d63cbc4d32d8))
+* **metadata:** [REFACTOR] implement conditional rendering document detail page ([1b2a939](https://github.com/PPL-B3/avento-origin-fe/commit/1b2a939c1488e56188a00967a3095af0bc39e9bb))
+
 # [2.12.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.11.0...v2.12.0) (2025-04-28)
 
 
