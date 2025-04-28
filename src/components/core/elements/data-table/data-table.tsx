@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/table';
 
 import Image from 'next/image';
+import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
@@ -47,7 +48,7 @@ interface DataTableProps<TData, TValue> {
    * The filterable columns of the table. When provided, renders dynamic faceted filters, and the advancedFilter prop is ignored.
    * @default []
    * @type {id: keyof TData, title: string, options: { label: string, value: string, icon?: React.ComponentType<{ className?: string }> }[]}[]
-   * @example filterableColumns={[{ id: "status", title: "Status", options: ["todo", "in-progress", "done", "canceled"]}]}
+   * @example filterableColumns={[{ id: "status", title: "Status", options: ["in-progress", "done", "canceled"]}]}
    */
   filterableColumns?: DataTableFilterableColumn<TData>[];
 
@@ -85,9 +86,9 @@ export function DataTable<TData, TValue>({
   filterableColumns = [],
   deleteRowsAction,
   isFetching,
-}: DataTableProps<TData, TValue>) {
+}: Readonly<DataTableProps<TData, TValue>>) {
   return (
-    <div className="w-full space-y-2.5 overflow-auto">
+    <div className="w-full space-y-2.5 overflow-auto pt-4">
       <DataTableToolbar
         table={table}
         filterableColumns={filterableColumns}
@@ -175,9 +176,9 @@ export function DataTable<TData, TValue>({
           </Table>
         )}
       </div>
-      {/* <div className="space-y-2.5 md:pr-12">
+      <div className="space-y-2.5 md:pr-12">
         <DataTablePagination table={table} />
-      </div> */}
+      </div>
     </div>
   );
 }

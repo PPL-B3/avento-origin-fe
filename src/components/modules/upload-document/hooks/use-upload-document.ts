@@ -18,7 +18,6 @@ export const useUploadDocument = () => {
         const formData = new FormData();
 
         formData.append('documentName', values.documentName);
-        formData.append('ownerName', values.ownerName);
         formData.append('file', values.file as File);
 
         const promise = client.post(apiUrl, formData, {

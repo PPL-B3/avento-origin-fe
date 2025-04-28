@@ -1,10 +1,22 @@
 'use client';
 
+import { z } from 'zod';
 import { AuditLogTable } from './elements';
 import { UseAuditLog } from './hooks';
+import { auditLogParamsSchema } from './types';
 
-export function AuditLogModule() {
-  const { data, isFetching } = UseAuditLog();
+type QueryParamsType = z.infer<typeof auditLogParamsSchema>;
+
+interface AuditLogModuleProps {
+  queryParams: QueryParamsType;
+}
+
+export function AuditLogModule({ queryParams }: AuditLogModuleProps) {
+  const { data, isFetching } = UseAuditLog(
+    queryParams.q,
+    queryParams.limit,
+    queryParams.page
+  );
 
   /* istanbul ignore next */
   return (
@@ -13,7 +25,11 @@ export function AuditLogModule() {
       {isFetching || !data ? (
         <div>Loading audit logs...</div>
       ) : (
-        <AuditLogTable data={data} pageCount={3} isFetching={isFetching} />
+        <AuditLogTable
+          data={data.data}
+          pageCount={data.meta.totalPages}
+          isFetching={isFetching}
+        />
       )}
     </section>
   );
