@@ -17,9 +17,9 @@ export function InformationRow({
   readonly value: string;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-3 px-3">
-      <p className="font-bold">{label}</p>
-      <p>{value}</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-3 px-3">
+      <p className="font-bold text-base md:text-lg break-words">{label}</p>
+      <p className="text-sm md:text-base break-words">{value}</p>
     </div>
   );
 }
@@ -114,7 +114,7 @@ export function MetadataModule() {
   /* istanbul ignore next */
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
-      <div className="bg-neutral-50 text-neutral-950 p-5 rounded-lg w-2/3 h-fit py-12 px-10">
+      <div className="bg-neutral-50 text-neutral-950 p-5 rounded-lg w-full md:w-2/3 h-fit py-12 px-10">
         <h2 className="text-neutral-950 pb-8 font-extrabold">
           DOCUMENT DETAIL {data?.filePath && ' (Owner)'}
         </h2>
@@ -174,7 +174,7 @@ export function MetadataModule() {
           </>
         )}
         {data?.filePath && (
-          <div className="flex w-full justify-end">
+          <div className="flex w-full justify-center md:justify-end mt-6">
             <div className="w-fit flex flex-col gap-4">
               {data?.documentId && (
                 <TransferDocumentModal documentId={data.documentId} />
