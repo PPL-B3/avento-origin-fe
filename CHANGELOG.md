@@ -1,3 +1,27 @@
+# [2.5.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.4.0...v2.5.0) (2025-04-28)
+
+
+### Features
+
+* add filter component ([c2cd9d0](https://github.com/PPL-B3/avento-origin-fe/commit/c2cd9d0690e57100296b3d077417d57a4a9f28d1))
+* add pagination component ([b8dffc3](https://github.com/PPL-B3/avento-origin-fe/commit/b8dffc3742d9ea8e673063bbf17b6733f0b8292f))
+* add search component ([16df07b](https://github.com/PPL-B3/avento-origin-fe/commit/16df07bda8e99e867f5e4996e3de4ea68c3709f0))
+
+# [2.4.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.3.0...v2.4.0) (2025-04-28)
+
+
+### Features
+
+* **otp-verification-card:** [REFACTOR] add new prop and wrap otp input inside a form ([6fce7a1](https://github.com/PPL-B3/avento-origin-fe/commit/6fce7a1cd1b9df412cf792d73f562b9f6360fbc3))
+
+# [2.3.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.2.0...v2.3.0) (2025-04-28)
+
+
+### Features
+
+* [GREEN] add implementation for otp verification components ([9d6082d](https://github.com/PPL-B3/avento-origin-fe/commit/9d6082d65fa89ac26d0530839b273dbb29f83cb5))
+* [RED]  add inital tests for otp verification components ([836afde](https://github.com/PPL-B3/avento-origin-fe/commit/836afdeec13a4ed90826a9189224e44fd785f727))
+
 # [2.2.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.1.0...v2.2.0) (2025-04-16)
 
 ### Bug Fixes
