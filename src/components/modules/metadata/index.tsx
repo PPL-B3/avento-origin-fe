@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { OTPVerificationCard } from '../shared/OTPVerification/OTPVerificationCard';
 import { UseMetadata } from './hooks/use-metadata';
+import { useOtpVerification } from './hooks/use-otp-verification';
 import { HistoryType } from './types';
 import { getSignedUrlFromSpaces } from './utils/getSignedUrl';
-import { useOtpVerification } from './hooks/use-otp-verification';
-import { OTPVerificationCard } from '../shared/OTPVerification/OTPVerificationCard';
 
 export function InformationRow({
   label,
@@ -112,7 +112,7 @@ export function MetadataModule() {
       />
     );
   };
-  
+
   const {
     otp,
     setOtp,
@@ -121,7 +121,7 @@ export function MetadataModule() {
     handleSubmit,
     handleResend,
     isLoadingRequestAccess,
-    isLoadingAccessDocument
+    isLoadingAccessDocument,
   } = useOtpVerification(qr_code, data);
 
   /* istanbul ignore next */
@@ -147,16 +147,27 @@ export function MetadataModule() {
         </h2>
         <InformationRow label="Document Name" value={data.documentName} />
         <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
-        <InformationRow label="Document Owner" value={encryptEmail(data.currentOwner)} />
-        
+        <InformationRow
+          label="Document Owner"
+          value={encryptEmail(data.currentOwner)}
+        />
+
         {data?.filePath && (
           <>
-            <div data-testid="divider" className="w-full h-0.5 bg-neutral-950" />
+            <div
+              data-testid="divider"
+              className="w-full h-0.5 bg-neutral-950"
+            />
             <div className="grid grid-cols-1 gap-3 px-3">
               <p className="font-bold">Transfer History</p>
               {data.ownershipHistory.map((history: HistoryType) => (
-                <div key={`${history.owner}-${history.generatedDate}`} className="flex gap-x-2">
-                  <p>{history.owner} | {formatDateTime(history.generatedDate)}</p>
+                <div
+                  key={`${history.owner}-${history.generatedDate}`}
+                  className="flex gap-x-2"
+                >
+                  <p>
+                    {history.owner} | {formatDateTime(history.generatedDate)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -166,8 +177,14 @@ export function MetadataModule() {
         {data?.filePath && (
           <div className="flex w-full justify-center md:justify-end mt-6">
             <div className="w-fit flex flex-col gap-4">
-              {data?.documentId && <TransferDocumentModal documentId={data.documentId} />}
-              <Button size="lg" variant="secondary" onClick={() => setIsModalOpen(true)}>
+              {data?.documentId && (
+                <TransferDocumentModal documentId={data.documentId} />
+              )}
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => setIsModalOpen(true)}
+              >
                 View Document
               </Button>
             </div>
@@ -185,7 +202,10 @@ export function MetadataModule() {
 
   return (
     <section className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50">
-      {data?.filePath && !isOtpVerified && !isFetching && !isLoadingRequestAccess ? (
+      {data?.filePath &&
+      !isOtpVerified &&
+      !isFetching &&
+      !isLoadingRequestAccess ? (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4 text-neutral-950">
           <OTPVerificationCard
             title="Verify Document Ownership"
@@ -204,7 +224,9 @@ export function MetadataModule() {
           <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogContent className="max-w-7xl p-0 overflow-hidden">
               <div className="flex items-center justify-between p-4 border-b">
-                <h2 className="text-lg font-semibold text-blue-600">{data?.documentName}</h2>
+                <h2 className="text-lg font-semibold text-blue-600">
+                  {data?.documentName}
+                </h2>
               </div>
               <div className="w-full h-[80vh]">{renderDocumentContent()}</div>
             </DialogContent>
