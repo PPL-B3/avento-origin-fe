@@ -1,3 +1,33 @@
+# [2.10.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.9.0...v2.10.0) (2025-04-28)
+
+### Bug Fixes
+
+- disable transfer and view document ([4852e56](https://github.com/PPL-B3/avento-origin-fe/commit/4852e56c95e819969244e93c918cfc89a52a5cb7))
+
+### Features
+
+- add dummy data ([7ca7987](https://github.com/PPL-B3/avento-origin-fe/commit/7ca798705cc78eacf59f2c04b3a5814964cb9d98))
+- add error handling ([7bdcd67](https://github.com/PPL-B3/avento-origin-fe/commit/7bdcd67a085cd1295887f66ceebffcae78c64d11))
+- add toast for revert ([5a7cef2](https://github.com/PPL-B3/avento-origin-fe/commit/5a7cef2af00e1d2360a0cf8cb0aa66a7b6f55d5f))
+
+# [2.9.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.8.0...v2.9.0) (2025-04-28)
+
+### Features
+
+- add detail audit log ([325ca11](https://github.com/PPL-B3/avento-origin-fe/commit/325ca1103cb57d0dba38375d815bf461100859e1))
+- add document detail ([df18f96](https://github.com/PPL-B3/avento-origin-fe/commit/df18f96fd29395fda1eaed292b6962e260836902))
+
+# [2.8.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.7.0...v2.8.0) (2025-04-28)
+
+### Bug Fixes
+
+- export ([8780150](https://github.com/PPL-B3/avento-origin-fe/commit/87801506c4896839141bb940326e98cfe20c9388))
+- folder structure ([b44c067](https://github.com/PPL-B3/avento-origin-fe/commit/b44c067683ad90cd8dea9e767c748c0414255b6d))
+
+### Features
+
+- iniitialize page ([fa0356a](https://github.com/PPL-B3/avento-origin-fe/commit/fa0356a8f15d409caaab909ebf85c2b317a33623))
+
 # [2.2.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.1.0...v2.2.0) (2025-04-16)
 
 ### Bug Fixes
