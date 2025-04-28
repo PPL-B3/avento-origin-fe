@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { OTPVerificationCard } from '../shared/OTPVerification/OTPVerificationCard';
 import { UseMetadata } from './hooks/use-metadata';
+import { useOtpVerification } from './hooks/use-otp-verification';
 import { HistoryType } from './types';
 import { getSignedUrlFromSpaces } from './utils/getSignedUrl';
-import { useOtpVerification } from './hooks/use-otp-verification';
-import { OTPVerificationCard } from '../shared/OTPVerification/OTPVerificationCard';
 
 export function InformationRow({
   label,
@@ -112,7 +112,7 @@ export function MetadataModule() {
       />
     );
   };
-  
+
   const {
     otp,
     setOtp,
@@ -121,7 +121,7 @@ export function MetadataModule() {
     handleSubmit,
     handleResend,
     isLoadingRequestAccess,
-    isLoadingAccessDocument
+    isLoadingAccessDocument,
   } = useOtpVerification(qr_code, data);
 
   /* istanbul ignore next */
@@ -213,16 +213,16 @@ export function MetadataModule() {
               <p className="text-neutral-950">Document not found</p>
             </div>
           )}
-        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <DialogContent className="max-w-7xl p-0 overflow-hidden">
-            <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-semibold text-blue-600">
-                {data?.documentName}
-              </h2>
-            </div>
-            <div className="w-full h-[80vh]">{renderDocumentContent()}</div>
-          </DialogContent>
-        </Dialog>
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogContent className="max-w-7xl p-0 overflow-hidden">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h2 className="text-lg font-semibold text-blue-600">
+                  {data?.documentName}
+                </h2>
+              </div>
+              <div className="w-full h-[80vh]">{renderDocumentContent()}</div>
+            </DialogContent>
+          </Dialog>
         </div>
       )}
     </section>
