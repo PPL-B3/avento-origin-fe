@@ -7,6 +7,7 @@ export interface AuditLogEntry {
   userID: string;
   details: string;
   documentID: string;
+  q?: string;
 }
 
 export interface PaginationMeta {
@@ -23,5 +24,5 @@ export interface AuditLogPaginatedResponse {
 export const auditLogParamsSchema = z.object({
   page: z.coerce.number().default(1),
   limit: z.coerce.number().default(10),
-  query: z.string().default(''),
+  q: z.string().default(''),
 });

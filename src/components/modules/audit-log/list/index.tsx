@@ -10,7 +10,7 @@ export function AuditLogModule() {
   const params = auditLogParamsSchema.parse(Object.fromEntries(searchParams));
   console.log('Audit Log Params:', params);
   const { data, isFetching } = UseAuditLog(
-    params.query,
+    params.q,
     params.limit,
     params.page
   );
