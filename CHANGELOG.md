@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.3.0...v2.4.0) (2025-04-28)
+
+
+### Features
+
+* **otp-verification-card:** [REFACTOR] add new prop and wrap otp input inside a form ([6fce7a1](https://github.com/PPL-B3/avento-origin-fe/commit/6fce7a1cd1b9df412cf792d73f562b9f6360fbc3))
+
 # [2.3.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.2.0...v2.3.0) (2025-04-28)
 
 
