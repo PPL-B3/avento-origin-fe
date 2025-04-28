@@ -1,3 +1,12 @@
+# [2.14.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.13.0...v2.14.0) (2025-04-28)
+
+
+### Features
+
+* add hook for revert doc ([7d3ac7c](https://github.com/PPL-B3/avento-origin-fe/commit/7d3ac7c7172400b3d3d043306440e25052a3da82))
+* add temporary role ([55b304d](https://github.com/PPL-B3/avento-origin-fe/commit/55b304d430fb10e30aee3b8d0f1ff102cf720fc7))
+* integrate role access to BE ([66f5860](https://github.com/PPL-B3/avento-origin-fe/commit/66f586091c25d3366701acb152c4d45c5f87ca5a))
+
 # [2.13.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.12.0...v2.13.0) (2025-04-28)
 
 
