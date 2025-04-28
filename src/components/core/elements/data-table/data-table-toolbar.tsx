@@ -36,7 +36,7 @@ export function DataTableToolbar<TData>({
   searchableColumns = [],
   newRowLink,
   deleteRowsAction,
-}: DataTableToolbarProps<TData>) {
+}: Readonly<DataTableToolbarProps<TData>>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const [isDeletePending, startDeleteTransition] = React.useTransition();
 
@@ -157,7 +157,7 @@ export function DataTableToolbar<TData>({
                           .getColumn(String(column.id))
                           ?.setFilterValue(event.target.value)
                       }
-                      className="h-8 grow lg:w-[250px] md:mr-4"
+                      className="h-8 grow lg:w-[250px] md:mr-4 bg-neutral-50 text-neutral-950"
                     />
                   )}
                 </>
