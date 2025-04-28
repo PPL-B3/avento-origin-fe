@@ -2,9 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import { useParams } from 'next/navigation';
-import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
-import { UseMetadata } from '../../metadata/hooks/use-metadata';
+import { UseAdminDocDetail } from './hooks';
 import { HistoryType } from './types';
 
 /* istanbul ignore next */
@@ -13,11 +12,17 @@ export function AuditLogDetailModule() {
     doc_id: string;
   }>();
 
-  const { data, isFetching } = UseMetadata(doc_id);
+  const { data, isFetching, onRevert } = UseAdminDocDetail(doc_id);
 
   const handleRevert = (owner: string) => {
-    toast.success(`Success revert owner to ${owner}`);
-    // toast.error(`Error revert owner to ${owner}`);
+    if (!data) return;
+
+    onRevert({
+      documentId: doc_id,
+      index: data?.ownershipHistory.findIndex(
+        (history: HistoryType) => history.owner === owner
+      ),
+    });
   };
 
   /* istanbul ignore next */

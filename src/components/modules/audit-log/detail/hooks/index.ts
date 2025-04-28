@@ -27,7 +27,7 @@ export const UseAdminDocDetail = (doc_id: string) => {
   const { mutate: onRevert } = useMutation('revert-document-owner', {
     mutationFn: async (values: RevertDocumentSchema) => {
       const apiUrl = `${ENDPOINTS.REVERT}`;
-      const promise = client.put(apiUrl, values);
+      const promise = client.post(apiUrl, values);
       toast.promise(promise, {
         loading: 'Loading...',
         success: () => {
