@@ -1,3 +1,19 @@
+# [2.7.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.6.0...v2.7.0) (2025-04-28)
+
+
+### Bug Fixes
+
+* **view-document:** set env var for getSignedUrlFromSpaces test ([1bff6b4](https://github.com/PPL-B3/avento-origin-fe/commit/1bff6b449eba8bc619cab84b41371f513f1166a0))
+
+
+### Features
+
+* **view-document:** [GREEN]  generate signed URL using environment variables ([4114966](https://github.com/PPL-B3/avento-origin-fe/commit/41149668fafa42a8c5da8f9e8721169d536738ec))
+* **view-document:** [GREEN] add document viewer modal to display document name in MetadataModule ([af4770e](https://github.com/PPL-B3/avento-origin-fe/commit/af4770e29ec1f60d3e6d1e5b506cef2eaa6d91ba))
+* **view-document:** [GREEN] fetch signed URL and render document viewer in MetadataModule ([3cc9440](https://github.com/PPL-B3/avento-origin-fe/commit/3cc94405cbf756e797ed3c5deb8ea62a254206c5))
+* **view-document:** [GREEN] validate extracted key and throw error if invalid ([57d9165](https://github.com/PPL-B3/avento-origin-fe/commit/57d9165dc2f4f5fc99931454719ed1f1cd3aa94f))
+* **view-document:** show fallback message when iframe fails to load document ([8f08253](https://github.com/PPL-B3/avento-origin-fe/commit/8f0825347860c7fa2bea6481bbd17f54aa791872))
+
 # [2.6.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.5.0...v2.6.0) (2025-04-28)
 
 
