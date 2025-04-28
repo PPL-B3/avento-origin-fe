@@ -1,27 +1,24 @@
 # [2.12.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.11.0...v2.12.0) (2025-04-28)
 
-
 ### Features
 
-* add endpoint document access ([5b94206](https://github.com/PPL-B3/avento-origin-fe/commit/5b942069178a05904f94b959a48fc18a276f557b))
-* add hook for OTP verification to access document API integration ([cddd917](https://github.com/PPL-B3/avento-origin-fe/commit/cddd917c5d510ffcb82d8bcd030fda53cd39fed2))
-* add hook for request document access API integration ([f41cc14](https://github.com/PPL-B3/avento-origin-fe/commit/f41cc1409eb3f52be60cbc138755959b90fbac09))
+- add endpoint document access ([5b94206](https://github.com/PPL-B3/avento-origin-fe/commit/5b942069178a05904f94b959a48fc18a276f557b))
+- add hook for OTP verification to access document API integration ([cddd917](https://github.com/PPL-B3/avento-origin-fe/commit/cddd917c5d510ffcb82d8bcd030fda53cd39fed2))
+- add hook for request document access API integration ([f41cc14](https://github.com/PPL-B3/avento-origin-fe/commit/f41cc1409eb3f52be60cbc138755959b90fbac09))
 
 # [2.11.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.10.0...v2.11.0) (2025-04-28)
 
-
 ### Bug Fixes
 
-* husky ([562aa61](https://github.com/PPL-B3/avento-origin-fe/commit/562aa6128468b379f503bb83cd48b35de1862dee))
-* lint error ([de6256e](https://github.com/PPL-B3/avento-origin-fe/commit/de6256e5180eb52274bff6e32be9069981970997))
-* lint error import ([9631db8](https://github.com/PPL-B3/avento-origin-fe/commit/9631db8f482fa35f6653afd77f3d8d4f60ae63fc))
-
+- husky ([562aa61](https://github.com/PPL-B3/avento-origin-fe/commit/562aa6128468b379f503bb83cd48b35de1862dee))
+- lint error ([de6256e](https://github.com/PPL-B3/avento-origin-fe/commit/de6256e5180eb52274bff6e32be9069981970997))
+- lint error import ([9631db8](https://github.com/PPL-B3/avento-origin-fe/commit/9631db8f482fa35f6653afd77f3d8d4f60ae63fc))
 
 ### Features
 
-* add admin log document type ([b85d0b3](https://github.com/PPL-B3/avento-origin-fe/commit/b85d0b395fb3d3ee24f0db2599b1d16d60ddbb5b))
-* add history type ([558c281](https://github.com/PPL-B3/avento-origin-fe/commit/558c281c583fb713e72d0af25eb1c167945dbc98))
-* add hook for fetch admin doc detail ([e92299b](https://github.com/PPL-B3/avento-origin-fe/commit/e92299be8fe05d88082b1f88d03e962de9f1d366))
+- add admin log document type ([b85d0b3](https://github.com/PPL-B3/avento-origin-fe/commit/b85d0b395fb3d3ee24f0db2599b1d16d60ddbb5b))
+- add history type ([558c281](https://github.com/PPL-B3/avento-origin-fe/commit/558c281c583fb713e72d0af25eb1c167945dbc98))
+- add hook for fetch admin doc detail ([e92299b](https://github.com/PPL-B3/avento-origin-fe/commit/e92299be8fe05d88082b1f88d03e962de9f1d366))
 
 # [2.10.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.9.0...v2.10.0) (2025-04-28)
 

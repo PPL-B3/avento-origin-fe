@@ -34,6 +34,17 @@ export async function middleware(request: NextRequest) {
         !nextUrl.pathname.startsWith('/transfer-request') &&
         !nextUrl.pathname.startsWith('/audit-log')
       ) {
+        return NextResponse.redirect(new URL('/audit-log', request.url));
+      }
+      return NextResponse.next();
+    }
+
+    if (user.role === 'user') {
+      if (
+        nextUrl.pathname !== '/upload-document' &&
+        !nextUrl.pathname.startsWith('/metadata') &&
+        !nextUrl.pathname.startsWith('/transfer-request')
+      ) {
         return NextResponse.redirect(new URL('/upload-document', request.url));
       }
       return NextResponse.next();
