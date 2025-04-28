@@ -1,3 +1,18 @@
+# [2.6.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.5.0...v2.6.0) (2025-04-28)
+
+
+### Bug Fixes
+
+* component missing on toolbar ([20d46d6](https://github.com/PPL-B3/avento-origin-fe/commit/20d46d6d416a36a37ed29ca58d7c8829b355f0f3))
+* data table definition ([35dc21f](https://github.com/PPL-B3/avento-origin-fe/commit/35dc21fa006558c4e0da179fee8d5a46f29952e4))
+* filtering component style ([cd2c97d](https://github.com/PPL-B3/avento-origin-fe/commit/cd2c97dd1453ab919c3e22a541077258006283c0))
+* set data table toolbar access permission ([c205ac9](https://github.com/PPL-B3/avento-origin-fe/commit/c205ac995ed37ca9223365e0408ec4884b240213))
+
+
+### Features
+
+* init table pagination ([9c4ae85](https://github.com/PPL-B3/avento-origin-fe/commit/9c4ae8583120961666c1744f6caf36ef6f4272e1))
+
 # [2.5.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.4.0...v2.5.0) (2025-04-28)
 
 
