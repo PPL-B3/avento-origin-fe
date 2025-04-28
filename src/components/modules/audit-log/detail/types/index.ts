@@ -12,3 +12,8 @@ export interface DocumentAdminMetadataResponse {
   ownershipHistory: HistoryType[];
   filePath?: string;
 }
+
+export interface RevertDocumentSchema {
+  documentId: string;
+  index: string;
+}

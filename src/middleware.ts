@@ -26,13 +26,23 @@ export async function middleware(request: NextRequest) {
   try {
     const user = JSON.parse(userCookie.value);
 
-    // Redirection for user role
-    if (user.role === 'user') {
+    if (user.role === 'ADMIN') {
       if (
         nextUrl.pathname !== '/upload-document' &&
         !nextUrl.pathname.startsWith('/metadata') &&
         !nextUrl.pathname.startsWith('/transfer-request') &&
         !nextUrl.pathname.startsWith('/audit-log')
+      ) {
+        return NextResponse.redirect(new URL('/audit-log', request.url));
+      }
+      return NextResponse.next();
+    }
+
+    if (user.role === 'USER') {
+      if (
+        nextUrl.pathname !== '/upload-document' &&
+        !nextUrl.pathname.startsWith('/metadata') &&
+        !nextUrl.pathname.startsWith('/transfer-request')
       ) {
         return NextResponse.redirect(new URL('/upload-document', request.url));
       }

@@ -1,45 +1,23 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { encryptEmail, formatDateTime, InformationRow } from '../../metadata';
-import { DocumentAdminMetadataResponse, HistoryType } from './types';
+import { UseMetadata } from '../../metadata/hooks/use-metadata';
+import { HistoryType } from './types';
 
 /* istanbul ignore next */
 export function AuditLogDetailModule() {
-  // const { doc_id } = useParams<{
-  //   doc_id: string;
-  // }>();
+  const { doc_id } = useParams<{
+    doc_id: string;
+  }>();
 
-  // const { data, isFetching } = UseMetadata(doc_id);
-
-  const data: DocumentAdminMetadataResponse = {
-    documentId: 'doc-12345',
-    documentName: 'Annual Financial Report 2023.pdf',
-    uploadDate: '2023-05-15T09:30:00Z',
-    publisher: 'Finance Department',
-    currentOwner: 'JohnDoe@gmail.com',
-    ownershipHistory: [
-      {
-        owner: 'JaneSmith@gmail.com',
-        generatedDate: '2023-05-15T09:30:00Z',
-      },
-      {
-        owner: 'MichaelJohnson@gmail.com',
-        generatedDate: '2023-06-20T14:45:00Z',
-      },
-      {
-        owner: 'JohnDoe@gmail.com',
-        generatedDate: '2023-07-10T11:15:00Z',
-      },
-    ],
-    filePath: '/documents/finance/annual-reports/2023.pdf',
-  };
-  const isFetching = false;
+  const { data, isFetching } = UseMetadata(doc_id);
 
   const handleRevert = (owner: string) => {
-    // toast.success(`Success revert owner to ${owner}`);
-    toast.error(`Error revert owner to ${owner}`);
+    toast.success(`Success revert owner to ${owner}`);
+    // toast.error(`Error revert owner to ${owner}`);
   };
 
   /* istanbul ignore next */
