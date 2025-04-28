@@ -1,18 +1,21 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { z } from 'zod';
 import { AuditLogTable } from './elements';
 import { UseAuditLog } from './hooks';
-import { auditLogParamsSchema } from './types'; // Make sure this import exists
+import { auditLogParamsSchema } from './types';
 
-export function AuditLogModule() {
-  const searchParams = useSearchParams();
-  const params = auditLogParamsSchema.parse(Object.fromEntries(searchParams));
-  console.log('Audit Log Params:', params);
+type QueryParamsType = z.infer<typeof auditLogParamsSchema>;
+
+interface AuditLogModuleProps {
+  queryParams: QueryParamsType;
+}
+
+export function AuditLogModule({ queryParams }: AuditLogModuleProps) {
   const { data, isFetching } = UseAuditLog(
-    params.q,
-    params.limit,
-    params.page
+    queryParams.q,
+    queryParams.limit,
+    queryParams.page
   );
 
   /* istanbul ignore next */
