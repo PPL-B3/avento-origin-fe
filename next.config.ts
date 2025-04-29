@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
   ],
   env: {
     LOGROCKET_ID: process.env.LOGROCKET_ID,
+    DO_SPACES_ACCESS_KEY: process.env.DO_SPACES_ACCESS_KEY,
+    DO_SPACES_SECRET_KEY: process.env.DO_SPACES_SECRET_KEY,
+    DO_SPACES_ENDPOINT: process.env.DO_SPACES_ENDPOINT,
+    DO_SPACES_REGION: process.env.DO_SPACES_REGION,
+    DO_SPACES_BUCKET: process.env.DO_SPACES_BUCKET,
   },
 };
 
