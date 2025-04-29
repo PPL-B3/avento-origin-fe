@@ -55,21 +55,21 @@ export function DataTableToolbar<TData>({
                       <PopoverTrigger asChild>
                         <Button
                           id="date"
-                          variant="default"
+                          variant="primary"
                           className={cn(
-                            'w-full h-12 justify-start text-left font-normal md:mr-4',
-                            !table.getColumn('date_start')?.getFilterValue() &&
+                            'justify-start text-left font-normal md:mr-4 bg-neutral-50 hover:bg-neutral-50 text-neutral-950',
+                            !table.getColumn('startDate')?.getFilterValue() &&
                               'text-muted-foreground'
                           )}
                         >
                           <HiOutlineCalendar className="mr-2 h-6 w-6" />
-                          {table.getColumn('date_start')?.getFilterValue() ? (
+                          {table.getColumn('startDate')?.getFilterValue() ? (
                             <>
                               {format(
                                 new Date(
                                   String(
                                     table
-                                      .getColumn('date_start')
+                                      .getColumn('startDate')
                                       ?.getFilterValue()
                                   )
                                 ),
@@ -80,10 +80,10 @@ export function DataTableToolbar<TData>({
                                 new Date(
                                   String(
                                     table
-                                      .getColumn('date_end')
+                                      .getColumn('endDate')
                                       ?.getFilterValue() ||
                                       table
-                                        .getColumn('date_start')
+                                        .getColumn('startDate')
                                         ?.getFilterValue()
                                   )
                                 ),
@@ -100,23 +100,19 @@ export function DataTableToolbar<TData>({
                           initialFocus
                           mode="range"
                           selected={{
-                            from: table
-                              .getColumn('date_start')
-                              ?.getFilterValue()
+                            from: table.getColumn('startDate')?.getFilterValue()
                               ? new Date(
                                   String(
                                     table
-                                      .getColumn('date_start')
+                                      .getColumn('startDate')
                                       ?.getFilterValue()
                                   )
                                 )
                               : undefined,
-                            to: table.getColumn('date_end')?.getFilterValue()
+                            to: table.getColumn('endDate')?.getFilterValue()
                               ? new Date(
                                   String(
-                                    table
-                                      .getColumn('date_end')
-                                      ?.getFilterValue()
+                                    table.getColumn('endDate')?.getFilterValue()
                                   )
                                 )
                               : undefined,
@@ -129,12 +125,12 @@ export function DataTableToolbar<TData>({
                               range.from = range.to;
                             }
                             table
-                              .getColumn('date_start')
+                              .getColumn('startDate')
                               ?.setFilterValue(
                                 `${format(range?.from || new Date(), 'yyyy-MM-dd')}`
                               );
                             table
-                              .getColumn('date_end')
+                              .getColumn('endDate')
                               ?.setFilterValue(
                                 `${format(range?.to || new Date(), 'yyyy-MM-dd')}`
                               );
