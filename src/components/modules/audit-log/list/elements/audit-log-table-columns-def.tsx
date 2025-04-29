@@ -67,6 +67,14 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
         );
       },
     },
+    {
+      accessorKey: 'startDate',
+      header: 'Start Date',
+    },
+    {
+      accessorKey: 'endDate',
+      header: 'End Date',
+    },
   ];
 }
 
@@ -78,5 +86,15 @@ export const searchableColumns: DataTableSearchableColumn<AuditLogEntry>[] = [
   {
     id: 'q',
     title: 'User ID or Details',
+  },
+  {
+    id: 'startDate',
+    title: 'Start Date',
+    type: 'date_range',
+  },
+  {
+    id: 'endDate',
+    title: 'End Date',
+    type: 'hidden',
   },
 ];
