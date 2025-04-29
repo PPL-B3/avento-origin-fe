@@ -1,3 +1,16 @@
+# [2.16.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.15.0...v2.16.0) (2025-04-29)
+
+
+### Bug Fixes
+
+* data table toolbar ([d79b6ba](https://github.com/PPL-B3/avento-origin-fe/commit/d79b6baa5f8e57822252493720b1f953390fbd18))
+* definition of date range ([a6b40e9](https://github.com/PPL-B3/avento-origin-fe/commit/a6b40e95554950ac714f13ebfabae4951f0a9136))
+
+
+### Features
+
+* add date range filter ([cf33355](https://github.com/PPL-B3/avento-origin-fe/commit/cf3335535f41981065fe9f69d67410ada7361140))
+
 # [2.15.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.14.0...v2.15.0) (2025-04-28)
 
 ### Bug Fixes
