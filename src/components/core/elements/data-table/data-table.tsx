@@ -113,8 +113,8 @@ export function DataTable<TData, TValue>({
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     if (
-                      header.id === 'date_start' ||
-                      header.id === 'date_end' ||
+                      header.id === 'startDate' ||
+                      header.id === 'endDate' ||
                       header.id === 'q'
                     ) {
                       return null;
@@ -140,8 +140,8 @@ export function DataTable<TData, TValue>({
                     .getVisibleCells()
                     .filter(
                       (cell) =>
-                        !cell.id.includes('date_start') &&
-                        !cell.id.includes('date_end') &&
+                        !cell.id.includes('startDate') &&
+                        !cell.id.includes('endDate') &&
                         !cell.id.includes('q')
                     );
                   return (

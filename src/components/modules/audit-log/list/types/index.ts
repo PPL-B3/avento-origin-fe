@@ -8,6 +8,8 @@ export interface AuditLogEntry {
   details: string;
   documentID: string;
   q?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface PaginationMeta {
@@ -25,4 +27,6 @@ export const auditLogParamsSchema = z.object({
   page: z.coerce.number().default(1),
   limit: z.coerce.number().default(10),
   q: z.string().default(''),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
 });

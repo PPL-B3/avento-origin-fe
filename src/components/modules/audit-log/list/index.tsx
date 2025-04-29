@@ -14,6 +14,8 @@ interface AuditLogModuleProps {
 export function AuditLogModule({ queryParams }: AuditLogModuleProps) {
   const { data, isFetching } = UseAuditLog(
     queryParams.q,
+    queryParams.startDate,
+    queryParams.endDate,
     queryParams.limit,
     queryParams.page
   );

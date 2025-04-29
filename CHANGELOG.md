@@ -1,23 +1,21 @@
 # [2.15.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.14.0...v2.15.0) (2025-04-28)
 
-
 ### Bug Fixes
 
-* add encrypt email on transfer history ([c04c1d5](https://github.com/PPL-B3/avento-origin-fe/commit/c04c1d50f7ab6f9a794a57a0fde55fc3200072df))
-* lint error unused ([3ebba67](https://github.com/PPL-B3/avento-origin-fe/commit/3ebba676b3b9352cb8bf8e0a781becd364dc2cbb))
-* lint unused ([8ed951a](https://github.com/PPL-B3/avento-origin-fe/commit/8ed951ad7070ad7c525f36308663081d88d3226a))
-* pagination ([c1fa972](https://github.com/PPL-B3/avento-origin-fe/commit/c1fa9720071c6054c8bf0019e54023599533d030))
-* remove deprecated ownerName ([29ee5f9](https://github.com/PPL-B3/avento-origin-fe/commit/29ee5f9ee4592a435be31425bbb10790aa333cd3))
-* reverse the order of transfer history ([ea07743](https://github.com/PPL-B3/avento-origin-fe/commit/ea0774305f6484efc99f8efcab3acdb54d9a732d))
-* search ([8c4690d](https://github.com/PPL-B3/avento-origin-fe/commit/8c4690d3d082e07203e8f20c384e3bc750a2ee8a))
-* wrap useSearchParams ([e7e8339](https://github.com/PPL-B3/avento-origin-fe/commit/e7e8339ec3a7aca4db6f8a03ce86326cb1821d75))
-
+- add encrypt email on transfer history ([c04c1d5](https://github.com/PPL-B3/avento-origin-fe/commit/c04c1d50f7ab6f9a794a57a0fde55fc3200072df))
+- lint error unused ([3ebba67](https://github.com/PPL-B3/avento-origin-fe/commit/3ebba676b3b9352cb8bf8e0a781becd364dc2cbb))
+- lint unused ([8ed951a](https://github.com/PPL-B3/avento-origin-fe/commit/8ed951ad7070ad7c525f36308663081d88d3226a))
+- pagination ([c1fa972](https://github.com/PPL-B3/avento-origin-fe/commit/c1fa9720071c6054c8bf0019e54023599533d030))
+- remove deprecated ownerName ([29ee5f9](https://github.com/PPL-B3/avento-origin-fe/commit/29ee5f9ee4592a435be31425bbb10790aa333cd3))
+- reverse the order of transfer history ([ea07743](https://github.com/PPL-B3/avento-origin-fe/commit/ea0774305f6484efc99f8efcab3acdb54d9a732d))
+- search ([8c4690d](https://github.com/PPL-B3/avento-origin-fe/commit/8c4690d3d082e07203e8f20c384e3bc750a2ee8a))
+- wrap useSearchParams ([e7e8339](https://github.com/PPL-B3/avento-origin-fe/commit/e7e8339ec3a7aca4db6f8a03ce86326cb1821d75))
 
 ### Features
 
-* add pagination logic ([cc4e89a](https://github.com/PPL-B3/avento-origin-fe/commit/cc4e89ac345c2bd37215c642d92762e2f704dc6f))
-* integrate filter and pagintation ([8d1d501](https://github.com/PPL-B3/avento-origin-fe/commit/8d1d501001385cd8d598b81bd2854c28d98da790))
-* integrate revert doc ([07049fa](https://github.com/PPL-B3/avento-origin-fe/commit/07049fac714d31654c5a5d31d15817cd83c652bd))
+- add pagination logic ([cc4e89a](https://github.com/PPL-B3/avento-origin-fe/commit/cc4e89ac345c2bd37215c642d92762e2f704dc6f))
+- integrate filter and pagintation ([8d1d501](https://github.com/PPL-B3/avento-origin-fe/commit/8d1d501001385cd8d598b81bd2854c28d98da790))
+- integrate revert doc ([07049fa](https://github.com/PPL-B3/avento-origin-fe/commit/07049fac714d31654c5a5d31d15817cd83c652bd))
 
 # [2.14.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.13.0...v2.14.0) (2025-04-28)
 
