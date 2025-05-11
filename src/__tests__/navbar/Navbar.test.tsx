@@ -31,7 +31,7 @@ describe('Navbar', () => {
     render(<Navbar />);
 
     expect(screen.getByRole('navigation')).toBeInTheDocument();
-    expect(screen.getByAltText('Logo')).toBeInTheDocument();
+    expect(screen.getByAltText('Avento Origin Logo')).toBeInTheDocument();
   });
 
   it('does not render when user is loading', () => {
