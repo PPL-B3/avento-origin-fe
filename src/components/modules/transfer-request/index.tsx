@@ -1,3 +1,5 @@
+'use client';
+
 import { encryptEmail } from '../metadata';
 import { OTPVerificationCard } from '../shared/OTPVerification/OTPVerificationCard';
 import { QRCodeDisplay } from '../shared/QRCodeDisplay';
