@@ -1,36 +1,19 @@
 'use client';
 
-import { ENDPOINTS, useAventoClient } from '@/components/core';
 import { useMutation } from 'react-query';
-import { toast } from 'sonner';
+import { useDocumentService } from '../services/document-service';
 
+/**
+ * Custom hook for verifying document access with OTP
+ * Refactored to use the Service/Facade pattern which handles toast notifications
+ */
 export const useAccessDocument = (onSuccessCallback?: () => void) => {
-  const client = useAventoClient();
+  const documentService = useDocumentService();
+
   const { mutateAsync: accessDocument, isLoading: isLoadingAccessDocument } =
-    useMutation('access-document', {
+    useMutation(['verify-access'], {
       mutationFn: async (data: { qrId: string; otp: string }) => {
-        const apiUrl = ENDPOINTS.ACCESS_DOCUMENT;
-        const promise = client.post(apiUrl, data);
-
-        toast.promise(promise, {
-          loading: 'Verifying OTP...',
-          success: () => {
-            return `OTP Verified.`;
-          },
-          error: (error) => {
-            const errorMessage = error.response?.data?.message;
-            if (Array.isArray(errorMessage)) {
-              return errorMessage[0] ?? 'Something went wrong';
-            } else if (typeof errorMessage === 'string') {
-              return errorMessage;
-            } else {
-              return 'Something went wrong';
-            }
-          },
-        });
-
-        const response = await promise;
-        return response;
+        await documentService.verifyAccess(data.qrId, data.otp);
       },
       onSuccess: () => {
         onSuccessCallback?.();
