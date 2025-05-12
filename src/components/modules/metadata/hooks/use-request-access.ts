@@ -1,17 +1,18 @@
 'use client';
 
-import { ENDPOINTS, useAventoClient } from '@/components/core';
 import { useMutation } from 'react-query';
+import { useDocumentService } from '../services/document-service';
 
+/**
+ * Custom hook for requesting document access
+ * Refactored to use the Service/Facade pattern
+ */
 export const useRequestAccess = () => {
-  const client = useAventoClient();
+  const documentService = useDocumentService();
+
   const { mutateAsync: requestAccess, isLoading: isLoadingRequestAccess } =
-    useMutation('request-access', {
-      mutationFn: async (qrId: string) => {
-        const apiUrl = `${ENDPOINTS.ACCESS_DOCUMENT}/${qrId}`;
-        const { data } = await client.get(apiUrl);
-        return data;
-      },
+    useMutation(['request-access'], {
+      mutationFn: (qrId: string) => documentService.requestAccess(qrId),
     });
 
   return {

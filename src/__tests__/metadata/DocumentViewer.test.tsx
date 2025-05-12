@@ -1,5 +1,5 @@
 import { MetadataModule } from '@/components';
-import { UseMetadata } from '@/components/modules/metadata/hooks/use-metadata';
+import { useMetadata } from '@/components/modules/metadata/hooks/use-metadata';
 import { getSignedUrlFromSpaces } from '@/components/modules/metadata/utils/getSignedUrl';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -33,7 +33,7 @@ const renderWithQueryClient = (ui: React.ReactElement) => {
 
 // Mock hook use-metadata
 jest.mock('@/components/modules/metadata/hooks/use-metadata', () => ({
-  UseMetadata: jest.fn(),
+  useMetadata: jest.fn(),
 }));
 
 // Mock getSignedUrlFromSpaces
@@ -109,7 +109,7 @@ describe('MetadataModule - View Document Feature', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (UseMetadata as jest.Mock).mockReturnValue({
+    (useMetadata as jest.Mock).mockReturnValue({
       data: mockData,
       isFetching: false,
     });
@@ -185,7 +185,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('does not fetch URL if filePath is not available', async () => {
-    (UseMetadata as jest.Mock).mockReturnValue({
+    (useMetadata as jest.Mock).mockReturnValue({
       data: { ...mockData, filePath: undefined },
       isFetching: false,
     });
@@ -215,7 +215,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('does not show View Document button when document does not exist', () => {
-    (UseMetadata as jest.Mock).mockReturnValue({
+    (useMetadata as jest.Mock).mockReturnValue({
       data: null,
       isFetching: false,
     });
@@ -228,7 +228,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('does not show View Document button when still fetching data', () => {
-    (UseMetadata as jest.Mock).mockReturnValue({
+    (useMetadata as jest.Mock).mockReturnValue({
       data: null,
       isFetching: true,
     });
@@ -241,7 +241,7 @@ describe('MetadataModule - View Document Feature', () => {
   });
 
   it('should not call getSignedUrlFromSpaces if filePath is missing', async () => {
-    (UseMetadata as jest.Mock).mockReturnValue({
+    (useMetadata as jest.Mock).mockReturnValue({
       data: { ...mockData, filePath: undefined },
       isFetching: false,
     });

@@ -1,74 +1,64 @@
+import { defaultErrorHandler } from '@/lib/strategies/error-handling-strategy';
 import { useEffect, useState } from 'react';
+import { useDocumentService } from '../services/document-service';
 import { DocumentMetadataResponse } from '../types';
 import { useAccessDocument } from './use-access-document';
 import { useRequestAccess } from './use-request-access';
 
+/**
+ * Custom hook for OTP verification workflow
+ * Refactored to:
+ * 1. Use the Service/Facade pattern for business logic
+ * 2. Use the Error Handling Strategy pattern for consistent error handling
+ * 3. Separate concerns between UI state and business logic
+ */
 export const useOtpVerification = (
-  qr_code: string,
+  qrId: string,
   data: DocumentMetadataResponse | undefined
 ) => {
   const [otp, setOtp] = useState('');
   const [isOtpVerified, setIsOtpVerified] = useState(false);
   const [responseMessage, setResponseMessage] = useState<string>('');
 
+  const documentService = useDocumentService();
   const { requestAccess, isLoadingRequestAccess } = useRequestAccess();
   const { accessDocument, isLoadingAccessDocument } = useAccessDocument(() => {
-    const cacheKey = `requestAccess_${qr_code}`;
     setIsOtpVerified(true);
-    localStorage.removeItem(cacheKey);
   });
 
+  // Request OTP if needed when document data is available
   useEffect(() => {
-    const cacheKey = `requestAccess_${qr_code}`;
-    const now = Date.now();
-    const cachedRequest = localStorage.getItem(cacheKey);
-
-    const fetchRequestAccess = async () => {
+    const requestOtpIfNeeded = async () => {
       if (data?.filePath && !isOtpVerified) {
-        if (!cachedRequest || now - Number(cachedRequest) > 8 * 60 * 1000) {
-          try {
-            await requestAccess(qr_code);
-            localStorage.setItem(cacheKey, now.toString());
-          } catch (error: unknown) {
-            if (error && typeof error === 'object' && 'response' in error) {
-              const err = error as { response: { data: { message: string } } };
-              setResponseMessage(err.response.data.message);
-            } else {
-              setResponseMessage('Failed to request OTP.');
-            }
-          }
+        try {
+          await documentService.requestAccessIfNeeded(qrId);
+        } catch (error) {
+          setResponseMessage(defaultErrorHandler.handleError(error));
         }
       }
     };
 
-    fetchRequestAccess();
-  }, [data?.filePath, isOtpVerified, requestAccess, qr_code]);
+    requestOtpIfNeeded();
+  }, [data?.filePath, isOtpVerified, qrId, documentService]);
 
   const handleSubmit = async () => {
     try {
       await accessDocument({
-        qrId: qr_code,
+        qrId: qrId,
         otp: otp,
       });
-    } catch (error: unknown) {
-      if (error && typeof error === 'object' && 'response' in error) {
-        const err = error as { response: { data: { message: string } } };
-        setResponseMessage(err.response.data.message);
-      }
-      localStorage.clear();
+    } catch (error) {
+      setResponseMessage(defaultErrorHandler.handleError(error));
     }
     setOtp('');
   };
 
   const handleResend = async () => {
     try {
-      await requestAccess(qr_code);
+      await requestAccess(qrId);
       setResponseMessage('OTP has been resent. Please check your email!');
-    } catch (error: unknown) {
-      if (error && typeof error === 'object' && 'response' in error) {
-        const err = error as { response: { data: { message: string } } };
-        setResponseMessage(err.response.data.message);
-      }
+    } catch (error) {
+      setResponseMessage(defaultErrorHandler.handleError(error));
     }
   };
 
