@@ -6,7 +6,9 @@ import { OtpDialog } from './OtpDialog';
 import { TransferDialog } from './TransferDialog';
 import { TransferDocumentProps } from './types';
 
-export function TransferDocumentModal({ documentId }: Readonly<TransferDocumentProps>) {
+export function TransferDocumentModal({
+  documentId,
+}: Readonly<TransferDocumentProps>) {
   const {
     email,
     otp,
