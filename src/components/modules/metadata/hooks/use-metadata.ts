@@ -1,22 +1,21 @@
 'use client';
 
-import { ENDPOINTS, useAventoClient } from '@/components/core';
 import { useQuery } from 'react-query';
+import { useDocumentService } from '../services/document-service';
 import { DocumentMetadataResponse } from '../types';
 
-export const UseMetadata = (qr_id: string) => {
-  const client = useAventoClient();
+/**
+ * Custom hook for fetching document metadata
+ * Refactored to use the Repository and Facade patterns
+ */
+export const useMetadata = (qrId: string) => {
+  const documentService = useDocumentService();
 
   const { data, isFetching, error } = useQuery<DocumentMetadataResponse, Error>(
-    ['get-my-project'],
+    ['document-metadata', qrId],
+    () => documentService.getMetadata(qrId),
     {
-      queryFn: async () => {
-        const apiUrl = `${ENDPOINTS.METADATA}/${qr_id}`;
-
-        const { data } = await client.get(apiUrl);
-        return data as DocumentMetadataResponse;
-      },
-      enabled: !!qr_id,
+      enabled: !!qrId,
       refetchOnWindowFocus: false,
     }
   );

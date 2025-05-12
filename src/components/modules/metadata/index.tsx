@@ -6,7 +6,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { OTPVerificationCard } from '../shared/OTPVerification/OTPVerificationCard';
-import { UseMetadata } from './hooks/use-metadata';
+import { useMetadata } from './hooks/use-metadata';
 import { useOtpVerification } from './hooks/use-otp-verification';
 import { HistoryType } from './types';
 import { getSignedUrlFromSpaces } from './utils/getSignedUrl';
@@ -80,7 +80,7 @@ export function MetadataModule() {
     qr_code: string;
   }>();
 
-  const { data, isFetching } = UseMetadata(qr_code);
+  const { data, isFetching } = useMetadata(qr_code);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
 
