@@ -1,5 +1,5 @@
 import { encryptEmail } from '@/components/modules/metadata';
-import { UseMetadata } from '@/components/modules/metadata/hooks/use-metadata';
+import { useMetadata } from '@/components/modules/metadata/hooks/use-metadata';
 import { TransferRequestModule } from '@/components/modules/transfer-request';
 import { useClaimDocument } from '@/components/modules/transfer-request/hooks/use-claim-document';
 import { fireEvent, render, screen } from '@testing-library/react';
@@ -20,7 +20,7 @@ jest.mock('next/navigation', () => ({
 }));
 
 jest.mock('@/components/modules/metadata/hooks/use-metadata', () => ({
-  UseMetadata: jest.fn(),
+  useMetadata: jest.fn(),
 }));
 
 jest.mock(
@@ -58,7 +58,7 @@ describe('TransferRequestModule', () => {
     jest.clearAllMocks();
     (useParams as jest.Mock).mockReturnValue({ qr_code: 'test-qr-code' });
     (encryptEmail as jest.Mock).mockReturnValue('test***@example.com');
-    (UseMetadata as jest.Mock).mockReturnValue({
+    (useMetadata as jest.Mock).mockReturnValue({
       data: {
         documentId: '123',
         documentName: 'Test Document',
@@ -173,7 +173,7 @@ describe('TransferRequestModule', () => {
   });
 
   it('returns null when isFetching is true', () => {
-    (UseMetadata as jest.Mock).mockReturnValue({
+    (useMetadata as jest.Mock).mockReturnValue({
       data: null,
       isFetching: true,
     });
