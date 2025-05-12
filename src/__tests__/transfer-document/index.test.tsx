@@ -82,7 +82,7 @@ describe('TransferDocumentModal', () => {
       'invalid-email'
     );
     await userEvent.click(screen.getByText('Send'));
-    expect(toast.error).toHaveBeenCalledWith('Email tidak valid');
+    expect(toast.error).toHaveBeenCalledWith('Email invalid');
   });
 
   it('shows error toast when transfer document fails', async () => {
@@ -115,12 +115,12 @@ describe('TransferDocumentModal', () => {
 
     await userEvent.type(input, 'invalid-email');
     await userEvent.click(screen.getByText('Send'));
-    expect(toast.error).toHaveBeenCalledWith('Email tidak valid');
+    expect(toast.error).toHaveBeenCalledWith('Email invalid');
 
     await userEvent.clear(input);
     await userEvent.type(input, 'invalid-email2');
     await userEvent.click(screen.getByText('Send'));
-    expect(toast.error).toHaveBeenCalledWith('Email tidak valid');
+    expect(toast.error).toHaveBeenCalledWith('Email invalid');
   });
 
   it('enables send button when a valid email is entered', async () => {
