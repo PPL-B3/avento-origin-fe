@@ -4,6 +4,7 @@ import { useTransferDocument } from '@/components/core/hooks/use-transfer-docume
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { emailSchema } from '../emailSchema';
+import { TransferDocumentData } from '../types';
 
 export const useTransferDocumentState = (documentId: string) => {
   // State management
@@ -37,11 +38,11 @@ export const useTransferDocumentState = (documentId: string) => {
 
     try {
       // API call for transferring document
-      const res = await onTransferDocument({ 
-        documentId, 
-        pendingOwner: email 
-      });
-      
+      const res = await onTransferDocument({
+        documentId,
+        pendingOwner: email,
+      } as TransferDocumentData);
+
       // Update state on success
       setOtp(res.otp);
       setOpenTransferDialog(false);
@@ -61,7 +62,7 @@ export const useTransferDocumentState = (documentId: string) => {
     openTransferDialog,
     openOtpDialog,
     isLoadingTransferDocument,
-    
+
     // Actions
     handleEmailChange,
     openTransfer,
