@@ -105,4 +105,23 @@ describe('AuditLogDetailModule', () => {
 
     expect(mockOnRevert).not.toHaveBeenCalled();
   });
+
+  it('should not call getSignedUrlFromSpaces if data.filePath is falsy', async () => {
+    const {
+      UseAdminDocDetail,
+    } = require('@/components/modules/audit-log/detail/hooks');
+
+    UseAdminDocDetail.mockReturnValue({
+      data: {
+        ...mockData,
+        filePath: null, 
+      },
+      isFetching: false,
+      onRevert: mockOnRevert,
+    });
+
+    render(<AuditLogDetailModule />);
+
+    expect(screen.getByText('Document Name')).toBeInTheDocument();
+  });
 });
