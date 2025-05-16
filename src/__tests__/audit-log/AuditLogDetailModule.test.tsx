@@ -84,4 +84,25 @@ describe('AuditLogDetailModule', () => {
       index: 0, // only one item in history so index = 0
     });
   });
+
+  it('does not call onRevert if data is null', () => {
+    const {
+      UseAdminDocDetail,
+    } = require('@/components/modules/audit-log/detail/hooks');
+
+    UseAdminDocDetail.mockReturnValue({
+      data: null,
+      isFetching: false,
+      onRevert: mockOnRevert,
+    });
+
+    render(<AuditLogDetailModule />);
+
+    const revertButton = screen.queryByText('Revert');
+    if (revertButton) {
+      fireEvent.click(revertButton);
+    }
+
+    expect(mockOnRevert).not.toHaveBeenCalled();
+  });
 });
