@@ -87,4 +87,9 @@ describe('OtpInputForm', () => {
     const resend = screen.getByRole('button', { name: /Resending.../i });
     expect(resend).toBeDisabled();
   });
+
+  it('should show response message if provided', () => {
+    render(<OtpInputForm {...baseProps} responseMessage="Invalid OTP" />);
+    expect(screen.getByText('Invalid OTP')).toBeInTheDocument();
+  });
 });
