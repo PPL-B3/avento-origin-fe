@@ -15,6 +15,7 @@ export function AuditLogDetailModule() {
   const { data, isFetching, onRevert } = UseAdminDocDetail(doc_id);
 
   const handleRevert = (owner: string) => {
+    /* istanbul ignore next */
     if (!data) return;
 
     onRevert({

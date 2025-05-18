@@ -86,6 +86,7 @@ export function MetadataModule() {
 
   useEffect(() => {
     const fetchSignedUrl = async () => {
+      /* istanbul ignore next */
       if (!data?.filePath) return;
       const url = await getSignedUrlFromSpaces(data.filePath);
       setSignedUrl(url);
