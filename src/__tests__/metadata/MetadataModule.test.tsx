@@ -1,38 +1,47 @@
 import { MetadataModule } from '@/components/modules/metadata';
-import { UseMetadata } from '@/components/modules/metadata/hooks/use-metadata';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { useParams } from 'next/navigation';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-jest.mock('@/components/modules/metadata/hooks/use-metadata', () => ({
-  UseMetadata: jest.fn(),
+jest.mock('next/navigation', () => ({
+  useParams: jest.fn(),
 }));
 
-jest.mock('next/navigation', () => ({
-  useParams: () => ({
-    qr_code: 'dummy-code',
+jest.mock('@/components/modules/metadata/hooks/use-metadata', () => ({
+  UseMetadata: () => ({
+    data: null,
+    isFetching: false,
+  }),
+}));
+
+jest.mock('@/components/modules/metadata/hooks/use-otp-verification', () => ({
+  useOtpVerification: () => ({
+    otp: '',
+    setOtp: jest.fn(),
+    isOtpVerified: false,
+    responseMessage: '',
+    handleSubmit: jest.fn(),
+    handleResend: jest.fn(),
+    isLoadingRequestAccess: true,
+    isLoadingAccessDocument: false,
   }),
 }));
 
 const createWrapper = () => {
-  const queryClient = new QueryClient();
+  const testQueryClient = new QueryClient();
   return ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={testQueryClient}>
+      {children}
+    </QueryClientProvider>
   );
 };
 
-describe('MetadataModule', () => {
-  it('should skip fetching signed URL if filePath is missing', () => {
-    (UseMetadata as jest.Mock).mockReturnValue({
-      data: {
-        documentName: 'Dummy',
-        currentOwner: 'user@mail.com',
-        // filePath intentionally missing
-      },
-      isFetching: false,
-    });
+describe('MetadataModule - Loading Access State', () => {
+  it('renders requesting access screen when isLoadingRequestAccess is true', () => {
+    (useParams as jest.Mock).mockReturnValue({ qr_code: 'dummy-code' });
 
-    const Wrapper = createWrapper();
+    render(<MetadataModule />, { wrapper: createWrapper() });
 
-    render(<MetadataModule />, { wrapper: Wrapper });
+    expect(screen.getByText(/Requesting access/i)).toBeInTheDocument();
   });
 });

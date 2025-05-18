@@ -285,4 +285,6 @@ describe('MetadataModule component', () => {
 
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
+
+  
 });
