@@ -13,20 +13,20 @@ jest.mock('next/link', () => {
 describe('Home Component', () => {
   it('renders the Avento Origin title', () => {
     render(<Home />);
-    const titleElement = screen.getByText('Avento Origin');
+    const titleElement = screen.getByText(
+      'Document Management System with QR Code'
+    );
     expect(titleElement).toBeInTheDocument();
-    expect(titleElement.tagName).toBe('B');
+    expect(titleElement.tagName).toBe('H2');
   });
 
   it('renders with correct container styling', () => {
     render(<Home />);
-    const containerDiv = screen.getByText('Avento Origin').parentElement;
+    const containerDiv = screen.getByText(
+      'Document Management System with QR Code'
+    ).parentElement;
     expect(containerDiv).toHaveClass(
-      'w-screen h-screen flex flex-col items-center justify-center'
+      'flex flex-col items-center justify-center px-4 py-20 text-center min-h-screen'
     );
-    expect(containerDiv).toHaveStyle({
-      fontFamily: 'Arial, sans-serif',
-      padding: '2rem',
-    });
   });
 });
