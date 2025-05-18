@@ -53,7 +53,66 @@ export default function Home() {
         </Link>
       </section>
 
-      
+      {/* QR Code Section */}
+      <section className="px-4 py-16">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-4 text-center text-2xl font-bold md:text-3xl text-neutral-50">
+            Unique QR Code
+          </h2>
+          <p className="mb-12 text-center text-neutral-50">
+            Setiap dokumen memiliki QR Code terenkripsi.
+          </p>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            {/* First QR Code */}
+            <div className="overflow-hidden rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+              <div className="flex flex-col items-center gap-6 md:flex-row">
+                <div className="flex-shrink-0">
+                  <Image
+                    src="/images/qr-sample-2.png"
+                    alt="QR Code for document creation"
+                    width={150}
+                    height={150}
+                    className="h-[150px] w-[150px] rounded-md bg-white p-2"
+                  />
+                </div>
+                <div className="text-center md:text-left">
+                  <p className="text-sm leading-relaxed md:text-base text-neutral-50">
+                    Sistem akan membuat
+                    <br />2 QR Code unik untuk dokumen
+                    <br />
+                    Anda (1 untuk dipertukarkan
+                    <br />
+                    sesua kebutuhan)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Second QR Code */}
+            <div className="overflow-hidden rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+              <div className="flex flex-col items-center gap-6 md:flex-row">
+                <div className="flex-shrink-0">
+                  <Image
+                    src="/images/qr-sample-1.png"
+                    alt="QR Code for document download"
+                    width={150}
+                    height={150}
+                    className="h-[150px] w-[150px] rounded-md bg-white p-2"
+                  />
+                </div>
+                <div className="text-center md:text-left">
+                  <p className="text-sm leading-relaxed md:text-base text-neutral-50">
+                    QR Code harus didownload
+                    <br />
+                    dan di simpan
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
