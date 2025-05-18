@@ -31,6 +31,28 @@ export default function Home() {
           className="h-auto w-[1134px] max-w-none"
         />
       </div>
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center px-4 py-20 text-center min-h-screen">
+        <h1 className="mb-4 text-2xl font-bold md:text-3xl text-neutral-50">
+          Hello!
+        </h1>
+        <h2 className="mb-8 text-3xl font-bold md:text-4xl text-neutral-50">
+          Document Management System with QR Code
+        </h2>
+        <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed md:text-base text-neutral-50">
+          Kami menyediakan cara yang aman dan transparan untuk melakukan
+          transfer kepemilikan dokumen menggunakan QR code. Setiap dokumen
+          dienkripsi secara unik, memastikan kerahasiaan penuh selama proses
+          transfer.
+        </p>
+        <Link
+          href="/upload-document"
+          className="mt-8 w-full max-w-md rounded-md bg-orange-500 px-6 py-3 text-center font-medium text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-blue-900"
+        >
+          Coba Sekarang
+        </Link>
+      </section>
+
       
     </main>
   );
