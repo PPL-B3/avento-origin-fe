@@ -114,7 +114,7 @@ describe('AuditLogDetailModule', () => {
     UseAdminDocDetail.mockReturnValue({
       data: {
         ...mockData,
-        filePath: null, 
+        filePath: null,
       },
       isFetching: false,
       onRevert: mockOnRevert,
