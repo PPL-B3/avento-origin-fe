@@ -11,13 +11,14 @@ export async function middleware(request: NextRequest) {
   // If no token or user cookie exists, user is not authenticated
   if (!tokenCookie || !userCookie) {
     if (
+      nextUrl.pathname !== '/' &&
       nextUrl.pathname !== '/auth/login' &&
       nextUrl.pathname !== '/auth/register' &&
       !nextUrl.pathname.startsWith('/design-system') &&
       !nextUrl.pathname.startsWith('/metadata') &&
       !nextUrl.pathname.startsWith('/transfer-request')
     ) {
-      return NextResponse.redirect(new URL('/auth/login', request.url));
+      return NextResponse.redirect(new URL('/', request.url));
     }
     return NextResponse.next();
   }
@@ -28,23 +29,25 @@ export async function middleware(request: NextRequest) {
 
     if (user.role === 'ADMIN') {
       if (
+        nextUrl.pathname !== '/' &&
         nextUrl.pathname !== '/upload-document' &&
         !nextUrl.pathname.startsWith('/metadata') &&
         !nextUrl.pathname.startsWith('/transfer-request') &&
         !nextUrl.pathname.startsWith('/audit-log')
       ) {
-        return NextResponse.redirect(new URL('/audit-log', request.url));
+        return NextResponse.redirect(new URL('/', request.url));
       }
       return NextResponse.next();
     }
 
     if (user.role === 'USER') {
       if (
+        nextUrl.pathname !== '/' &&
         nextUrl.pathname !== '/upload-document' &&
         !nextUrl.pathname.startsWith('/metadata') &&
         !nextUrl.pathname.startsWith('/transfer-request')
       ) {
-        return NextResponse.redirect(new URL('/upload-document', request.url));
+        return NextResponse.redirect(new URL('/', request.url));
       }
       return NextResponse.next();
     }
@@ -53,7 +56,7 @@ export async function middleware(request: NextRequest) {
   } catch (error) {
     // If there's an error parsing the user cookie, redirect to login
     console.error('Error parsing user cookie:', error);
-    return NextResponse.redirect(new URL('/auth/login', request.url));
+    return NextResponse.redirect(new URL('/', request.url));
   }
 }
 
