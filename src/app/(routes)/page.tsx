@@ -90,7 +90,7 @@ export default function Home() {
             </div>
 
             {/* Second QR Code */}
-            <div className="overflow-hidden rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+            <div className="overflow-hidden rounded-lg bg-white/10 p-6  backdrop-blur-sm">
               <div className="flex flex-col items-center gap-6 md:flex-row">
                 <div className="flex-shrink-0">
                   <Image
