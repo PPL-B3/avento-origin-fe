@@ -7,14 +7,15 @@ export const UseAuditLog = (
   startDate?: string,
   endDate?: string,
   limit = 10,
-  page = 1
+  page = 1,
+  eventType?: string
 ) => {
   const client = useAventoClient();
 
   const { data, isFetching, error } = useQuery<
     AuditLogPaginatedResponse,
     Error
-  >(['get-audit-log', query, limit, page, startDate, endDate], {
+  >(['get-audit-log', query, limit, page, startDate, endDate, eventType], {
     queryFn: async () => {
       let apiUrl = `${ENDPOINTS.AUDIT_LOG_SEARCH}?limit=${limit}&page=${page}`;
       if (query) {
@@ -25,6 +26,9 @@ export const UseAuditLog = (
       }
       if (endDate) {
         apiUrl += `&endDate=${encodeURIComponent(endDate)}`;
+      }
+      if (eventType) {
+        apiUrl += `&eventType=${encodeURIComponent(eventType)}`;
       }
       const { data } = await client.get(apiUrl);
       return data as AuditLogPaginatedResponse;

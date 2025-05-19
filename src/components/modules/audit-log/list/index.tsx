@@ -8,7 +8,7 @@ import { auditLogParamsSchema } from './types';
 type QueryParamsType = z.infer<typeof auditLogParamsSchema>;
 
 interface AuditLogModuleProps {
-  queryParams: QueryParamsType;
+  readonly queryParams: QueryParamsType;
 }
 
 export function AuditLogModule({ queryParams }: AuditLogModuleProps) {
@@ -17,7 +17,8 @@ export function AuditLogModule({ queryParams }: AuditLogModuleProps) {
     queryParams.startDate,
     queryParams.endDate,
     queryParams.limit,
-    queryParams.page
+    queryParams.page,
+    queryParams.eventType
   );
 
   /* istanbul ignore next */

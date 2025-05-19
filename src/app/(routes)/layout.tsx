@@ -12,14 +12,12 @@ export default function BaseLayout({
   return (
     <QueryProvider>
       <LogRocketProviders>
-        <div
-          className={`relative transition-all ease-in-out duration-1000 flex h-screen overflow-y-auto overflow-hidden flex-col`}
+        <main
+          className={`relative transition-all ease-in-out duration-1000 flex min-h-screen overflow-y-auto overflow-hidden flex-col w-screen`}
         >
-          <main className="w-screen">
-            <Navbar />
-            {children}
-          </main>
-        </div>
+          <Navbar />
+          {children}
+        </main>
       </LogRocketProviders>
     </QueryProvider>
   );
