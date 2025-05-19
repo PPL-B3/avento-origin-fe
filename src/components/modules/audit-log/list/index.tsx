@@ -17,7 +17,7 @@ export function AuditLogModule({ queryParams }: AuditLogModuleProps) {
     queryParams.startDate,
     queryParams.endDate,
     queryParams.limit,
-    queryParams.page
+    queryParams.page,
     queryParams.eventType
   );
 
