@@ -48,6 +48,24 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
     {
       accessorKey: 'userID',
       header: 'User ID',
+      cell: ({ row }) => {
+        const userID = row.original.userID;
+        if (!userID) {
+          return 'N/A';
+        }
+        return <p>{userID}</p>;
+      },
+    },
+    {
+      accessorKey: 'userEmail',
+      header: 'User Email',
+      cell: ({ row }) => {
+        const userEmail = row.original.userEmail;
+        if (!userEmail) {
+          return 'N/A';
+        }
+        return <p>{userEmail}</p>;
+      },
     },
     {
       accessorKey: 'documentID',
@@ -67,6 +85,7 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
         );
       },
     },
+
     {
       accessorKey: 'startDate',
       header: 'Start Date',
@@ -79,7 +98,21 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
 }
 
 /* istanbul ignore next */
-export const filterableColumns: DataTableFilterableColumn<AuditLogEntry>[] = [];
+export const filterableColumns: DataTableFilterableColumn<AuditLogEntry>[] = [
+  {
+    id: 'eventType',
+    title: 'Event Type',
+    type: 'select',
+    options: [
+      { value: 'LOGIN', label: 'Login' },
+      { value: 'LOGOUT', label: 'Logout' },
+      { value: 'UPLOAD_DOCUMENT', label: 'Upload Document' },
+      { value: 'TRANSFER_OWNERSHIP', label: 'Transfer' },
+      { value: 'CLAIM_DOCUMENT', label: 'Claim' },
+      { value: 'REVERSE_OWNERSHIP', label: 'Revert' },
+    ],
+  },
+];
 
 /* istanbul ignore next */
 export const searchableColumns: DataTableSearchableColumn<AuditLogEntry>[] = [
