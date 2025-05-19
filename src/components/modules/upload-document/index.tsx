@@ -99,6 +99,13 @@ export function UploadDocumentModule() {
       data-testid="upload-document-module"
       className="pb-20 max-md:px-5 min-h-screen w-full flex items-center flex-col bg-[#001D3D] md:pt-32 md:px-20 pt-28 text-neutral-50"
     >
+      <div className="sr-only">
+        <h1>Upload Document to Avento Origin</h1>
+        <p>
+          Secure document upload portal for Avento Origin. Upload your important
+          documents for safe storage and easy access.
+        </p>
+      </div>
       <h4 className="w-full text-center text-4xl font-bold">
         {!showQR ? 'UPLOAD HERE!' : 'UPLOAD SUCCESSFUL!'}
       </h4>
