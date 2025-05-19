@@ -1,6 +1,7 @@
 'use client';
 
 import { ENDPOINTS, useAventoClient } from '@/components/core';
+import * as Sentry from '@sentry/nextjs';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { toast } from 'sonner';
@@ -10,6 +11,7 @@ import { uploadDocumentSchema } from '../schema';
 export const useUploadDocument = () => {
   const client = useAventoClient();
   const [qrCodes, setQrCodes] = useState({ privateId: '', publicId: '' });
+  const [uploadCount, setUploadCount] = useState(0);
 
   const { isLoading: mutateLoadingContent, mutate: onUploadDocument } =
     useMutation('upload-document', {
@@ -52,6 +54,22 @@ export const useUploadDocument = () => {
             publicId: response.data.publicId,
           });
         }
+
+        // Increment the upload count
+        setUploadCount((prevCount) => prevCount + 1);
+
+        // Track document upload in Sentry
+        Sentry.captureEvent({
+          message: 'Document uploaded',
+          level: 'info',
+          tags: {
+            action: 'document_upload',
+          },
+          extra: {
+            documentName: values.documentName,
+            uploadCount: uploadCount + 1,
+          },
+        });
 
         return response;
       },

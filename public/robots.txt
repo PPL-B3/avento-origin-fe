@@ -1,0 +1,10 @@
+# robots.txt for Avento Origin
+User-agent: *
+Allow: /
+
+# Disallow admin pages from being indexed
+Disallow: /(admin)/
+Disallow: /(admin)/*
+
+# Sitemap location
+Sitemap: https://avento-origin.vercel.app/sitemap.xml

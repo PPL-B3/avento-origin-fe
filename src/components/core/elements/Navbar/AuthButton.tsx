@@ -13,16 +13,14 @@ export function AuthButtons({ user, logout }: AuthButtonsProps) {
   const router = useRouter();
 
   return user ? (
-    <Button
-      onClick={logout}
-      className="px-6 py-2 bg-red-500 text-white hover:bg-red-600"
-    >
+    <Button onClick={logout} variant="destructive">
       Logout
     </Button>
   ) : (
     <Button
-      onClick={() => router.push('/login')}
-      className="px-6 py-2 bg-blue-600 text-white hover:scale-105 transition-transform duration-200 hover:bg-blue-700"
+      onClick={() => router.push('/auth/login')}
+      variant="primary"
+      className="px-6"
     >
       Login
     </Button>

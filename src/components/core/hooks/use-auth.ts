@@ -1,6 +1,7 @@
 'use client';
 
 import { ENDPOINTS, useAventoClient } from '@/components/core';
+import * as Sentry from '@sentry/nextjs';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -110,16 +111,62 @@ export const useAuth = () => {
   const login = async (email: string, password: string) => {
     try {
       await loginMutation.mutateAsync({ email, password });
+
+      // Track successful login event in Sentry
+      Sentry.captureEvent({
+        message: 'User login successful',
+        level: 'info',
+        tags: {
+          action: 'login',
+        },
+        extra: {
+          email: email, // Include email to track unique users
+          timestamp: new Date().toISOString(),
+        },
+      });
     } catch (error) {
       console.error(error);
+
+      // Track failed login attempt
+      Sentry.captureEvent({
+        message: 'User login failed',
+        level: 'error',
+        tags: {
+          action: 'login_failed',
+        },
+        extra: {
+          error,
+        },
+      });
     }
   };
 
   const logout = async () => {
     try {
       await logoutMutation.mutateAsync();
+
+      // Track logout event in Sentry
+      Sentry.captureEvent({
+        message: 'User logout successful',
+        level: 'info',
+        tags: {
+          action: 'logout',
+        },
+      });
     } catch (error) {
       console.error(error);
+
+      // Track failed logout attempt
+      Sentry.captureEvent({
+        message: 'User logout failed',
+        level: 'error',
+        tags: {
+          action: 'logout_failed',
+        },
+        extra: {
+          error,
+        },
+      });
     }
   };
 

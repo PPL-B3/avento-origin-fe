@@ -46,7 +46,7 @@ describe('AuthButtons Component', () => {
     render(<AuthButtons user={null} logout={mockLogout} />);
 
     fireEvent.click(screen.getByText('Login'));
-    expect(mockPush).toHaveBeenCalledWith('/login');
+    expect(mockPush).toHaveBeenCalledWith('/auth/login');
     expect(mockLogout).not.toHaveBeenCalled();
   });
 

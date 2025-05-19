@@ -94,9 +94,8 @@ export function DataTableFacetedFilter<TData, TValue>({
                       <CommandItem
                         key={option.value}
                         onSelect={() => {
-                          if (isSelected) {
-                            selectedValues.delete(option.value);
-                          } else {
+                          selectedValues.clear();
+                          if (!isSelected) {
                             selectedValues.add(option.value);
                           }
                           const filterValues = Array.from(selectedValues);
@@ -137,7 +136,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                         onSelect={() => column?.setFilterValue(undefined)}
                         className="justify-center text-center"
                       >
-                        Clear filters
+                        Clear filter
                       </CommandItem>
                     </CommandGroup>
                   </>
@@ -162,9 +161,8 @@ export function DataTableFacetedFilter<TData, TValue>({
                   <CommandItem
                     key={option.value}
                     onSelect={() => {
-                      if (isSelected) {
-                        selectedValues.delete(option.value);
-                      } else {
+                      selectedValues.clear();
+                      if (!isSelected) {
                         selectedValues.add(option.value);
                       }
                       const filterValues = Array.from(selectedValues);
@@ -202,7 +200,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                     onSelect={() => column?.setFilterValue(undefined)}
                     className="justify-center text-center"
                   >
-                    Clear filters
+                    Clear filter
                   </CommandItem>
                 </CommandGroup>
               </>
