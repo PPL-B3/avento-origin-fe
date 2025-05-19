@@ -39,6 +39,7 @@
     "cookies-next": "^5.1.0",
     "date-fns": "3.6.0",
     "file-saver": "^2.0.5",
+    "framer-motion": "^12.12.1",
     "input-otp": "^1.4.2",
     "logrocket": "^9.0.2",
     "lucide-react": "^0.476.0",
