@@ -1,3 +1,49 @@
+# [2.17.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.16.1...v2.17.0) (2025-05-19)
+
+
+### Bug Fixes
+
+* conflict pnpm lock ([a95ac54](https://github.com/PPL-B3/avento-origin-fe/commit/a95ac548397cf9bd90f1447292afbcb2dbb44daa))
+* event type in module ([67d7528](https://github.com/PPL-B3/avento-origin-fe/commit/67d7528c7f41dfc703fdaa7633feca388926ffc3))
+* exclude file from coverage ([22e3c0d](https://github.com/PPL-B3/avento-origin-fe/commit/22e3c0db5a3f84d19606d59022ca9c90a1317abf))
+* precommit ([ce852b1](https://github.com/PPL-B3/avento-origin-fe/commit/ce852b1b248270368834fc158fc3bc929c044682))
+* precommit ([222e6aa](https://github.com/PPL-B3/avento-origin-fe/commit/222e6aa42bb932360793bcd9802c503765860de7))
+* previous test to adjust to current code ([cd77121](https://github.com/PPL-B3/avento-origin-fe/commit/cd771210c7e33453a824a9b9e64f634886a2544a))
+* root layout ([d5a9624](https://github.com/PPL-B3/avento-origin-fe/commit/d5a962485fec19952eb87bb82a9fa499a4231977))
+* sitemap ([8815dfa](https://github.com/PPL-B3/avento-origin-fe/commit/8815dfa60028dfb0fe74fc5d8927e3c2ba096a7a))
+* use audit log ([64c2809](https://github.com/PPL-B3/avento-origin-fe/commit/64c28092d2c4192d99175f9ec78fe0e03516fe6d))
+
+
+### Features
+
+* [GREEN] implement full landing page ([d4830e3](https://github.com/PPL-B3/avento-origin-fe/commit/d4830e330090c2f87b0803bbdd358c6a01131d59))
+* add background ([da58591](https://github.com/PPL-B3/avento-origin-fe/commit/da58591f0ed9b10ee8893465ddcb193a588f0dd8))
+* add client component for transfer request ([febffbd](https://github.com/PPL-B3/avento-origin-fe/commit/febffbd4bae1e6c1fbad864322e466119432aa33))
+* add client component for transfer request module ([8e96550](https://github.com/PPL-B3/avento-origin-fe/commit/8e9655019f16d95b5af1dfbe7769477273c3bbec))
+* add document ([d4e061e](https://github.com/PPL-B3/avento-origin-fe/commit/d4e061e641f8758ff94061f0cfdd88c740a50b4b))
+* add document col ([3747628](https://github.com/PPL-B3/avento-origin-fe/commit/37476281709ee6d0e76f11bf087ea205cbd936fe))
+* add event type to module ([9d75c1e](https://github.com/PPL-B3/avento-origin-fe/commit/9d75c1ee438e0853681d65044adeb723a2689835))
+* add hello section ([d263355](https://github.com/PPL-B3/avento-origin-fe/commit/d263355b70d715857dd23ba8e73e19c26a6ffbfd))
+* add home module for better SEO ([27c25e3](https://github.com/PPL-B3/avento-origin-fe/commit/27c25e368ca24979d1e7cbc9347838796916a6a3))
+* add images for landing page ([d33acd1](https://github.com/PPL-B3/avento-origin-fe/commit/d33acd1e5e0746e3b2b9ef25a53b8b2e8c82eeef))
+* add metadata ([2f2f8b0](https://github.com/PPL-B3/avento-origin-fe/commit/2f2f8b058c30628e2c90dc15f5588672e9372f0b))
+* add monitor custom event ([a9b5b05](https://github.com/PPL-B3/avento-origin-fe/commit/a9b5b05b94403267d5af9961ef778a8081151d91))
+* add options for filter ([cee096e](https://github.com/PPL-B3/avento-origin-fe/commit/cee096e05a80035649aaab6f3fc5114ea9685b06))
+* add qr sample ([36cbad0](https://github.com/PPL-B3/avento-origin-fe/commit/36cbad0bd8693057a6be2b73b3eac18ca1c01457))
+* add qr sample 2 ([4ce0cb7](https://github.com/PPL-B3/avento-origin-fe/commit/4ce0cb78cb3b373acbac7c62306b6ac00c313024))
+* add qr section ([81e3c7e](https://github.com/PPL-B3/avento-origin-fe/commit/81e3c7ed6b2b7daa28c231aa42a73637b1ecc139))
+* add responsiveness ([1d6082e](https://github.com/PPL-B3/avento-origin-fe/commit/1d6082e71ec845589d3219218f5f7a613bd54796))
+* add robots txt ([9cef49f](https://github.com/PPL-B3/avento-origin-fe/commit/9cef49f6c4c20a933ddca6bdbd1b21902859b709))
+* add routing to landing page ([ff43bd4](https://github.com/PPL-B3/avento-origin-fe/commit/ff43bd4f56d34603f5c35ff70dc65da53499e329))
+* add shading on left ([b8987c4](https://github.com/PPL-B3/avento-origin-fe/commit/b8987c4d81254a81fe51962fe9d6813f1d3f026e))
+* add shading on right ([d2fb55b](https://github.com/PPL-B3/avento-origin-fe/commit/d2fb55bf10f4c0e89865f2c9663b56cd3511e2f4))
+* add shading on right bottom ([0a7e82c](https://github.com/PPL-B3/avento-origin-fe/commit/0a7e82c1d784f950d6396117d042eece37b63817))
+* add sitemap ([b0c2a76](https://github.com/PPL-B3/avento-origin-fe/commit/b0c2a76071e61153d58d4e9bad8eff901c34514d))
+* add trending keywords to upload document ([3aba445](https://github.com/PPL-B3/avento-origin-fe/commit/3aba445124c80cfc04e949558e2ee8edf226a9a0))
+* add userID ([a2bfac2](https://github.com/PPL-B3/avento-origin-fe/commit/a2bfac220b9d0e5f568db67c2ce41810729a3c30))
+* change multiple to single option ([03b82d5](https://github.com/PPL-B3/avento-origin-fe/commit/03b82d5ca0673254870a09eb6c2b400d2e72fb20))
+* init Sentry ([74e9282](https://github.com/PPL-B3/avento-origin-fe/commit/74e92829c23d53b072c0dc8d5b23806a153fc250))
+
 ## [2.16.1](https://github.com/PPL-B3/avento-origin-fe/compare/v2.16.0...v2.16.1) (2025-04-29)
 
 ### Bug Fixes
