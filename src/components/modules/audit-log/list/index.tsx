@@ -18,6 +18,7 @@ export function AuditLogModule({ queryParams }: AuditLogModuleProps) {
     queryParams.endDate,
     queryParams.limit,
     queryParams.page
+    queryParams.eventType
   );
 
   /* istanbul ignore next */
