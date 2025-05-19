@@ -5,8 +5,10 @@ export interface AuditLogEntry {
   timestamp: string;
   eventType: string;
   userID: string;
+  userEmail: string;
   details: string;
   documentID: string;
+  document: string;
   q?: string;
   startDate?: string;
   endDate?: string;
@@ -29,4 +31,5 @@ export const auditLogParamsSchema = z.object({
   q: z.string().default(''),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
+  eventType: z.string().optional(),
 });
