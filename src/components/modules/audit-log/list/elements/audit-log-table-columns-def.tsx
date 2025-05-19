@@ -48,7 +48,24 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
     {
       accessorKey: 'userID',
       header: 'User ID',
-
+      cell: ({ row }) => {
+        const userID = row.original.userID;
+        if (!userID) {
+          return 'N/A';
+        }
+        return <p>{userID}</p>;
+      },
+    },
+    {
+      accessorKey: 'userEmail',
+      header: 'User Email',
+      cell: ({ row }) => {
+        const userEmail = row.original.userEmail;
+        if (!userEmail) {
+          return 'N/A';
+        }
+        return <p>{userEmail}</p>;
+      },
     },
     {
       accessorKey: 'documentID',
