@@ -181,4 +181,20 @@ describe('TransferRequestModule', () => {
     const { container } = render(<TransferRequestModule />);
     expect(container.firstChild).toBeNull();
   });
+
+  it('should pass empty string to encryptEmail if currentOwner is missing', () => {
+    // override mock return of UseMetadata
+    (UseMetadata as jest.Mock).mockReturnValue({
+      data: {
+        documentId: '123',
+        documentName: 'Test Document',
+        currentOwner: undefined,
+      },
+      isFetching: false,
+    });
+
+    render(<TransferRequestModule />);
+
+    expect(encryptEmail).toHaveBeenCalledWith('');
+  });
 });
