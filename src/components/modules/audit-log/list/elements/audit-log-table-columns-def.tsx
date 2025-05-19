@@ -85,7 +85,17 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
         );
       },
     },
-
+    {
+      accessorKey: 'document',
+      header: 'Document',
+      cell: ({ row }) => {
+        const document = row.original.document;
+        if (!document) {
+          return 'N/A';
+        }
+        return <p>{document}</p>;
+      },
+    },
     {
       accessorKey: 'startDate',
       header: 'Start Date',
