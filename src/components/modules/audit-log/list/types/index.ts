@@ -5,12 +5,12 @@ export interface AuditLogEntry {
   timestamp: string;
   eventType: string;
   userID: string;
-  userEmail: string;
+  email: string;
   details: string;
   documentID: string;
-  document: string;
   q?: string;
   startDate?: string;
+  documentName?: string;
   endDate?: string;
 }
 
