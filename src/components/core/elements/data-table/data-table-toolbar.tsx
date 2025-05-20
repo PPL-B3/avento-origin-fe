@@ -51,8 +51,7 @@ export function DataTableToolbar<TData>({
                   {column.type === 'hidden' ? (
                     <div className="hidden"></div>
                   ) : column.type === 'date_range' ? (
-                    <Popover
-                    modal>
+                    <Popover modal>
                       <PopoverTrigger asChild>
                         <Button
                           id="date"
