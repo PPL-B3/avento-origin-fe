@@ -1,3 +1,10 @@
+## [2.17.1](https://github.com/PPL-B3/avento-origin-fe/compare/v2.17.0...v2.17.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* audit log table ([0abc0f5](https://github.com/PPL-B3/avento-origin-fe/commit/0abc0f5f475237c12742c0006bfe4a24e3786cb6))
+
 # [2.17.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.16.1...v2.17.0) (2025-05-19)
 
 
