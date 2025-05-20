@@ -50,7 +50,8 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       header: 'User ID',
       cell: ({ row }) => {
         const userID = row.original.userID;
-        if (!userID) {
+        const isEmail = userID.includes('@') && userID.includes('.');
+        if (!userID || isEmail) {
           return 'N/A';
         }
         return <p>{userID}</p>;
@@ -60,8 +61,12 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       accessorKey: 'userEmail',
       header: 'User Email',
       cell: ({ row }) => {
-        const userEmail = row.original.userEmail;
+        let userEmail = row.original.email;
         if (!userEmail) {
+          userEmail = row.original.userID;
+        }
+        const isEmail = userEmail.includes('@') && userEmail.includes('.');
+        if (!userEmail || !isEmail) {
           return 'N/A';
         }
         return <p>{userEmail}</p>;
@@ -86,14 +91,15 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       },
     },
     {
-      accessorKey: 'document',
+      accessorKey: 'documentName',
       header: 'Document',
       cell: ({ row }) => {
-        const document = row.original.document;
-        if (!document) {
+        const documentName = row.original.documentName;
+        console.log('documentName', documentName);
+        if (!documentName) {
           return 'N/A';
         }
-        return <p>{document}</p>;
+        return <p>{documentName}</p>;
       },
     },
     {

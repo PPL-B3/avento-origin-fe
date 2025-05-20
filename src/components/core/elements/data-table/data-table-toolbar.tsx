@@ -47,11 +47,12 @@ export function DataTableToolbar<TData>({
           searchableColumns.map(
             (column) =>
               table.getColumn(column.id ? String(column.id) : '') && (
-                <>
+                <React.Fragment key={String(column.id)}>
                   {column.type === 'hidden' ? (
-                    <></>
+                    <div className="hidden"></div>
                   ) : column.type === 'date_range' ? (
-                    <Popover modal>
+                    <Popover
+                    modal>
                       <PopoverTrigger asChild>
                         <Button
                           id="date"
@@ -81,7 +82,7 @@ export function DataTableToolbar<TData>({
                                   String(
                                     table
                                       .getColumn('endDate')
-                                      ?.getFilterValue() ||
+                                      ?.getFilterValue() ??
                                       table
                                         .getColumn('startDate')
                                         ?.getFilterValue()
@@ -156,7 +157,7 @@ export function DataTableToolbar<TData>({
                       className="h-8 grow lg:w-[250px] md:mr-4 bg-neutral-50 text-neutral-950"
                     />
                   )}
-                </>
+                </React.Fragment>
               )
           )}
         {filterableColumns.length > 0 &&
