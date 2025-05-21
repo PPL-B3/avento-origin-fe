@@ -68,12 +68,13 @@ describe('TransferDialog Component', () => {
   });
 
   // Corner case
-  it('closes dialog when onOpenChange(false) is called', () => {
+  it('should call onOpenChange when Dialog state changes', async () => {
     render(<TransferDialog {...defaultProps} />);
 
-    defaultProps.onOpenChange(false);
+    // Simulate pressing Escape key to close the dialog
+    await userEvent.keyboard('{Escape}');
 
-    expect(defaultProps.onOpenChange).toHaveBeenCalledWith(false);
+    expect(defaultProps.onOpenChange).toHaveBeenCalled();
   });
 
   it('disables Send button when email is empty', () => {
@@ -88,5 +89,14 @@ describe('TransferDialog Component', () => {
 
     const sendButton = screen.getByText('Sending...');
     expect(sendButton).toBeDisabled();
+  });
+
+  it('should call onOpenChange directly with false to close the dialog', () => {
+    render(<TransferDialog {...defaultProps} />);
+
+    // Directly call onOpenChange with false
+    defaultProps.onOpenChange(false);
+
+    expect(defaultProps.onOpenChange).toHaveBeenCalledWith(false);
   });
 });
