@@ -3,12 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { z } from 'zod';
 import { useTransferDocument } from '../../hooks/use-transfer-document';
 import { OtpDialog } from './OtpDialog';
 import { TransferDialog } from './TransferDialog';
+import { emailSchema } from './emailSchema';
 
-const emailSchema = z.string().email();
 export function TransferDocumentModal({
   documentId,
 }: {
@@ -25,7 +24,7 @@ export function TransferDocumentModal({
   const handleSubmit = async () => {
     const result = emailSchema.safeParse(email);
     if (!result.success) {
-      toast.error('Email tidak valid');
+      toast.error(result.error.errors[0].message);
       return;
     }
 
