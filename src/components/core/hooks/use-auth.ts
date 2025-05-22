@@ -76,7 +76,8 @@ export const useAuth = () => {
         // Update React Query cache with the user data
         queryClient.setQueryData('user', data.user);
 
-        router.push('/upload-document');
+        router.replace('/upload-document');
+        router.refresh();
       },
       onError: (error) => {
         console.error(error);
@@ -100,7 +101,7 @@ export const useAuth = () => {
         queryClient.setQueryData('user', null);
 
         toast.success('Logout successful!');
-        router.push('/auth/login');
+        router.push('/');
       },
       onError: () => {
         toast.error('Logout failed');
