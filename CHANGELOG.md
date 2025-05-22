@@ -1,3 +1,10 @@
+## [2.17.2](https://github.com/PPL-B3/avento-origin-fe/compare/v2.17.1...v2.17.2) (2025-05-22)
+
+
+### Bug Fixes
+
+* redirection issue after login ([57918d2](https://github.com/PPL-B3/avento-origin-fe/commit/57918d26a033f5d84870d97cd352cfdfb87ec80f))
+
 ## [2.17.1](https://github.com/PPL-B3/avento-origin-fe/compare/v2.17.0...v2.17.1) (2025-05-20)
 
 
