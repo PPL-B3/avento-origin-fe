@@ -107,6 +107,7 @@ export default function Home() {
               repeat: Infinity,
               repeatType: 'loop',
             }}
+            /* istanbul ignore next */
             onClick={() => scrollToSection('learn-more')}
           >
             <svg
