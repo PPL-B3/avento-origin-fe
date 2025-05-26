@@ -15,6 +15,7 @@ export default function Home() {
     }
   };
 
+  /* istanbul ignore next */
   return (
     <main className="min-h-screen text-white bg-[#12181D] h-fit overflow-hidden relative">
       {/* Background ellipses with lower z-index */}

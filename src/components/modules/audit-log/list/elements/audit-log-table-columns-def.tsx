@@ -50,8 +50,11 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
       header: 'User ID',
       cell: ({ row }) => {
         const userID = row.original.userID;
+        if (!userID) {
+          return 'N/A';
+        }
         const isEmail = userID.includes('@') && userID.includes('.');
-        if (!userID || isEmail) {
+        if (isEmail) {
           return 'N/A';
         }
         return <p>{userID}</p>;
@@ -65,8 +68,11 @@ export function fetchAuditLogTableColumnDefs(): ColumnDef<
         if (!userEmail) {
           userEmail = row.original.userID;
         }
+        if (!userEmail) {
+          return 'N/A';
+        }
         const isEmail = userEmail.includes('@') && userEmail.includes('.');
-        if (!userEmail || !isEmail) {
+        if (!isEmail) {
           return 'N/A';
         }
         return <p>{userEmail}</p>;
