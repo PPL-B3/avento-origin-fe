@@ -17,10 +17,10 @@ export default function SEOHead({
   canonicalPath,
   ogImage = '/images/momofin-logo.webp',
   noindex = false,
-}: SEOHeadProps) {
+}: Readonly<SEOHeadProps>) {
   const pathname = usePathname();
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || 'https://avento-origin.vercel.app';
+    process.env.NEXT_PUBLIC_BASE_URL ?? 'https://avento-origin.vercel.app';
   const canonical = canonicalPath
     ? `${baseUrl}${canonicalPath}`
     : `${baseUrl}${pathname}`;
