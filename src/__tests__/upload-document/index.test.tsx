@@ -1,4 +1,4 @@
-import { FileInput, LoginModule } from '@/components';
+import { FileInput, LoginModule, HomeModule } from '@/components';
 import { TransferDocumentModal } from '@/components/core/elements/TransferDocument';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
@@ -314,5 +314,45 @@ describe('TransferDocumentModal', () => {
     fireEvent.click(transferButton);
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  describe('HomeModule', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('renders correctly', () => {
+      render(<HomeModule />, { wrapper: createWrapper() });
+
+      expect(screen.getByText('Avento Origin')).toBeInTheDocument();
+      expect(screen.getByText('Secure Digital Document Management')).toBeInTheDocument();
+      expect(screen.getByText(/Avento Origin helps you securely manage/)).toBeInTheDocument();
+    });
+
+    it('displays all feature sections', () => {
+      render(<HomeModule />, { wrapper: createWrapper() });
+
+      expect(screen.getByText('Secure Storage')).toBeInTheDocument();
+      expect(screen.getByText('Track Ownership')).toBeInTheDocument();
+      expect(screen.getByText('Easy Sharing')).toBeInTheDocument();
+    });
+
+    it('displays feature descriptions', () => {
+      render(<HomeModule />, { wrapper: createWrapper() });
+
+      expect(screen.getByText(/Your documents are encrypted and stored/)).toBeInTheDocument();
+      expect(screen.getByText(/Follow the complete history and chain/)).toBeInTheDocument();
+      expect(screen.getByText(/Share documents securely with controlled/)).toBeInTheDocument();
+    });
+
+    it('has correct layout structure', () => {
+      render(<HomeModule />, { wrapper: createWrapper() });
+
+      const mainContainer = screen.getByText('Avento Origin').closest('div');
+      expect(mainContainer).toHaveClass('w-full', 'min-h-screen');
+
+      const section = screen.getByText('Avento Origin').closest('section');
+      expect(section).toHaveClass('max-w-4xl', 'mx-auto', 'text-center');
+    });
   });
 });
