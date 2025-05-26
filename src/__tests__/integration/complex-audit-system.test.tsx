@@ -338,19 +338,15 @@ describe('Complex Audit System Integration Tests', () => {
 
       // Act: Make multiple requests to test intermittent behavior
       for (let i = 0; i < 10; i++) {
-        try {
-          const { result } = renderHook(
-            () => UseAuditLog('test', '', '', 10, 1),
-            { wrapper: createWrapper }
-          );
+        const { result } = renderHook(
+          () => UseAuditLog('test', '', '', 10, 1),
+          { wrapper: createWrapper }
+        );
 
-          await waitFor(() => {
-            if (result.current.data) successCount++;
-            if (result.current.error) errorCount++;
-          });
-        } catch (error) {
-          errorCount++;
-        }
+        await waitFor(() => {
+          if (result.current.data) successCount++;
+          if (result.current.error) errorCount++;
+        });
       }
 
       // Assert: Should have mix of successes and failures
