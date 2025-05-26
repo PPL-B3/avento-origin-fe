@@ -1,3 +1,17 @@
+# [2.18.0](https://github.com/PPL-B3/avento-origin-fe/compare/v2.17.2...v2.18.0) (2025-05-26)
+
+
+### Bug Fixes
+
+* exception handling ([1dfef41](https://github.com/PPL-B3/avento-origin-fe/commit/1dfef41e21c7e51ac7dd90d2c29ba074b1aaf617))
+* issues ([01a5419](https://github.com/PPL-B3/avento-origin-fe/commit/01a5419c94d3b762d96dad433d1f1cc5ead00501))
+* maintainability and reliability issues ([9a6324a](https://github.com/PPL-B3/avento-origin-fe/commit/9a6324a4f23274d794674042e8e08af15022f84e))
+
+
+### Features
+
+* add audit log API mock ([78feded](https://github.com/PPL-B3/avento-origin-fe/commit/78fededcb5ec95149d4bf80247cccb572cd0414d))
+
 ## [2.17.2](https://github.com/PPL-B3/avento-origin-fe/compare/v2.17.1...v2.17.2) (2025-05-22)
 
 
