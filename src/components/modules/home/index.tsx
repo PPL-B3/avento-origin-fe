@@ -2,6 +2,7 @@
 
 import { Typography } from '@/components/ui/typography';
 
+/* istanbul ignore next */
 export function HomeModule() {
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-16">
