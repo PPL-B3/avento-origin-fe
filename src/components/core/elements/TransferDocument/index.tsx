@@ -1,70 +1,49 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { z } from 'zod';
-import { useTransferDocument } from '../../hooks/use-transfer-document';
+import { useTransferDocumentState } from './hooks/use-transfer-doc-state';
 import { OtpDialog } from './OtpDialog';
 import { TransferDialog } from './TransferDialog';
+import { TransferDocumentProps } from './types';
 
-const emailSchema = z.string().email();
 export function TransferDocumentModal({
   documentId,
-}: {
-  readonly documentId: string;
-}) {
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [openTransferDialog, setOpenTransferDialog] = useState(false);
-  const [openOtpDialog, setOpenOtpDialog] = useState(false);
-
-  const { onTransferDocument, isLoadingTransferDocument } =
-    useTransferDocument();
-
-  const handleSubmit = async () => {
-    const result = emailSchema.safeParse(email);
-    if (!result.success) {
-      toast.error('Email tidak valid');
-      return;
-    }
-
-    const loadingToastId = toast.loading(
-      'Memproses permintaan transfer dokumen...'
-    );
-
-    try {
-      const res = await onTransferDocument({ documentId, pendingOwner: email });
-      setOtp(res.otp);
-      setOpenTransferDialog(false);
-      setOpenOtpDialog(true);
-    } catch (error) {
-      console.error(error);
-      toast.error('Terjadi kesalahan saat mentransfer dokumen');
-    } finally {
-      toast.dismiss(loadingToastId);
-    }
-  };
+}: Readonly<TransferDocumentProps>) {
+  const {
+    email,
+    otp,
+    openTransferDialog,
+    openOtpDialog,
+    isLoadingTransferDocument,
+    handleEmailChange,
+    openTransfer,
+    handleSubmit,
+    setOpenTransferDialog,
+    setOpenOtpDialog,
+  } = useTransferDocumentState(documentId);
 
   return (
     <div>
       <Button
         variant="default"
         size="lg"
-        onClick={() => setOpenTransferDialog(true)}
+        onClick={openTransfer}
+        data-testid="transfer-document-button"
       >
         Transfer Document
       </Button>
 
+      {/* Dialog to collect email */}
       <TransferDialog
         open={openTransferDialog}
         onOpenChange={setOpenTransferDialog}
         email={email}
-        setEmail={setEmail}
+        setEmail={handleEmailChange}
         onSubmit={handleSubmit}
         isLoading={isLoadingTransferDocument}
       />
 
+      {/* Dialog to display OTP after successful transfer request */}
       <OtpDialog
         open={openOtpDialog}
         onOpenChange={setOpenOtpDialog}
